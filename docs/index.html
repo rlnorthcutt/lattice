@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lattice - Lightweight CSS Utility Library</title>
+    <link rel="stylesheet" href="../lattice.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        .nav {
+            background-color: #f7fafc;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .nav a {
+            color: #4a5568;
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+        }
+        .nav a:hover {
+            color: #2d3748;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            background: white;
+        }
+        .feature h3 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .cta-section {
+            background-color: #f7fafc;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #5568d3;
+        }
+        code {
+            background-color: #f7fafc;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="examples.html">Examples</a>
+        <a href="docs.html">Documentation</a>
+        <a href="https://github.com/rlnorthcutt/lattice" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="hero">
+        <h1>Lattice CSS</h1>
+        <p>A lightweight, flexible CSS utility library for modern web development</p>
+    </div>
+
+    <div class="content">
+        <section>
+            <h2>What is Lattice?</h2>
+            <p>Lattice is a lightweight CSS utility library that provides essential building blocks for creating beautiful, responsive web interfaces. Inspired by modern utility-first frameworks, Lattice gives you the power to rapidly build custom designs without leaving your HTML.</p>
+        </section>
+
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>🚀 Lightweight</h3>
+                <p>Small footprint with only the essential utilities you need. The minified version is optimized for production use.</p>
+            </div>
+            <div class="feature">
+                <h3>📦 No Dependencies</h3>
+                <p>Pure CSS with no JavaScript required. Works seamlessly with any framework or vanilla JavaScript.</p>
+            </div>
+            <div class="feature">
+                <h3>🎨 Flexible</h3>
+                <p>Comprehensive set of utilities for layout, spacing, typography, colors, and more.</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Fast</h3>
+                <p>Minimal CSS means faster load times and better performance for your users.</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Responsive Ready</h3>
+                <p>Build responsive layouts with flexbox and grid utilities included.</p>
+            </div>
+            <div class="feature">
+                <h3>🛠️ Easy to Use</h3>
+                <p>Intuitive class names that are easy to remember and use in your projects.</p>
+            </div>
+        </div>
+
+        <section style="margin-top: 3rem;">
+            <h2>Quick Start</h2>
+            <p>Getting started with Lattice is easy. Simply include the CSS file in your HTML:</p>
+            <pre style="background-color: #2d3748; color: #e2e8f0; padding: 1rem; border-radius: 0.375rem; overflow-x: auto;"><code>&lt;link rel="stylesheet" href="lattice.min.css"&gt;</code></pre>
+            
+            <p style="margin-top: 1.5rem;">Or use the CDN (coming soon):</p>
+            <pre style="background-color: #2d3748; color: #e2e8f0; padding: 1rem; border-radius: 0.375rem; overflow-x: auto;"><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/lattice.min.css"&gt;</code></pre>
+            
+            <p style="margin-top: 1.5rem;">Then start using utility classes in your HTML:</p>
+            <pre style="background-color: #2d3748; color: #e2e8f0; padding: 1rem; border-radius: 0.375rem; overflow-x: auto;"><code>&lt;div class="flex items-center justify-center p-4"&gt;
+  &lt;h1 class="text-2xl font-bold text-gray-900"&gt;Hello, Lattice!&lt;/h1&gt;
+&lt;/div&gt;</code></pre>
+        </section>
+
+        <div class="cta-section">
+            <h2>Ready to get started?</h2>
+            <p style="margin-bottom: 1.5rem;">Explore examples and documentation to learn more about Lattice.</p>
+            <a href="examples.html" class="btn" style="margin-right: 1rem;">View Examples</a>
+            <a href="docs.html" class="btn">Read Docs</a>
+        </div>
+    </div>
+
+    <footer style="background-color: #2d3748; color: #e2e8f0; padding: 2rem; text-align: center; margin-top: 3rem;">
+        <p>&copy; 2025 Lattice CSS. Released under the MIT License.</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="https://github.com/rlnorthcutt/lattice" style="color: #90cdf4; text-decoration: none;">GitHub</a>
+        </p>
+    </footer>
+</body>
+</html>

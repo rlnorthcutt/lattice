@@ -1,0 +1,59 @@
+name: Minify CSS and Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lattice.css'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  minify-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install clean-css-cli
+        run: npm install -g clean-css-cli
+      
+      - name: Minify CSS
+        run: cleancss -o lattice.min.css lattice.css
+      
+      - name: Commit minified CSS
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add lattice.min.css
+          git diff --staged --quiet || git commit -m "Auto-minify CSS [skip ci]"
+          git push
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
