@@ -77,6 +77,9 @@ Visit our [documentation site](https://rlnorthcutt.github.io/lattice/) for:
 - Live examples
 - Best practices
 
+NEed to create docs
+“Tip: Use col-span-* inside .grid, use col-start-* only with .grid-container.”
+
 ## Utility Classes
 
 Lattice includes utilities for:
