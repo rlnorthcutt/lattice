@@ -2,11 +2,11 @@ name: Minify CSS and Deploy
 
 on:
   push:
-    branches:
-      - main
-    paths: # Trigger when either core or extra CSS changes
+    branches: [ main ]
+    paths:
       - 'lattice.css'
       - 'lattice.extra.css'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 permissions:
@@ -21,55 +21,63 @@ concurrency:
 jobs:
   minify-and-deploy:
     runs-on: ubuntu-latest
-    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
+      # Pin clean-css-cli for reproducible builds
       - name: Install clean-css-cli
-        run: npm install -g clean-css-cli
-      
+        run: npm install -g clean-css-cli@5
+
       - name: Create dist directory
         run: mkdir -p dist
-      
-      - name: Minify CSS files and save to dist
-        run: |
-          # Minify lattice.css -> dist/lattice.min.css
-          cleancss -o dist/lattice.min.css lattice.css
-          
-          # Minify lattice.extra.css -> dist/lattice.extra.min.css
-          cleancss -o dist/lattice.extra.min.css lattice.extra.css
-      
-      - name: Combine minified files to full.min.css
-        # Combines the two minified files into the final full distribution file
-        run: cat dist/lattice.min.css dist/lattice.extra.min.css > dist/lattice.full.min.css
-      
+
+      # --- Build individual minified files (banners preserved via /*! ... */) ---
+      - name: Minify lattice.css
+        run: cleancss -o dist/lattice.min.css lattice.css
+
+      - name: Minify lattice.extra.css
+        run: cleancss -o dist/lattice.extra.min.css lattice.extra.css
+
+      # --- Build combined FULL (both non-minified and minified) ---
+      - name: Create non-minified full bundle
+        run: cat lattice.css lattice.extra.css > dist/lattice.full.css
+
+      - name: Minify full bundle
+        run: cleancss -o dist/lattice.full.min.css dist/lattice.full.css
+
+      # Optionally: generate source maps (uncomment if you want them)
+      # - name: Minify with source maps
+      #   run: cleancss --source-map --source-map-inline-sources -o dist/lattice.full.min.css dist/lattice.full.css
+
       - name: Commit distribution files
         run: |
+          set -e
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          # Add all minified files in the dist directory
           git add dist/
-          # Only commit if there are changes
-          git diff --staged --quiet || git commit -m "Auto-build CSS distribution files [skip ci]"
+          git diff --staged --quiet || git commit -m "Auto-build CSS dist [skip ci]"
           git push
-      
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      
-      - name: Upload artifact (dist folder)
-        # Change the path to upload the 'dist' folder containing the final assets
+
+      - name: Upload artifact (dist)
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
-      
+          path: ./dist
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
