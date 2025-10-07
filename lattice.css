@@ -1,13 +1,13 @@
 /*!
  * Lattice.css — lightweight layout & positioning utilities
- * Version: 1.0.0
+ * Version: 1.1.0
  * Copyright (c) 2025 Ron Northcutt
  * License: MIT (https://opensource.org/licenses/MIT)
  *
- * Purpose:
- * - Tiny, semantic utilities for *layout, positioning, and minor adjustments*.
- * - Pairs with a classless theme for typography/forms/colors.
- * - Grid-first, responsive, and accessible.
+ * Scope:
+ * - Grid-first layout, placement, and small ergonomic helpers.
+ * - Pairs with a minimal classless/theming lib for colors/typography/borders.
+ * - Hyphen breakpoint naming (sm- / md- / lg-), simple scales, accessible.
  */
 
 /* ==========================================================================
@@ -15,22 +15,20 @@
    ========================================================================== */
 
 :root {
-  /* Container & rhythm */
   --container-width: 1024px;
 
-  /* Rhythm scale base (used by spacing utilities) */
-  --m: 1.5rem;               /* base spacing unit */
-  --g: 1rem;                 /* horizontal gutter (grid column-gap) */
-  --gap-y: 1rem;             /* vertical gutter (grid row-gap) */
-  --c: 1fr;                  /* default column track */
+  /* Rhythm scale base (shared by spacing & gap utilities) */
+  --m: 1.5rem;              /* base spacing unit */
+  --g: 1rem;                /* horizontal gutter (grid column-gap) */
+  --gap-y: 1rem;            /* vertical gutter (grid row-gap) */
+  --c: 1fr;                 /* default column track */
 
-  /* Default minimum card width for fluid grids (auto-fit) */
+  /* Default min column width used by fluid .grid (no explicit col-*) */
   --auto-col-min: 15rem;
 
   /* 12-column master grid:
      pattern is [c] + repeat(--column-count, [g][c])
-     => total content columns = 1 + --column-count = 12
-  */
+     => total content columns = 1 + --column-count = 12 */
   --column-count: 11;
 
   /* Prevent negative fluid on narrow viewports for full-bleed wrapper */
@@ -39,8 +37,8 @@
 
 /* ==========================================================================
    1) Master grid container (page-level layout)
-   - Provides a 12-column content grid with outer fluid gutters + safe-area
-   - Use .l-place-* or .col-span-* on direct children to position
+   - Provides a 12-column content grid with outer fluid gutters + safe-area.
+   - Use .l-place-* or .col-span-* on direct children to position.
    ========================================================================== */
 
 .grid-container {
@@ -48,15 +46,15 @@
   grid-template-columns:
     [fa] var(--fluid-area)
     [m] max(var(--m), env(safe-area-inset-left))
-    /* [c] content, [g] gutter — numbered via 'c 1', 'c 2', ... , 'c 12' */
+    /* [c] content, [g] gutter — numbered via 'c 1'...'c 12' */
     [c] var(--c) repeat(var(--column-count), [g] var(--g) [c] var(--c))
     [m] max(var(--m), env(safe-area-inset-right))
     [fa] var(--fluid-area);
 }
 
-/* Placement helpers for common page-width patterns */
+/* Common page-width placements */
 .l-place-full    { grid-column: fa 1 / fa 2; } /* full-bleed across viewport */
-.l-place-content { grid-column: m 1 / m 2; }   /* centered, within margins  */
+.l-place-content { grid-column: m 1 / m 2; }   /* centered within margins    */
 
 /* ==========================================================================
    2) Internal grid primitives (component-level)
@@ -68,7 +66,6 @@
   display: grid;
   row-gap: var(--gap-y);
   column-gap: var(--g);
-  /* Fluid by default: creates as many columns as fit the min size */
   grid-template-columns: repeat(auto-fit, minmax(var(--auto-col-min), 1fr));
 }
 
@@ -81,7 +78,7 @@
 /* ==========================================================================
    3) Column-count utilities (override the default fluid columns)
    - Apply to .grid to force an exact number of equal columns.
-   - Base (always-on) variants + responsive sm-/md-/lg- variants.
+   - Base (always-on) + responsive sm-/md-/lg- variants.
    ========================================================================== */
 
 /* Base */
@@ -124,38 +121,45 @@
 
 /* ==========================================================================
    4) Display & visibility utilities (hyphen naming)
-   - Consistent with breakpoint naming: .d-* and .sm-d-*/.md-d-*/.lg-d-*
-   - Also normalizes [hidden] and .hidden to .d-none behavior.
+   - .d-* for base; .sm-d-*/.md-d-*/.lg-d-* for breakpoints.
+   - Normalizes [hidden] and .hidden to .d-none.
    ========================================================================== */
 
-/* Base display */
 .d-none  { display: none !important; }
 .d-block { display: block !important; }
-.d-grid  { display: grid !important; }
 .d-flex  { display: flex !important; }
+.d-grid  { display: grid !important; }
 
 /* Attribute & alias normalization */
 .hidden,
 [hidden] { display: none !important; }
 
+/* Optional display aliases (do NOT alias `.grid` to avoid clobbering .grid’s layout rule) */
+.block        { display: block !important; }
+.inline       { display: inline !important; }
+.inline-block { display: inline-block !important; }
+.flex         { display: flex !important; }
+.inline-flex  { display: inline-flex !important; }
+.inline-grid  { display: inline-grid !important; }
+
 /* Responsive display */
 @media (min-width: 576px) {
   .sm-d-none  { display: none !important; }
   .sm-d-block { display: block !important; }
-  .sm-d-grid  { display: grid !important; }
   .sm-d-flex  { display: flex !important; }
+  .sm-d-grid  { display: grid !important; }
 }
 @media (min-width: 768px) {
   .md-d-none  { display: none !important; }
   .md-d-block { display: block !important; }
-  .md-d-grid  { display: grid !important; }
   .md-d-flex  { display: flex !important; }
+  .md-d-grid  { display: grid !important; }
 }
 @media (min-width: 1024px) {
   .lg-d-none  { display: none !important; }
   .lg-d-block { display: block !important; }
-  .lg-d-grid  { display: grid !important; }
   .lg-d-flex  { display: flex !important; }
+  .lg-d-grid  { display: grid !important; }
 }
 
 /* ==========================================================================
@@ -173,7 +177,7 @@
   margin: -1px !important;
   overflow: hidden !important;
 
-  /* modern + legacy clipping for broader coverage */
+  /* modern + legacy clipping */
   clip-path: inset(50%) !important;
   clip: rect(1px, 1px, 1px, 1px) !important;
 
@@ -181,7 +185,7 @@
   border: 0 !important;
 }
 
-/* Focusable variant: use on the same element in addition to sr-only */
+/* Focusable variant: add to the same element to reveal on focus */
 .sr-only-focusable:active,
 .sr-only-focusable:focus,
 .sr-only-focusable:focus-within,
@@ -209,6 +213,11 @@
 
 .w-100     { width: 100% !important; box-sizing: border-box; }
 .max-w-100 { max-width: 100% !important; box-sizing: border-box; }
+.w-screen  { width: 100vw !important; }
+.h-screen  { height: 100vh !important; }
+.w-auto    { width: auto !important; }
+.h-auto    { height: auto !important; }
+.h-full    { height: 100% !important; }
 
 /* ==========================================================================
    7) Spacing utilities (padding & margin)
@@ -276,30 +285,129 @@
 .ml-4 { margin-left: calc(var(--m) * 1.5) !important; }
 .ml-5 { margin-left: calc(var(--m) * 2) !important; }
 
-/* Centering helpers */
+/* Centering */
 .m-auto  { margin: auto !important; }
 .mx-auto { margin-left: auto !important; margin-right: auto !important; }
 
 /* ==========================================================================
-   8) Alignment & gap helpers (for .grid containers)
+   8) Alignment & gap helpers (for grid/flex containers)
    ========================================================================== */
 
-.gap-none { row-gap: 0; column-gap: 0; }
-.gap-y-lg { row-gap: var(--m); }
+.gap-0 { gap: 0 !important; }
+.gap-1 { gap: calc(var(--m) / 4) !important; }
+.gap-2 { gap: calc(var(--m) / 2) !important; }
+.gap-3 { gap: var(--m) !important; }
+.gap-4 { gap: calc(var(--m) * 1.5) !important; }
+.gap-5 { gap: calc(var(--m) * 2) !important; }
 
-.items-start   { align-items: start; }
-.items-center  { align-items: center; }
-.items-end     { align-items: end; }
-.items-stretch { align-items: stretch; }
+.gap-x-0 { column-gap: 0 !important; }
+.gap-x-1 { column-gap: calc(var(--m) / 4) !important; }
+.gap-x-2 { column-gap: calc(var(--m) / 2) !important; }
+.gap-x-3 { column-gap: var(--m) !important; }
+.gap-x-4 { column-gap: calc(var(--m) * 1.5) !important; }
+.gap-x-5 { column-gap: calc(var(--m) * 2) !important; }
 
-.justify-start   { justify-items: start; }
-.justify-center  { justify-items: center; }
-.justify-end     { justify-items: end; }
-.justify-stretch { justify-items: stretch; }
+.gap-y-0 { row-gap: 0 !important; }
+.gap-y-1 { row-gap: calc(var(--m) / 4) !important; }
+.gap-y-2 { row-gap: calc(var(--m) / 2) !important; }
+.gap-y-3 { row-gap: var(--m) !important; }
+.gap-y-4 { row-gap: calc(var(--m) * 1.5) !important; }
+.gap-y-5 { row-gap: calc(var(--m) * 2) !important; }
+
+/* Compatibility aliases (if used earlier) */
+.gap-none { gap: 0 !important; }
+.gap-y-lg { row-gap: var(--m) !important; }
+
+/* Flexbox alignment shorthands (work with grid too) */
+.justify-start    { justify-content: flex-start !important; }
+.justify-end      { justify-content: flex-end !important; }
+.justify-center   { justify-content: center !important; }
+.justify-between  { justify-content: space-between !important; }
+.justify-around   { justify-content: space-around !important; }
+.justify-evenly   { justify-content: space-evenly !important; }
+
+.items-start      { align-items: flex-start !important; }
+.items-end        { align-items: flex-end !important; }
+.items-center     { align-items: center !important; }
+.items-baseline   { align-items: baseline !important; }
+.items-stretch    { align-items: stretch !important; }
+
+.content-start    { align-content: flex-start !important; }
+.content-end      { align-content: flex-end !important; }
+.content-center   { align-content: center !important; }
+.content-between  { align-content: space-between !important; }
+.content-around   { align-content: space-around !important; }
+.content-stretch  { align-content: stretch !important; }
+
+.self-auto     { align-self: auto !important; }
+.self-start    { align-self: flex-start !important; }
+.self-end      { align-self: flex-end !important; }
+.self-center   { align-self: center !important; }
+.self-stretch  { align-self: stretch !important; }
+.self-baseline { align-self: baseline !important; }
+
+/* Flex sizing & order */
+.flex-row    { flex-direction: row !important; }
+.flex-col    { flex-direction: column !important; }
+.flex-wrap   { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+
+.flex-1       { flex: 1 1 0% !important; }
+.flex-auto    { flex: 1 1 auto !important; }
+.flex-initial { flex: 0 1 auto !important; }
+.flex-none    { flex: none !important; }
+
+.order-first { order: -9999 !important; }
+.order-last  { order: 9999 !important; }
+.order-0  { order: 0 !important; }
+.order-1  { order: 1 !important; }
+.order-2  { order: 2 !important; }
+.order-3  { order: 3 !important; }
+.order-4  { order: 4 !important; }
+.order-5  { order: 5 !important; }
+.order-6  { order: 6 !important; }
+.order-7  { order: 7 !important; }
+.order-8  { order: 8 !important; }
+.order-9  { order: 9 !important; }
+.order-10 { order: 10 !important; }
+.order-11 { order: 11 !important; }
+.order-12 { order: 12 !important; }
+
+/* Grid auto-flow & place shorthands */
+.flow-row        { grid-auto-flow: row !important; }
+.flow-col        { grid-auto-flow: column !important; }
+.flow-dense      { grid-auto-flow: dense !important; }
+.flow-row-dense  { grid-auto-flow: row dense !important; }
+.flow-col-dense  { grid-auto-flow: column dense !important; }
+
+.place-items-start   { place-items: start !important; }
+.place-items-center  { place-items: center !important; }
+.place-items-end     { place-items: end !important; }
+.place-content-start { place-content: start !important; }
+.place-content-center{ place-content: center !important; }
+.place-content-end   { place-content: end !important; }
+.place-self-start    { place-self: start !important; }
+.place-self-center   { place-self: center !important; }
+.place-self-end      { place-self: end !important; }
+
+/* Master column start helpers (for children of .grid-container) */
+.col-start-1  { grid-column-start: c 1 !important; }
+.col-start-2  { grid-column-start: c 2 !important; }
+.col-start-3  { grid-column-start: c 3 !important; }
+.col-start-4  { grid-column-start: c 4 !important; }
+.col-start-5  { grid-column-start: c 5 !important; }
+.col-start-6  { grid-column-start: c 6 !important; }
+.col-start-7  { grid-column-start: c 7 !important; }
+.col-start-8  { grid-column-start: c 8 !important; }
+.col-start-9  { grid-column-start: c 9 !important; }
+.col-start-10 { grid-column-start: c 10 !important; }
+.col-start-11 { grid-column-start: c 11 !important; }
+.col-start-12 { grid-column-start: c 12 !important; }
+.col-start-13 { grid-column-start: c 13 !important; } /* after last line */
 
 /* ==========================================================================
    9) Master column spans (for children of .grid-container)
-   - Use these to span N of the 12 master content columns.
+   - Span N of the 12 master content columns.
    ========================================================================== */
 
 .col-span-1  { grid-column: c 1 / c 2; }
@@ -346,7 +454,44 @@
 .row-start-12 { grid-row-start: 12; }
 
 /* ==========================================================================
-   11) Legacy float compatibility (for classless themes that still float)
+   11) Positioning & misc
+   ========================================================================== */
+
+.relative { position: relative !important; }
+.absolute { position: absolute !important; }
+.fixed    { position: fixed !important; }
+.sticky   { position: sticky !important; }
+
+.inset-0   { inset: 0 !important; }
+.inset-x-0 { left: 0 !important; right: 0 !important; }
+.inset-y-0 { top: 0 !important; bottom: 0 !important; }
+.top-0     { top: 0 !important; }
+.right-0   { right: 0 !important; }
+.bottom-0  { bottom: 0 !important; }
+.left-0    { left: 0 !important; }
+
+.overflow-auto    { overflow: auto !important; }
+.overflow-hidden  { overflow: hidden !important; }
+.overflow-visible { overflow: visible !important; }
+.overflow-scroll  { overflow: scroll !important; }
+.overflow-x-auto  { overflow-x: auto !important; }
+.overflow-y-auto  { overflow-y: auto !important; }
+
+.z-0  { z-index: 0 !important; }
+.z-10 { z-index: 10 !important; }
+.z-20 { z-index: 20 !important; }
+.z-30 { z-index: 30 !important; }
+.z-40 { z-index: 40 !important; }
+.z-50 { z-index: 50 !important; }
+
+.pe-none { pointer-events: none !important; }
+.pe-auto { pointer-events: auto !important; }
+
+.aspect-square { aspect-ratio: 1 / 1 !important; }
+.aspect-video  { aspect-ratio: 16 / 9 !important; }
+
+/* ==========================================================================
+   12) Legacy float compatibility (for classless themes that still float)
    - Safe to delete if you don’t need float containment.
    ========================================================================== */
 
