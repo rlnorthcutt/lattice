@@ -1,240 +1,360 @@
-/* Lattice CSS - A lightweight CSS utility library */
+/*!
+ * Lattice.css — lightweight layout & positioning utilities
+ * Version: 1.0.0
+ * Copyright (c) 2025 Ron Northcutt
+ * License: MIT (https://opensource.org/licenses/MIT)
+ *
+ * Purpose:
+ * - Tiny, semantic utilities for *layout, positioning, and minor adjustments*.
+ * - Pairs with a classless theme for typography/forms/colors.
+ * - Grid-first, responsive, and accessible.
+ */
 
-/* === LAYOUT === */
-/* Display */
-.block { display: block; }
-.inline-block { display: inline-block; }
-.inline { display: inline; }
-.flex { display: flex; }
-.inline-flex { display: inline-flex; }
-.grid { display: grid; }
-.inline-grid { display: inline-grid; }
-.hidden { display: none; }
+/* ==========================================================================
+   0) Root variables (tweak to taste)
+   ========================================================================== */
 
-/* Flexbox */
-.flex-row { flex-direction: row; }
-.flex-col { flex-direction: column; }
-.flex-wrap { flex-wrap: wrap; }
-.flex-nowrap { flex-wrap: nowrap; }
-.items-start { align-items: flex-start; }
-.items-end { align-items: flex-end; }
-.items-center { align-items: center; }
-.items-baseline { align-items: baseline; }
-.items-stretch { align-items: stretch; }
-.justify-start { justify-content: flex-start; }
-.justify-end { justify-content: flex-end; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.justify-around { justify-content: space-around; }
-.flex-1 { flex: 1 1 0%; }
-.flex-auto { flex: 1 1 auto; }
-.flex-initial { flex: 0 1 auto; }
-.flex-none { flex: none; }
+:root {
+  /* Container & rhythm */
+  --container-width: 1024px;
 
-/* Position */
-.static { position: static; }
-.fixed { position: fixed; }
-.absolute { position: absolute; }
-.relative { position: relative; }
-.sticky { position: sticky; }
+  /* Rhythm scale base (used by spacing utilities) */
+  --m: 1.5rem;               /* base spacing unit */
+  --g: 1rem;                 /* horizontal gutter (grid column-gap) */
+  --gap-y: 1rem;             /* vertical gutter (grid row-gap) */
+  --c: 1fr;                  /* default column track */
 
-/* === SPACING === */
-/* Margin */
-.m-0 { margin: 0; }
-.m-1 { margin: 0.25rem; }
-.m-2 { margin: 0.5rem; }
-.m-3 { margin: 0.75rem; }
-.m-4 { margin: 1rem; }
-.m-5 { margin: 1.25rem; }
-.m-6 { margin: 1.5rem; }
-.m-8 { margin: 2rem; }
-.m-auto { margin: auto; }
+  /* Default minimum card width for fluid grids (auto-fit) */
+  --auto-col-min: 15rem;
 
-.mx-0 { margin-left: 0; margin-right: 0; }
-.mx-1 { margin-left: 0.25rem; margin-right: 0.25rem; }
-.mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
-.mx-3 { margin-left: 0.75rem; margin-right: 0.75rem; }
-.mx-4 { margin-left: 1rem; margin-right: 1rem; }
-.mx-auto { margin-left: auto; margin-right: auto; }
+  /* 12-column master grid:
+     pattern is [c] + repeat(--column-count, [g][c])
+     => total content columns = 1 + --column-count = 12
+  */
+  --column-count: 11;
 
-.my-0 { margin-top: 0; margin-bottom: 0; }
-.my-1 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
-.my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
-.my-3 { margin-top: 0.75rem; margin-bottom: 0.75rem; }
-.my-4 { margin-top: 1rem; margin-bottom: 1rem; }
+  /* Prevent negative fluid on narrow viewports for full-bleed wrapper */
+  --fluid-area: max(0px, calc(50vw - var(--container-width) / 2));
+}
 
-.mt-0 { margin-top: 0; }
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 0.75rem; }
-.mt-4 { margin-top: 1rem; }
-.mt-8 { margin-top: 2rem; }
+/* ==========================================================================
+   1) Master grid container (page-level layout)
+   - Provides a 12-column content grid with outer fluid gutters + safe-area
+   - Use .l-place-* or .col-span-* on direct children to position
+   ========================================================================== */
 
-.mb-0 { margin-bottom: 0; }
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 0.75rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mb-8 { margin-bottom: 2rem; }
+.grid-container {
+  display: grid;
+  grid-template-columns:
+    [fa] var(--fluid-area)
+    [m] max(var(--m), env(safe-area-inset-left))
+    /* [c] content, [g] gutter — numbered via 'c 1', 'c 2', ... , 'c 12' */
+    [c] var(--c) repeat(var(--column-count), [g] var(--g) [c] var(--c))
+    [m] max(var(--m), env(safe-area-inset-right))
+    [fa] var(--fluid-area);
+}
+
+/* Placement helpers for common page-width patterns */
+.l-place-full    { grid-column: fa 1 / fa 2; } /* full-bleed across viewport */
+.l-place-content { grid-column: m 1 / m 2; }   /* centered, within margins  */
+
+/* ==========================================================================
+   2) Internal grid primitives (component-level)
+   - .grid is your go-to container for cards, lists, etc.
+   - Default is *fluid* using auto-fit; override with col-* utilities.
+   ========================================================================== */
+
+.grid {
+  display: grid;
+  row-gap: var(--gap-y);
+  column-gap: var(--g);
+  /* Fluid by default: creates as many columns as fit the min size */
+  grid-template-columns: repeat(auto-fit, minmax(var(--auto-col-min), 1fr));
+}
+
+/* Inherit the columns from a parent grid (modern browsers) */
+.subgrid {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* ==========================================================================
+   3) Column-count utilities (override the default fluid columns)
+   - Apply to .grid to force an exact number of equal columns.
+   - Base (always-on) variants + responsive sm-/md-/lg- variants.
+   ========================================================================== */
+
+/* Base */
+.grid.col-1  { grid-template-columns: repeat(1, 1fr); }
+.grid.col-2  { grid-template-columns: repeat(2, 1fr); }
+.grid.col-3  { grid-template-columns: repeat(3, 1fr); }
+.grid.col-4  { grid-template-columns: repeat(4, 1fr); }
+.grid.col-6  { grid-template-columns: repeat(6, 1fr); }
+.grid.col-12 { grid-template-columns: repeat(12, 1fr); }
+
+/* ≥576px (small) */
+@media (min-width: 576px) {
+  .sm-col-1  { grid-template-columns: repeat(1, 1fr); }
+  .sm-col-2  { grid-template-columns: repeat(2, 1fr); }
+  .sm-col-3  { grid-template-columns: repeat(3, 1fr); }
+  .sm-col-4  { grid-template-columns: repeat(4, 1fr); }
+  .sm-col-6  { grid-template-columns: repeat(6, 1fr); }
+  .sm-col-12 { grid-template-columns: repeat(12, 1fr); }
+}
+
+/* ≥768px (medium) */
+@media (min-width: 768px) {
+  .md-col-1  { grid-template-columns: repeat(1, 1fr); }
+  .md-col-2  { grid-template-columns: repeat(2, 1fr); }
+  .md-col-3  { grid-template-columns: repeat(3, 1fr); }
+  .md-col-4  { grid-template-columns: repeat(4, 1fr); }
+  .md-col-6  { grid-template-columns: repeat(6, 1fr); }
+  .md-col-12 { grid-template-columns: repeat(12, 1fr); }
+}
+
+/* ≥1024px (large) */
+@media (min-width: 1024px) {
+  .lg-col-1  { grid-template-columns: repeat(1, 1fr); }
+  .lg-col-2  { grid-template-columns: repeat(2, 1fr); }
+  .lg-col-3  { grid-template-columns: repeat(3, 1fr); }
+  .lg-col-4  { grid-template-columns: repeat(4, 1fr); }
+  .lg-col-6  { grid-template-columns: repeat(6, 1fr); }
+  .lg-col-12 { grid-template-columns: repeat(12, 1fr); }
+}
+
+/* ==========================================================================
+   4) Display & visibility utilities (hyphen naming)
+   - Consistent with breakpoint naming: .d-* and .sm-d-*/.md-d-*/.lg-d-*
+   - Also normalizes [hidden] and .hidden to .d-none behavior.
+   ========================================================================== */
+
+/* Base display */
+.d-none  { display: none !important; }
+.d-block { display: block !important; }
+.d-grid  { display: grid !important; }
+.d-flex  { display: flex !important; }
+
+/* Attribute & alias normalization */
+.hidden,
+[hidden] { display: none !important; }
+
+/* Responsive display */
+@media (min-width: 576px) {
+  .sm-d-none  { display: none !important; }
+  .sm-d-block { display: block !important; }
+  .sm-d-grid  { display: grid !important; }
+  .sm-d-flex  { display: flex !important; }
+}
+@media (min-width: 768px) {
+  .md-d-none  { display: none !important; }
+  .md-d-block { display: block !important; }
+  .md-d-grid  { display: grid !important; }
+  .md-d-flex  { display: flex !important; }
+}
+@media (min-width: 1024px) {
+  .lg-d-none  { display: none !important; }
+  .lg-d-block { display: block !important; }
+  .lg-d-grid  { display: grid !important; }
+  .lg-d-flex  { display: flex !important; }
+}
+
+/* ==========================================================================
+   5) Accessibility helpers
+   - Visually hide content while keeping it available to assistive tech.
+   - Focusable variants reveal when navigated via keyboard.
+   ========================================================================== */
+
+.sr-only,
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+
+  /* modern + legacy clipping for broader coverage */
+  clip-path: inset(50%) !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focusable variant: use on the same element in addition to sr-only */
+.sr-only-focusable:active,
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-within,
+.visually-hidden-focusable:active,
+.visually-hidden-focusable:focus,
+.visually-hidden-focusable:focus-within {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip-path: none !important;
+  clip: auto !important;
+  white-space: inherit !important;
+  border: 0 !important;
+}
+
+/* Hide visually but keep layout space reserved */
+.invisible { visibility: hidden !important; }
+
+/* ==========================================================================
+   6) Width helpers (purely sizing; not placement)
+   ========================================================================== */
+
+.w-100     { width: 100% !important; box-sizing: border-box; }
+.max-w-100 { max-width: 100% !important; box-sizing: border-box; }
+
+/* ==========================================================================
+   7) Spacing utilities (padding & margin)
+   - Scale: 0, 1 (¼m), 2 (½m), 3 (1×m), 4 (1.5×m), 5 (2×m)
+   - Includes axis and side variants, plus auto-centering.
+   ========================================================================== */
 
 /* Padding */
-.p-0 { padding: 0; }
-.p-1 { padding: 0.25rem; }
-.p-2 { padding: 0.5rem; }
-.p-3 { padding: 0.75rem; }
-.p-4 { padding: 1rem; }
-.p-5 { padding: 1.25rem; }
-.p-6 { padding: 1.5rem; }
-.p-8 { padding: 2rem; }
+.p-0 { padding: 0 !important; }
+.p-1 { padding: calc(var(--m) / 4) !important; }
+.p-2 { padding: calc(var(--m) / 2) !important; }
+.p-3 { padding: var(--m) !important; }
+.p-4 { padding: calc(var(--m) * 1.5) !important; }
+.p-5 { padding: calc(var(--m) * 2) !important; }
 
-.px-0 { padding-left: 0; padding-right: 0; }
-.px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
-.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-.px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-.px-4 { padding-left: 1rem; padding-right: 1rem; }
-.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+/* Margin */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: calc(var(--m) / 4) !important; }
+.m-2 { margin: calc(var(--m) / 2) !important; }
+.m-3 { margin: var(--m) !important; }
+.m-4 { margin: calc(var(--m) * 1.5) !important; }
+.m-5 { margin: calc(var(--m) * 2) !important; }
 
-.py-0 { padding-top: 0; padding-bottom: 0; }
-.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-.py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-.py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+/* Axis */
+.mx-0 { margin-left: 0 !important; margin-right: 0 !important; }
+.mx-1 { margin-left: calc(var(--m) / 4) !important; margin-right: calc(var(--m) / 4) !important; }
+.mx-2 { margin-left: calc(var(--m) / 2) !important; margin-right: calc(var(--m) / 2) !important; }
+.mx-3 { margin-left: var(--m) !important; margin-right: var(--m) !important; }
+.mx-4 { margin-left: calc(var(--m) * 1.5) !important; margin-right: calc(var(--m) * 1.5) !important; }
+.mx-5 { margin-left: calc(var(--m) * 2) !important; margin-right: calc(var(--m) * 2) !important; }
 
-/* === SIZING === */
-/* Width */
-.w-full { width: 100%; }
-.w-screen { width: 100vw; }
-.w-auto { width: auto; }
-.w-1-2 { width: 50%; }
-.w-1-3 { width: 33.333333%; }
-.w-2-3 { width: 66.666667%; }
-.w-1-4 { width: 25%; }
-.w-3-4 { width: 75%; }
+.my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
+.my-1 { margin-top: calc(var(--m) / 4) !important; margin-bottom: calc(var(--m) / 4) !important; }
+.my-2 { margin-top: calc(var(--m) / 2) !important; margin-bottom: calc(var(--m) / 2) !important; }
+.my-3 { margin-top: var(--m) !important; margin-bottom: var(--m) !important; }
+.my-4 { margin-top: calc(var(--m) * 1.5) !important; margin-bottom: calc(var(--m) * 1.5) !important; }
+.my-5 { margin-top: calc(var(--m) * 2) !important; margin-bottom: calc(var(--m) * 2) !important; }
 
-/* Height */
-.h-full { height: 100%; }
-.h-screen { height: 100vh; }
-.h-auto { height: auto; }
+/* Sides */
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: calc(var(--m) / 4) !important; }
+.mt-2 { margin-top: calc(var(--m) / 2) !important; }
+.mt-3 { margin-top: var(--m) !important; }
+.mt-4 { margin-top: calc(var(--m) * 1.5) !important; }
+.mt-5 { margin-top: calc(var(--m) * 2) !important; }
 
-/* === TYPOGRAPHY === */
-/* Font Size */
-.text-xs { font-size: 0.75rem; line-height: 1rem; }
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-.text-base { font-size: 1rem; line-height: 1.5rem; }
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-.text-2xl { font-size: 1.5rem; line-height: 2rem; }
-.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+.mr-0 { margin-right: 0 !important; }
+.mr-1 { margin-right: calc(var(--m) / 4) !important; }
+.mr-2 { margin-right: calc(var(--m) / 2) !important; }
+.mr-3 { margin-right: var(--m) !important; }
+.mr-4 { margin-right: calc(var(--m) * 1.5) !important; }
+.mr-5 { margin-right: calc(var(--m) * 2) !important; }
 
-/* Font Weight */
-.font-thin { font-weight: 100; }
-.font-light { font-weight: 300; }
-.font-normal { font-weight: 400; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: calc(var(--m) / 4) !important; }
+.mb-2 { margin-bottom: calc(var(--m) / 2) !important; }
+.mb-3 { margin-bottom: var(--m) !important; }
+.mb-4 { margin-bottom: calc(var(--m) * 1.5) !important; }
+.mb-5 { margin-bottom: calc(var(--m) * 2) !important; }
 
-/* Text Alignment */
-.text-left { text-align: left; }
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.text-justify { text-align: justify; }
+.ml-0 { margin-left: 0 !important; }
+.ml-1 { margin-left: calc(var(--m) / 4) !important; }
+.ml-2 { margin-left: calc(var(--m) / 2) !important; }
+.ml-3 { margin-left: var(--m) !important; }
+.ml-4 { margin-left: calc(var(--m) * 1.5) !important; }
+.ml-5 { margin-left: calc(var(--m) * 2) !important; }
 
-/* Text Color */
-.text-white { color: #ffffff; }
-.text-black { color: #000000; }
-.text-gray-100 { color: #f7fafc; }
-.text-gray-300 { color: #cbd5e0; }
-.text-gray-500 { color: #a0aec0; }
-.text-gray-700 { color: #4a5568; }
-.text-gray-900 { color: #1a202c; }
+/* Centering helpers */
+.m-auto  { margin: auto !important; }
+.mx-auto { margin-left: auto !important; margin-right: auto !important; }
 
-/* === BACKGROUNDS === */
-.bg-transparent { background-color: transparent; }
-.bg-white { background-color: #ffffff; }
-.bg-black { background-color: #000000; }
-.bg-gray-100 { background-color: #f7fafc; }
-.bg-gray-200 { background-color: #edf2f7; }
-.bg-gray-300 { background-color: #e2e8f0; }
-.bg-gray-500 { background-color: #a0aec0; }
-.bg-gray-700 { background-color: #4a5568; }
-.bg-gray-900 { background-color: #1a202c; }
-.bg-blue-500 { background-color: #4299e1; }
-.bg-blue-700 { background-color: #2b6cb0; }
-.bg-green-500 { background-color: #48bb78; }
-.bg-red-500 { background-color: #f56565; }
+/* ==========================================================================
+   8) Alignment & gap helpers (for .grid containers)
+   ========================================================================== */
 
-/* === BORDERS === */
-.border { border-width: 1px; }
-.border-0 { border-width: 0; }
-.border-2 { border-width: 2px; }
-.border-4 { border-width: 4px; }
+.gap-none { row-gap: 0; column-gap: 0; }
+.gap-y-lg { row-gap: var(--m); }
 
-.border-solid { border-style: solid; }
-.border-dashed { border-style: dashed; }
-.border-dotted { border-style: dotted; }
+.items-start   { align-items: start; }
+.items-center  { align-items: center; }
+.items-end     { align-items: end; }
+.items-stretch { align-items: stretch; }
 
-.border-gray-200 { border-color: #edf2f7; }
-.border-gray-300 { border-color: #e2e8f0; }
-.border-gray-500 { border-color: #a0aec0; }
+.justify-start   { justify-items: start; }
+.justify-center  { justify-items: center; }
+.justify-end     { justify-items: end; }
+.justify-stretch { justify-items: stretch; }
 
-.rounded { border-radius: 0.25rem; }
-.rounded-md { border-radius: 0.375rem; }
-.rounded-lg { border-radius: 0.5rem; }
-.rounded-full { border-radius: 9999px; }
-.rounded-none { border-radius: 0; }
+/* ==========================================================================
+   9) Master column spans (for children of .grid-container)
+   - Use these to span N of the 12 master content columns.
+   ========================================================================== */
 
-/* === EFFECTS === */
-.shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
-.shadow { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); }
-.shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-.shadow-none { box-shadow: none; }
+.col-span-1  { grid-column: c 1 / c 2; }
+.col-span-2  { grid-column: c 1 / c 3; }
+.col-span-3  { grid-column: c 1 / c 4; }
+.col-span-4  { grid-column: c 1 / c 5; }
+.col-span-5  { grid-column: c 1 / c 6; }
+.col-span-6  { grid-column: c 1 / c 7; }
+.col-span-7  { grid-column: c 1 / c 8; }
+.col-span-8  { grid-column: c 1 / c 9; }
+.col-span-9  { grid-column: c 1 / c 10; }
+.col-span-10 { grid-column: c 1 / c 11; }
+.col-span-11 { grid-column: c 1 / c 12; }
+.col-span-12 { grid-column: c 1 / c 13; } /* full 12 columns */
 
-.opacity-0 { opacity: 0; }
-.opacity-50 { opacity: 0.5; }
-.opacity-75 { opacity: 0.75; }
-.opacity-100 { opacity: 1; }
+/* ==========================================================================
+   10) Row utilities (for any grid item)
+   ========================================================================== */
 
-/* === INTERACTIVITY === */
-.cursor-auto { cursor: auto; }
-.cursor-pointer { cursor: pointer; }
-.cursor-not-allowed { cursor: not-allowed; }
+.row-span-1  { grid-row: span 1; }
+.row-span-2  { grid-row: span 2; }
+.row-span-3  { grid-row: span 3; }
+.row-span-4  { grid-row: span 4; }
+.row-span-5  { grid-row: span 5; }
+.row-span-6  { grid-row: span 6; }
+.row-span-7  { grid-row: span 7; }
+.row-span-8  { grid-row: span 8; }
+.row-span-9  { grid-row: span 9; }
+.row-span-10 { grid-row: span 10; }
+.row-span-11 { grid-row: span 11; }
+.row-span-12 { grid-row: span 12; }
 
-.select-none { user-select: none; }
-.select-text { user-select: text; }
-.select-all { user-select: all; }
+.row-start-1  { grid-row-start: 1; }
+.row-start-2  { grid-row-start: 2; }
+.row-start-3  { grid-row-start: 3; }
+.row-start-4  { grid-row-start: 4; }
+.row-start-5  { grid-row-start: 5; }
+.row-start-6  { grid-row-start: 6; }
+.row-start-7  { grid-row-start: 7; }
+.row-start-8  { grid-row-start: 8; }
+.row-start-9  { grid-row-start: 9; }
+.row-start-10 { grid-row-start: 10; }
+.row-start-11 { grid-row-start: 11; }
+.row-start-12 { grid-row-start: 12; }
 
-/* === TRANSITIONS === */
-.transition { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-.transition-colors { transition-property: background-color, border-color, color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-.transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+/* ==========================================================================
+   11) Legacy float compatibility (for classless themes that still float)
+   - Safe to delete if you don’t need float containment.
+   ========================================================================== */
 
-.duration-100 { transition-duration: 100ms; }
-.duration-150 { transition-duration: 150ms; }
-.duration-200 { transition-duration: 200ms; }
-.duration-300 { transition-duration: 300ms; }
+.clearfix::before,
+.clearfix::after { content: ""; display: table; }
+.clearfix::after { clear: both; }
 
-/* === OVERFLOW === */
-.overflow-auto { overflow: auto; }
-.overflow-hidden { overflow: hidden; }
-.overflow-visible { overflow: visible; }
-.overflow-scroll { overflow: scroll; }
-.overflow-x-auto { overflow-x: auto; }
-.overflow-y-auto { overflow-y: auto; }
-
-/* === Z-INDEX === */
-.z-0 { z-index: 0; }
-.z-10 { z-index: 10; }
-.z-20 { z-index: 20; }
-.z-30 { z-index: 30; }
-.z-40 { z-index: 40; }
-.z-50 { z-index: 50; }
-
-/* === GAP === */
-.gap-1 { gap: 0.25rem; }
-.gap-2 { gap: 0.5rem; }
-.gap-3 { gap: 0.75rem; }
-.gap-4 { gap: 1rem; }
+/* Tiny alias */
+.cf::before,
+.cf::after { content: ""; display: table; }
+.cf::after { clear: both; }
