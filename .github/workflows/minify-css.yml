@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
+    paths: # Trigger when either core or extra CSS changes
       - 'lattice.css'
+      - 'lattice.extra.css'
   workflow_dispatch:
 
 permissions:
@@ -35,24 +36,39 @@ jobs:
       - name: Install clean-css-cli
         run: npm install -g clean-css-cli
       
-      - name: Minify CSS
-        run: cleancss -o lattice.min.css lattice.css
+      - name: Create dist directory
+        run: mkdir -p dist
       
-      - name: Commit minified CSS
+      - name: Minify CSS files and save to dist
+        run: |
+          # Minify lattice.css -> dist/lattice.min.css
+          cleancss -o dist/lattice.min.css lattice.css
+          
+          # Minify lattice.extra.css -> dist/lattice.extra.min.css
+          cleancss -o dist/lattice.extra.min.css lattice.extra.css
+      
+      - name: Combine minified files to full.min.css
+        # Combines the two minified files into the final full distribution file
+        run: cat dist/lattice.min.css dist/lattice.extra.min.css > dist/lattice.full.min.css
+      
+      - name: Commit distribution files
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add lattice.min.css
-          git diff --staged --quiet || git commit -m "Auto-minify CSS [skip ci]"
+          # Add all minified files in the dist directory
+          git add dist/
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Auto-build CSS distribution files [skip ci]"
           git push
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Upload artifact
+      - name: Upload artifact (dist folder)
+        # Change the path to upload the 'dist' folder containing the final assets
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs'
+          path: './dist'
       
       - name: Deploy to GitHub Pages
         id: deployment
