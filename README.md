@@ -1,4 +1,5 @@
-# Lattice CSS
+
+![](image.png)# Lattice CSS
 
 Lattice is a layout-first CSS utility toolkit tuned for teams that already have typography and color opinions. The core layer gives you ergonomic grid primitives, predictable spacing, and sensible visibility helpers without forcing component styles on your project. Opt into the extra layers only when you need them.
 
