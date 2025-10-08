@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lattice Extra Documentation</title>
+    <link rel="stylesheet" href="../lattice.extra.css">
+    <style>
+body {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 0 10px;
+    font: 18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    color: #444
+}
+
+h1,h2,h3 {
+    line-height: 1.2
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color:#c9d1d9;
+        background: #0d1117
+    }
+
+    a:link {
+        color: #58a6ff
+    }
+
+    a:visited {
+        color: #8e96f0
+    }
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+a {
+    color: #444;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+a:hover {
+    border-bottom-color: currentColor;
+}
+
+.lead {
+    margin-top: 0;
+    color: rgba(68,68,68,.8);
+}
+
+section + section {
+    margin-top: 3rem;
+}
+
+pre {
+    background: rgba(15,23,42,.08);
+    padding: 1rem;
+    border-radius: .75rem;
+    overflow-x: auto;
+}
+
+.callout {
+    border-left: 4px solid #222;
+    padding: 1rem;
+    background: rgba(68,68,68,.06);
+}
+
+.patterns {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.patterns li {
+    border: 1px solid rgba(68,68,68,.2);
+    border-radius: .75rem;
+    padding: 1rem;
+}
+
+.patterns h3 {
+    margin-top: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    .lead {
+        color: rgba(201,209,217,.75);
+    }
+
+    pre {
+        background: rgba(88,166,255,.15);
+    }
+
+    .callout {
+        border-left-color: #58a6ff;
+        background: rgba(88,166,255,.08);
+    }
+
+    .patterns li {
+        border-color: rgba(201,209,217,.2);
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="core.html">Lattice Core Docs</a>
+            <a href="extra.html">Lattice Extra Docs</a>
+        </nav>
+        <h1>Lattice Extra</h1>
+        <p class="lead">Optional enhancements that layer on top of Core utilities to deliver polished, production-ready UI patterns.</p>
+    </header>
+    <main>
+        <section>
+            <h2>Installation</h2>
+            <p>The Extra bundle is published separately so that you only ship what you need.</p>
+            <pre><code># npm
+npm install @lattice-css/extra
+
+# import alongside the core layer
+@import "@lattice-css/extra";
+
+# via CDN
+&lt;link rel="stylesheet" href="https://unpkg.com/@lattice-css/extra/dist/lattice-extra.min.css"&gt;</code></pre>
+        </section>
+        <section>
+            <h2>When to use Extra</h2>
+            <div class="callout">
+                <p>Reach for Extra when you need interactive affordances, refined component primitives, or design tokens that extend the base theme.</p>
+            </div>
+            <ul>
+                <li><strong>Component primitives</strong> such as buttons, badges, cards, and alerts.</li>
+                <li><strong>Design tokens</strong> for motion, shadows, and gradients that match the Lattice aesthetic.</li>
+                <li><strong>State-driven utilities</strong> that respond to hover, focus-visible, and data attributes.</li>
+            </ul>
+        </section>
+        <section>
+            <h2>Featured Patterns</h2>
+            <ul class="patterns">
+                <li>
+                    <h3>Cards</h3>
+                    <p>Compose <code>card</code>, <code>card-header</code>, and <code>card-body</code> utilities to build responsive card layouts.</p>
+                    <pre><code>&lt;article class="card shadow-soft"&gt;
+  &lt;header class="card-header flex-between"&gt;
+    &lt;h3 class="text-lg"&gt;Release notes&lt;/h3&gt;
+    &lt;span class="badge badge-soft"&gt;v2.1&lt;/span&gt;
+  &lt;/header&gt;
+  &lt;div class="card-body text-muted"&gt;
+    Meet the latest refinements to typography and spacing scales.
+  &lt;/div&gt;
+&lt;/article&gt;</code></pre>
+                </li>
+                <li>
+                    <h3>Command palette</h3>
+                    <p>Pair <code>surface-elevated</code>, <code>backdrop-blur</code>, and key bindings classes for a delightful command palette.</p>
+                    <pre><code>&lt;div class="palette surface-elevated backdrop-blur-md" role="dialog"&gt;
+  &lt;input class="palette-input" placeholder="Search commands" autofocus&gt;
+  &lt;ul class="palette-list" role="listbox"&gt;
+    &lt;li class="palette-item is-active"&gt;Open docs&lt;/li&gt;
+    &lt;li class="palette-item"&gt;Toggle theme&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
