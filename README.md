@@ -4,7 +4,7 @@ Lattice is a layout-first CSS utility toolkit tuned for teams that already have 
 
 > **Focus on structure.** Use your theme for aesthetics, and let Lattice handle the boring layout math.
 
-## Packages at a Glance
+## Packages at a Glance 
 
 | File | Purpose | Notes |
 | --- | --- | --- |
