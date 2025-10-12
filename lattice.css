@@ -10,7 +10,7 @@
  *    - Page layout: 12-column master grid with fluid outer gutters.
  *    - Component layout: internal .grid with fluid columns (auto-fit/minmax).
  *    - Fixed column counts for .grid (1,2,3,4,6,12) + sm/md/lg variants.
- *    - Simple page placements: .l-place-full (full-bleed) / .l-place-content (centered).
+ *   - Simple page placements: .full-width (full-bleed) / .container (centered).
  *    - Width helpers (.w-100, .max-w-100), auto-centering (.m-auto, .mx-auto).
  *    - Minimal display aliases and visibility helpers
  *    - Hyphen breakpoint naming: sm- / md- / lg-.
@@ -47,8 +47,8 @@
    - Use on outer wrappers that span the viewport.
    - Place children with .l-place-* or custom grid-column as needed.
    ========================================================================== */
-/* Required parent for .l-place-* helpers and custom grid-column */
-.grid-container{
+/* Required parent for .container/.full-width helpers and custom grid-column */
+.lattice{
   display:grid;
   grid-template-columns:
     [fa] var(--fluid-area)
@@ -57,9 +57,9 @@
     [m] max(var(--m), env(safe-area-inset-right))
     [fa] var(--fluid-area);
 }
-/* common placements (apply to direct children of .grid-container) */
-.l-full-width{grid-column:fa 1 / fa 2;}      /* full-bleed across viewport */
-.l-place-content{grid-column:m 1 / m 2;}     /* centered within margins    */
+/* common placements (apply to direct children of .lattice) */
+.full-width{grid-column:fa 1 / fa 2;}      /* full-bleed across viewport */
+.container{grid-column:m 1 / m 2;}     /* centered within margins    */
 
 /* ==========================================================================
    2) Internal grids (component-level)
