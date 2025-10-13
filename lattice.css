@@ -27,7 +27,7 @@
   --lat-track:1fr;
 
   /* rhythm & gaps (standalone scale) */
-  --lat-space:1.5rem;   /* base spacing unit */
+  --lat-space:1rem;   /* base spacing unit */
   --lat-gap-x:1rem;     /* column gap (x) */
   --lat-gap-y:1rem;     /* row gap (y) */
 }
