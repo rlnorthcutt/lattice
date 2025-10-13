@@ -5,28 +5,31 @@
  * License: MIT
  */
 
-/** Scope (CORE):
- *  - Page layout: 12-column master grid with fluid outer gutters.
- *  - Component layout: internal .grid with fluid columns (auto-fit/minmax).
- *  - Fixed column counts for .grid (1,2,3,4,6,12) + sm/md/lg variants.
- *  - Simple placements: .full-width (full-bleed) / .container (centered).
- *  - Width helpers (.w-100, .max-w-100), auto-centering (.m-auto, .mx-auto).
- *  - Minimal display aliases and visibility helpers.
- * Notes: All vars are namespaced (--lat-*) to avoid collisions with Ivy.
+/** Scope (CORE)
+ * - Page layout: 12-col master grid with fluid outer gutters.
+ * - Component layout: internal .grid (auto-fit/minmax).
+ * - Fixed column counts for .grid (1,2,3,4,6,12) + sm/md/lg variants.
+ * - Simple placements: .full-width (full bleed) / .container (centered).
+ * - A few width/display/visibility helpers.
  */
 
 /* ==========================================================================
-   0) Root variables (namespaced)
+   0) Root variables (standalone)
    ========================================================================== */
 :root{
+  /* container + master grid */
   --lat-container-width:1024px;
-  --lat-auto-col-min:15rem;
-  --lat-column-count:11;
+  --lat-col-count:11; /* 1 + 11 = 12 content cols */
   --lat-fluid-area:max(0px, calc(50vw - var(--lat-container-width)/2));
-  --lat-gutter:1.5rem;   /* outer page gutters (x) */
-  --lat-gap-x:1rem;      /* internal grid column gap */
-  --lat-gap-y:1rem;      /* internal grid row gap */
-  --lat-c:1fr;           /* default content track size */
+
+  /* internal .grid behavior */
+  --lat-auto-col-min:15rem;
+  --lat-track:1fr;
+
+  /* rhythm & gaps (standalone scale) */
+  --lat-space:1.5rem;   /* base spacing unit */
+  --lat-gap-x:1rem;     /* column gap (x) */
+  --lat-gap-y:1rem;     /* row gap (y) */
 }
 
 /* ==========================================================================
@@ -36,13 +39,14 @@
   display:grid;
   grid-template-columns:
     [fa] var(--lat-fluid-area)
-    [m] max(var(--lat-gutter), env(safe-area-inset-left))
-    [c] var(--lat-c) repeat(var(--lat-column-count), [g] var(--lat-gap-x) [c] var(--lat-c))
-    [m] max(var(--lat-gutter), env(safe-area-inset-right))
+    [m] max(var(--lat-space), env(safe-area-inset-left))
+    [c] var(--lat-track) repeat(var(--lat-col-count), [g] var(--lat-gap-x) [c] var(--lat-track))
+    [m] max(var(--lat-space), env(safe-area-inset-right))
     [fa] var(--lat-fluid-area);
 }
-.full-width{grid-column:fa 1/fa 2;}
-.container{grid-column:m 1/m 2;}
+/* common placements (direct children of .lattice) */
+.full-width{grid-column:fa 1 / fa 2;}
+.container{grid-column:m 1 / m 2;}
 
 /* ==========================================================================
    2) Internal grids (component-level)
@@ -51,15 +55,20 @@
   display:grid;
   row-gap:var(--lat-gap-y);
   column-gap:var(--lat-gap-x);
-  grid-template-columns:repeat(auto-fit, minmax(var(--lat-auto-col-min),1fr));
+  grid-template-columns:repeat(auto-fit, minmax(var(--lat-auto-col-min), 1fr));
 }
+/* optional subgrid (modern browsers) */
 .subgrid{display:grid; grid-template-columns:subgrid;}
+
+/* fixed column counts (apply to .grid) */
 .grid.col-1{grid-template-columns:repeat(1,1fr);}
 .grid.col-2{grid-template-columns:repeat(2,1fr);}
 .grid.col-3{grid-template-columns:repeat(3,1fr);}
 .grid.col-4{grid-template-columns:repeat(4,1fr);}
 .grid.col-6{grid-template-columns:repeat(6,1fr);}
 .grid.col-12{grid-template-columns:repeat(12,1fr);}
+
+/* responsive column counts */
 @media (min-width:576px){
   .sm-col-1{grid-template-columns:repeat(1,1fr);}
   .sm-col-2{grid-template-columns:repeat(2,1fr);}
@@ -86,10 +95,10 @@
 }
 
 /* ==========================================================================
-   3) Positioning utilities
+   3) Positioning utilities (minimal)
    ========================================================================== */
 .m-auto{margin:auto!important;}
-.mx-auto{margin-left:auto!important;margin-right:auto!important;}
+.mx-auto{margin-left:auto!important; margin-right:auto!important;}
 .inline{display:inline!important;}
 .block{display:block!important;}
 .inline-block{display:inline-block!important;}
@@ -104,3 +113,4 @@
 .invisible{visibility:hidden!important;}
 .w-100{width:100%!important;}
 .max-w-100{max-width:100%!important;}
+.text-center{text-align:center!important;}
