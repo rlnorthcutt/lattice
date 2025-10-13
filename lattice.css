@@ -1,91 +1,65 @@
 /*!
  * Lattice.css — lightweight layout & positioning utilities (CORE)
- * Version: 1.0.0
+ * Version: 1.0.1
  * URL: https://github.com/rlnorthcutt/lattice
- * Copyright (c) 2025 Ron Northcutt
- * License: MIT (https://opensource.org/licenses/MIT)
+ * License: MIT
  */
 
- /** Scope (CORE):
- *    - Page layout: 12-column master grid with fluid outer gutters.
- *    - Component layout: internal .grid with fluid columns (auto-fit/minmax).
- *    - Fixed column counts for .grid (1,2,3,4,6,12) + sm/md/lg variants.
- *   - Simple page placements: .full-width (full-bleed) / .container (centered).
- *    - Width helpers (.w-100, .max-w-100), auto-centering (.m-auto, .mx-auto).
- *    - Minimal display aliases and visibility helpers
- *    - Hyphen breakpoint naming: sm- / md- / lg-.
- * For fuller layouts (spans, row controls, a11y helpers, flex alignment, etc.),
- * add lattice.extra.css.
+/** Scope (CORE):
+ *  - Page layout: 12-column master grid with fluid outer gutters.
+ *  - Component layout: internal .grid with fluid columns (auto-fit/minmax).
+ *  - Fixed column counts for .grid (1,2,3,4,6,12) + sm/md/lg variants.
+ *  - Simple placements: .full-width (full-bleed) / .container (centered).
+ *  - Width helpers (.w-100, .max-w-100), auto-centering (.m-auto, .mx-auto).
+ *  - Minimal display aliases and visibility helpers.
+ * Notes: All vars are namespaced (--lat-*) to avoid collisions with Ivy.
  */
 
 /* ==========================================================================
-   0) Root variables
-   - Tweak these to change site rhythm and grid behavior.
+   0) Root variables (namespaced)
    ========================================================================== */
 :root{
-  /* main container width (affects full-bleed margins) */
-  --container-width:1024px;
-
-  /* internal grid default min column size (for fluid .grid) */
-  --auto-col-min:15rem;
-
-  /* master grid: total content columns = 1 + --column-count = 12 */
-  --column-count:11;
-
-  /* prevent negative bleed on narrow viewports */
-  --fluid-area:max(0px, calc(50vw - var(--container-width)/2));
-
-  /* rhythm & tracks (spacing + grid track size) */
-  --m:1.5rem;         /* base spacing unit (used by themes, not core utils) */
-  --g:1rem;           /* column gap (x)  */
-  --gap-y:1rem;       /* row gap (y)     */
-  --c:1fr;            /* default track size for content columns */
+  --lat-container-width:1024px;
+  --lat-auto-col-min:15rem;
+  --lat-column-count:11;
+  --lat-fluid-area:max(0px, calc(50vw - var(--lat-container-width)/2));
+  --lat-gutter:1.5rem;   /* outer page gutters (x) */
+  --lat-gap-x:1rem;      /* internal grid column gap */
+  --lat-gap-y:1rem;      /* internal grid row gap */
+  --lat-c:1fr;           /* default content track size */
 }
 
 /* ==========================================================================
    1) Master grid (page-level)
-   - Use on outer wrappers that span the viewport.
-   - Place children with .l-place-* or custom grid-column as needed.
    ========================================================================== */
-/* Required parent for .container/.full-width helpers and custom grid-column */
 .lattice{
   display:grid;
   grid-template-columns:
-    [fa] var(--fluid-area)
-    [m] max(var(--m), env(safe-area-inset-left))
-    [c] var(--c) repeat(var(--column-count), [g] var(--g) [c] var(--c))
-    [m] max(var(--m), env(safe-area-inset-right))
-    [fa] var(--fluid-area);
+    [fa] var(--lat-fluid-area)
+    [m] max(var(--lat-gutter), env(safe-area-inset-left))
+    [c] var(--lat-c) repeat(var(--lat-column-count), [g] var(--lat-gap-x) [c] var(--lat-c))
+    [m] max(var(--lat-gutter), env(safe-area-inset-right))
+    [fa] var(--lat-fluid-area);
 }
-/* common placements (apply to direct children of .lattice) */
-.full-width{grid-column:fa 1 / fa 2;}      /* full-bleed across viewport */
-.container{grid-column:m 1 / m 2;}     /* centered within margins    */
+.full-width{grid-column:fa 1/fa 2;}
+.container{grid-column:m 1/m 2;}
 
 /* ==========================================================================
    2) Internal grids (component-level)
-   - .grid is a fluid card/list layout by default.
-   - To force exact columns, add .grid.col-N or a responsive variant.
-   - Tip: don’t stack display utilities on .grid; it already sets display:grid.
    ========================================================================== */
 .grid{
   display:grid;
-  row-gap:var(--gap-y);
-  column-gap:var(--g);
-  grid-template-columns:repeat(auto-fit, minmax(var(--auto-col-min), 1fr));
+  row-gap:var(--lat-gap-y);
+  column-gap:var(--lat-gap-x);
+  grid-template-columns:repeat(auto-fit, minmax(var(--lat-auto-col-min),1fr));
 }
-/* Inherit parent columns (modern browsers). Safe to omit if not needed. */
 .subgrid{display:grid; grid-template-columns:subgrid;}
-
-/* force exact equal columns on .grid */
 .grid.col-1{grid-template-columns:repeat(1,1fr);}
 .grid.col-2{grid-template-columns:repeat(2,1fr);}
 .grid.col-3{grid-template-columns:repeat(3,1fr);}
 .grid.col-4{grid-template-columns:repeat(4,1fr);}
 .grid.col-6{grid-template-columns:repeat(6,1fr);}
-.grid.col-12{grid-template-columns:repeat(12,1fr);} /* heavy; prefer at lg */
-
-/* responsive column counts (apply to the .grid element) */
-/* sm = 576px, md = 768px, lg = 1024px */
+.grid.col-12{grid-template-columns:repeat(12,1fr);}
 @media (min-width:576px){
   .sm-col-1{grid-template-columns:repeat(1,1fr);}
   .sm-col-2{grid-template-columns:repeat(2,1fr);}
@@ -113,27 +87,20 @@
 
 /* ==========================================================================
    3) Positioning utilities
-   - Quick centering helpers for common layouts.
-   - For margin/padding scales, see lattice.full.css.
    ========================================================================== */
-/* Auto-margins for centering (horizontal or both axes) */
-.m-auto{margin:auto !important;}
-.mx-auto{margin-left:auto !important;margin-right:auto !important;}
-
-/* Optional display aliases (convenience). Avoid adding these to .grid. */
-.inline{display:inline !important;}
-.block{display:block !important;} .inline-block{display:inline-block !important;}
-.flex{display:flex !important;} .inline-flex{display:inline-flex !important;}
-.inline-grid{display:inline-grid !important;}
+.m-auto{margin:auto!important;}
+.mx-auto{margin-left:auto!important;margin-right:auto!important;}
+.inline{display:inline!important;}
+.block{display:block!important;}
+.inline-block{display:inline-block!important;}
+.flex{display:flex!important;}
+.inline-flex{display:inline-flex!important;}
+.inline-grid{display:inline-grid!important;}
 
 /* ==========================================================================
    4) Common utility classes
-   - Visibility helpers only; all other utility scales live in lattice.full.css.
    ========================================================================== */
-/* Normalize attribute/class */
-.hidden,[hidden]{display:none !important;}
- /* Keep layout, hide visually */
-.invisible{visibility:hidden !important;}
-/* Width helpers (pure sizing; not placement) */
-.w-100{width:100% !important;}
-.max-w-100{max-width:100% !important;}
+.hidden,[hidden]{display:none!important;}
+.invisible{visibility:hidden!important;}
+.w-100{width:100%!important;}
+.max-w-100{max-width:100%!important;}
