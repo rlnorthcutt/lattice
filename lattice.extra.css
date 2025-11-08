@@ -167,8 +167,8 @@
   .xl-d-flex{display:flex!important;} .xl-d-grid{display:grid!important;}
 }
 @media (min-width:96rem){
-  .twoxl-d-none{display:none!important;} .twoxl-d-block{display:block!important;}
-  .twoxl-d-flex{display:flex!important;} .twoxl-d-grid{display:grid!important;}
+  .2xl-d-none{display:none!important;} .2xl-d-block{display:block!important;}
+  .2xl-d-flex{display:flex!important;} .2xl-d-grid{display:grid!important;}
 }
 
 /* a11y helpers */
