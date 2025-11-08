@@ -1,6 +1,6 @@
 /*!
  * Lattice Extra — utilities that build on Lattice.css
- * Version: 1.0.1
+ * Version: 1.1.0
  * URL: https://github.com/rlnorthcutt/lattice
  * License: MIT
  *
@@ -10,7 +10,7 @@
 /** Scope (EXTRA)
  * - Spacing & gaps: 0–5 scale using --lat-space.
  * - Display (incl. responsive), a11y helpers.
- * - Grid helpers (flow/place/spans + .col-start-* for .lattice children).
+ * - Grid helpers (flow/place + page-shell placement via .start-* / .span-* on .lattice children).
  * - Flex helpers, positioning/sizing, overflow/z-index, aspect-ratio, clearfix.
  */
 
@@ -135,54 +135,118 @@
 .gap-y-3{row-gap:var(--lat-space)!important;}
 .gap-y-4{row-gap:calc(var(--lat-space)*1.5)!important;}
 .gap-y-5{row-gap:calc(var(--lat-space)*2)!important;}
-
 .gap-none{gap:0!important;}
 
 /* ==========================================================================
-   2) Display & visibility
+   2) Display & visibility (includes responsive toggles)
    ========================================================================== */
 .d-none{display:none!important;} .d-block{display:block!important;}
 .d-flex{display:flex!important;} .d-grid{display:grid!important;}
-@media (min-width:576px){.sm-d-none{display:none!important;} .sm-d-block{display:block!important;} .sm-d-flex{display:flex!important;} .sm-d-grid{display:grid!important;}}
-@media (min-width:768px){.md-d-none{display:none!important;} .md-d-block{display:block!important;} .md-d-flex{display:flex!important;} .md-d-grid{display:grid!important;}}
-@media (min-width:1024px){.lg-d-none{display:none!important;} .lg-d-block{display:block!important;} .lg-d-flex{display:flex!important;} .lg-d-grid{display:grid!important;}}
-.sr-only,.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;clip:rect(1px,1px,1px,1px)!important;white-space:nowrap!important;border:0!important;}
-.sr-only-focusable:active,.sr-only-focusable:focus,.sr-only-focusable:focus-within,.visually-hidden-focusable:active,.visually-hidden-focusable:focus,.visually-hidden-focusable:focus-within{position:static!important;width:auto!important;height:auto!important;margin:0!important;overflow:visible!important;clip-path:none!important;clip:auto!important;white-space:inherit!important;}
+
+/* Breakpoints (match Core)
+   sm = 40rem (640px)
+   md = 48rem (768px)
+   lg = 64rem (1024px)
+   xl = 80rem (1280px)
+   2xl = 96rem (1536px)
+*/
+@media (min-width:40rem){
+  .sm-d-none{display:none!important;} .sm-d-block{display:block!important;}
+  .sm-d-flex{display:flex!important;} .sm-d-grid{display:grid!important;}
+}
+@media (min-width:48rem){
+  .md-d-none{display:none!important;} .md-d-block{display:block!important;}
+  .md-d-flex{display:flex!important;} .md-d-grid{display:grid!important;}
+}
+@media (min-width:64rem){
+  .lg-d-none{display:none!important;} .lg-d-block{display:block!important;}
+  .lg-d-flex{display:flex!important;} .lg-d-grid{display:grid!important;}
+}
+@media (min-width:80rem){
+  .xl-d-none{display:none!important;} .xl-d-block{display:block!important;}
+  .xl-d-flex{display:flex!important;} .xl-d-grid{display:grid!important;}
+}
+@media (min-width:96rem){
+  .twoxl-d-none{display:none!important;} .twoxl-d-block{display:block!important;}
+  .twoxl-d-flex{display:flex!important;} .twoxl-d-grid{display:grid!important;}
+}
+
+/* a11y helpers */
+.sr-only,.visually-hidden{
+  position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
+  overflow:hidden!important;clip-path:inset(50%)!important;clip:rect(1px,1px,1px,1px)!important;
+  white-space:nowrap!important;border:0!important;
+}
+.sr-only-focusable:active,.sr-only-focusable:focus,.sr-only-focusable:focus-within,
+.visually-hidden-focusable:active,.visually-hidden-focusable:focus,.visually-hidden-focusable:focus-within{
+  position:static!important;width:auto!important;height:auto!important;margin:0!important;overflow:visible!important;
+  clip-path:none!important;clip:auto!important;white-space:inherit!important;
+}
 
 /* ==========================================================================
-   3) Grid helpers (flow/place/start/spans)
+   3) Grid helpers (flow/place + PAGE-SHELL placement)
    ========================================================================== */
+/* flow */
 .flow-row{grid-auto-flow:row!important;} .flow-col{grid-auto-flow:column!important;}
-.flow-dense{grid-auto-flow:dense!important;} .flow-row-dense{grid-auto-flow:row dense!important;} .flow-col-dense{grid-auto-flow:column dense!important;}
+.flow-dense{grid-auto-flow:dense!important;}
+.flow-row-dense{grid-auto-flow:row dense!important;}
+.flow-col-dense{grid-auto-flow:column dense!important;}
+
+/* place */
 .place-items-start{place-items:start!important;} .place-items-center{place-items:center!important;} .place-items-end{place-items:end!important;}
 .place-content-start{place-content:start!important;} .place-content-center{place-content:center!important;} .place-content-end{place-content:end!important;}
 .place-self-start{place-self:start!important;} .place-self-center{place-self:center!important;} .place-self-end{place-self:end!important;}
 
-.col-span-1{grid-column:span 1!important;} .col-span-2{grid-column:span 2!important;}
-.col-span-3{grid-column:span 3!important;} .col-span-4{grid-column:span 4!important;}
-.col-span-5{grid-column:span 5!important;} .col-span-6{grid-column:span 6!important;}
-.col-span-7{grid-column:span 7!important;} .col-span-8{grid-column:span 8!important;}
-.col-span-9{grid-column:span 9!important;} .col-span-10{grid-column:span 10!important;}
-.col-span-11{grid-column:span 11!important;} .col-span-12{grid-column:span 12!important;}
-.col-span-full{grid-column:1/-1!important;}
+/* PAGE-SHELL ONLY: start/span on the master .lattice grid (direct children) */
+.lattice > .start-1  { grid-column-start: c 1!important; }
+.lattice > .start-2  { grid-column-start: c 2!important; }
+.lattice > .start-3  { grid-column-start: c 3!important; }
+.lattice > .start-4  { grid-column-start: c 4!important; }
+.lattice > .start-5  { grid-column-start: c 5!important; }
+.lattice > .start-6  { grid-column-start: c 6!important; }
+.lattice > .start-7  { grid-column-start: c 7!important; }
+.lattice > .start-8  { grid-column-start: c 8!important; }
+.lattice > .start-9  { grid-column-start: c 9!important; }
+.lattice > .start-10 { grid-column-start: c 10!important; }
+.lattice > .start-11 { grid-column-start: c 11!important; }
+.lattice > .start-12 { grid-column-start: c 12!important; }
 
-.col-start-1{grid-column-start:c 1!important;} .col-start-2{grid-column-start:c 2!important;}
-.col-start-3{grid-column-start:c 3!important;} .col-start-4{grid-column-start:c 4!important;}
-.col-start-5{grid-column-start:c 5!important;} .col-start-6{grid-column-start:c 6!important;}
-.col-start-7{grid-column-start:c 7!important;} .col-start-8{grid-column-start:c 8!important;}
-.col-start-9{grid-column-start:c 9!important;} .col-start-10{grid-column-start:c 10!important;}
-.col-start-11{grid-column-start:c 11!important;} .col-start-12{grid-column-start:c 12!important;}
-.col-start-13{grid-column-start:c 13!important;}
+.lattice > .span-1  { grid-column-end: span 1!important; }
+.lattice > .span-2  { grid-column-end: span 2!important; }
+.lattice > .span-3  { grid-column-end: span 3!important; }
+.lattice > .span-4  { grid-column-end: span 4!important; }
+.lattice > .span-5  { grid-column-end: span 5!important; }
+.lattice > .span-6  { grid-column-end: span 6!important; }
+.lattice > .span-7  { grid-column-end: span 7!important; }
+.lattice > .span-8  { grid-column-end: span 8!important; }
+.lattice > .span-9  { grid-column-end: span 9!important; }
+.lattice > .span-10 { grid-column-end: span 10!important; }
+.lattice > .span-11 { grid-column-end: span 11!important; }
+.lattice > .span-12 { grid-column-end: span 12!important; }
 
-.row-span-1{grid-row:span 1;} .row-span-2{grid-row:span 2;} .row-span-3{grid-row:span 3;} .row-span-4{grid-row:span 4;}
-.row-span-5{grid-row:span 5;} .row-span-6{grid-row:span 6;} .row-span-7{grid-row:span 7;} .row-span-8{grid-row:span 8;}
-.row-span-9{grid-row:span 9;} .row-span-10{grid-row:span 10;} .row-span-11{grid-row:span 11;} .row-span-12{grid-row:span 12;}
-.row-start-1{grid-row-start:1;} .row-start-2{grid-row-start:2;} .row-start-3{grid-row-start:3;} .row-start-4{grid-row-start:4;}
-.row-start-5{grid-row-start:5;} .row-start-6{grid-row-start:6;} .row-start-7{grid-row-start:7;} .row-start-8{grid-row-start:8;}
-.row-start-9{grid-row-start:9;} .row-start-10{grid-row-start:10;} .row-start-11{grid-row-start:11;} .row-start-12{grid-row-start:12;}
-.row-end-1{grid-row-end:1;} .row-end-2{grid-row-end:2;} .row-end-3{grid-row-end:3;} .row-end-4{grid-row-end:4;}
-.row-end-5{grid-row-end:5;} .row-end-6{grid-row-end:6;} .row-end-7{grid-row-end:7;} .row-end-8{grid-row-end:8;}
-.row-end-9{grid-row-end:9;} .row-end-10{grid-row-end:10;} .row-end-11{grid-row-end:11;} .row-end-12{grid-row-end:12;}
+/* (Optional sugar — comment in if you want one-class placement)
+.lattice > .from-1-to-12 { grid-column: c 1 / c 13!important; }
+*/
+
+/* Row helpers (still useful) */
+.row-span-1{grid-row:span 1!important;} .row-span-2{grid-row:span 2!important;}
+.row-span-3{grid-row:span 3!important;} .row-span-4{grid-row:span 4!important;}
+.row-span-5{grid-row:span 5!important;} .row-span-6{grid-row:span 6!important;}
+.row-span-7{grid-row:span 7!important;} .row-span-8{grid-row:span 8!important;}
+.row-span-9{grid-row:span 9!important;} .row-span-10{grid-row:span 10!important;}
+.row-span-11{grid-row:span 11!important;} .row-span-12{grid-row:span 12!important;}
+.row-start-1{grid-row-start:1!important;} .row-start-2{grid-row-start:2!important;}
+.row-start-3{grid-row-start:3!important;} .row-start-4{grid-row-start:4!important;}
+.row-start-5{grid-row-start:5!important;} .row-start-6{grid-row-start:6!important;}
+.row-start-7{grid-row-start:7!important;} .row-start-8{grid-row-start:8!important;}
+.row-start-9{grid-row-start:9!important;} .row-start-10{grid-row-start:10!important;}
+.row-start-11{grid-row-start:11!important;} .row-start-12{grid-row-start:12!important;}
+.row-end-1{grid-row-end:1!important;} .row-end-2{grid-row-end:2!important;}
+.row-end-3{grid-row-end:3!important;} .row-end-4{grid-row-end:4!important;}
+.row-end-5{grid-row-end:5!important;} .row-end-6{grid-row-end:6!important;}
+.row-end-7{grid-row-end:7!important;} .row-end-8{grid-row-end:8!important;}
+.row-end-9{grid-row-end:9!important;} .row-end-10{grid-row-end:10!important;}
+.row-end-11{grid-row-end:11!important;} .row-end-12{grid-row-end:12!important;}
 
 /* ==========================================================================
    4) Flex helpers

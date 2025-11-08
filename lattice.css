@@ -1,14 +1,14 @@
 /*!
  * Lattice.css — lightweight layout & positioning utilities (CORE)
- * Version: 1.0.1
+ * Version: 1.1.0
  * URL: https://github.com/rlnorthcutt/lattice
  * License: MIT
  */
 
 /** Scope (CORE)
  * - Page layout: 12-col master grid with fluid outer gutters.
- * - Component layout: internal .grid (auto-fit/minmax).
- * - Fixed column counts for .grid (1,2,3,4,6,12) + sm/md/lg variants.
+ * - Component layout: internal .grid (defaults to 12 tracks).
+ * - Item widths: .col (= .col-12) and .col-{1,2,3,4,6,8,10,12} + sm/md/lg/xl/twoxl responsive variants.
  * - Simple placements: .full-width (full bleed) / .container (centered).
  * - A few width/display/visibility helpers.
  */
@@ -23,13 +23,13 @@
   --lat-fluid-area:max(0px, calc(50vw - var(--lat-container-width)/2));
 
   /* internal .grid behavior */
-  --lat-auto-col-min:15rem;
+  --lat-auto-col-min:15rem;  /* retained for compatibility (not used by default grid) */
   --lat-track:1fr;
 
   /* rhythm & gaps (standalone scale) */
-  --lat-space:1rem;   /* base spacing unit */
-  --lat-gap-x:1rem;     /* column gap (x) */
-  --lat-gap-y:1rem;     /* row gap (y) */
+  --lat-space:1rem;      /* base spacing unit */
+  --lat-gap-x:1rem;      /* column gap (x) */
+  --lat-gap-y:1rem;      /* row gap (y) */
 }
 
 /* ==========================================================================
@@ -51,47 +51,90 @@
 /* ==========================================================================
    2) Internal grids (component-level)
    ========================================================================== */
+/* Default every .grid to a 12-track grid */
 .grid{
   display:grid;
   row-gap:var(--lat-gap-y);
   column-gap:var(--lat-gap-x);
-  grid-template-columns:repeat(auto-fit, minmax(var(--lat-auto-col-min), 1fr));
+  grid-template-columns:repeat(12, minmax(0, 1fr));
 }
-/* optional subgrid (modern browsers) */
+
+/* OPTIONAL: subgrid for modern browsers */
 .subgrid{display:grid; grid-template-columns:subgrid;}
 
-/* fixed column counts (apply to .grid) */
-.grid.col-1{grid-template-columns:repeat(1,1fr);}
-.grid.col-2{grid-template-columns:repeat(2,1fr);}
-.grid.col-3{grid-template-columns:repeat(3,1fr);}
-.grid.col-4{grid-template-columns:repeat(4,1fr);}
-.grid.col-6{grid-template-columns:repeat(6,1fr);}
-.grid.col-12{grid-template-columns:repeat(12,1fr);}
+/* Item widths (mobile-first). .col = full (12) */
+.col      { grid-column: span 12; }
+.col-1    { grid-column: span 1; }
+.col-2    { grid-column: span 2; }
+.col-3    { grid-column: span 3; }
+.col-4    { grid-column: span 4; }
+.col-6    { grid-column: span 6; }
+.col-8    { grid-column: span 8; }
+.col-10   { grid-column: span 10; }
+.col-12   { grid-column: span 12; }
 
-/* responsive column counts */
-@media (min-width:576px){
-  .sm-col-1{grid-template-columns:repeat(1,1fr);}
-  .sm-col-2{grid-template-columns:repeat(2,1fr);}
-  .sm-col-3{grid-template-columns:repeat(3,1fr);}
-  .sm-col-4{grid-template-columns:repeat(4,1fr);}
-  .sm-col-6{grid-template-columns:repeat(6,1fr);}
-  .sm-col-12{grid-template-columns:repeat(12,1fr);}
+/* Breakpoints (plain CSS; edit values as needed)
+   sm   = 40rem  (640px)
+   md   = 48rem  (768px)
+   lg   = 64rem  (1024px)
+   xl   = 80rem  (1280px)
+   2xl  = 96rem  (1536px)  → class prefix uses "twoxl-" to avoid digit-leading selectors
+*/
+
+/* sm */
+@media (min-width:40rem){
+  .sm-col-1   { grid-column: span 1; }
+  .sm-col-2   { grid-column: span 2; }
+  .sm-col-3   { grid-column: span 3; }
+  .sm-col-4   { grid-column: span 4; }
+  .sm-col-6   { grid-column: span 6; }
+  .sm-col-8   { grid-column: span 8; }
+  .sm-col-10  { grid-column: span 10; }
+  .sm-col-12  { grid-column: span 12; }
 }
-@media (min-width:768px){
-  .md-col-1{grid-template-columns:repeat(1,1fr);}
-  .md-col-2{grid-template-columns:repeat(2,1fr);}
-  .md-col-3{grid-template-columns:repeat(3,1fr);}
-  .md-col-4{grid-template-columns:repeat(4,1fr);}
-  .md-col-6{grid-template-columns:repeat(6,1fr);}
-  .md-col-12{grid-template-columns:repeat(12,1fr);}
+/* md */
+@media (min-width:48rem){
+  .md-col-1   { grid-column: span 1; }
+  .md-col-2   { grid-column: span 2; }
+  .md-col-3   { grid-column: span 3; }
+  .md-col-4   { grid-column: span 4; }
+  .md-col-6   { grid-column: span 6; }
+  .md-col-8   { grid-column: span 8; }
+  .md-col-10  { grid-column: span 10; }
+  .md-col-12  { grid-column: span 12; }
 }
-@media (min-width:1024px){
-  .lg-col-1{grid-template-columns:repeat(1,1fr);}
-  .lg-col-2{grid-template-columns:repeat(2,1fr);}
-  .lg-col-3{grid-template-columns:repeat(3,1fr);}
-  .lg-col-4{grid-template-columns:repeat(4,1fr);}
-  .lg-col-6{grid-template-columns:repeat(6,1fr);}
-  .lg-col-12{grid-template-columns:repeat(12,1fr);}
+/* lg */
+@media (min-width:64rem){
+  .lg-col-1   { grid-column: span 1; }
+  .lg-col-2   { grid-column: span 2; }
+  .lg-col-3   { grid-column: span 3; }
+  .lg-col-4   { grid-column: span 4; }
+  .lg-col-6   { grid-column: span 6; }
+  .lg-col-8   { grid-column: span 8; }
+  .lg-col-10  { grid-column: span 10; }
+  .lg-col-12  { grid-column: span 12; }
+}
+/* xl */
+@media (min-width:80rem){
+  .xl-col-1   { grid-column: span 1; }
+  .xl-col-2   { grid-column: span 2; }
+  .xl-col-3   { grid-column: span 3; }
+  .xl-col-4   { grid-column: span 4; }
+  .xl-col-6   { grid-column: span 6; }
+  .xl-col-8   { grid-column: span 8; }
+  .xl-col-10  { grid-column: span 10; }
+  .xl-col-12  { grid-column: span 12; }
+}
+/* 2xl (class prefix: twoxl-) */
+@media (min-width:96rem){
+  .twoxl-col-1   { grid-column: span 1; }
+  .twoxl-col-2   { grid-column: span 2; }
+  .twoxl-col-3   { grid-column: span 3; }
+  .twoxl-col-4   { grid-column: span 4; }
+  .twoxl-col-6   { grid-column: span 6; }
+  .twoxl-col-8   { grid-column: span 8; }
+  .twoxl-col-10  { grid-column: span 10; }
+  .twoxl-col-12  { grid-column: span 12; }
 }
 
 /* ==========================================================================
