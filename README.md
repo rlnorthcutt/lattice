@@ -73,7 +73,7 @@ Or ship the one-file bundle:
 * `.lattice` once at the page shell.
 * Its **direct children** pick **bleed** (`.full-width`) or **contained** (`.container`).
 * Inside, use `.grid` for components; items size with `.col-*` (mobile-first).
-* `.col` = `.col-12`. Breakpoints: `sm-`, `md-`, `lg-`, `xl-`, `2xl-` (2xl).
+* `.col` = `.col-12`. Breakpoints: `sm-`, `md-`, `lg-`, `xl-`, `xxl-` (xxl).
 
 ## Core concepts
 
@@ -99,7 +99,7 @@ Or ship the one-file bundle:
 ```
 
 * `.grid` **defaults to 12 tracks**—no boilerplate needed.
-* Items: `.col-1,2,3,4,6,8,10,12` (+ responsive `sm-`, `md-`, `lg-`, `xl-`, `2xl-`).
+* Items: `.col-1,2,3,4,6,8,10,12` (+ responsive `sm-`, `md-`, `lg-`, `xl-`, `xxl-`).
 
 ### 3) Page-level placement (Extra)
 
@@ -125,18 +125,18 @@ For precise art-direction on the **master grid**:
 | Sections        | `.container`, `.full-width`                    | Must be direct children of `.lattice`.              |
 | Component grids | `.grid`                                        | Defaults to 12 equal tracks.                        |
 | Item widths     | `.col` (= `.col-12`), `.col-1,2,3,4,6,8,10,12` | Mobile-first spans inside `.grid`.                  |
-| Responsive      | `sm-`, `md-`, `lg-`, `xl-`, `2xl-`           | E.g. `md-col-4`.                                    |
+| Responsive      | `sm-`, `md-`, `lg-`, `xl-`, `xxl-`           | E.g. `md-col-4`.                                    |
 
 **Breakpoints (min-width):**
-`sm 40rem` (640px), `md 48rem` (768px), `lg 64rem` (1024px), `xl 80rem` (1280px), `2xl 96rem` (1536px).
-Classes use `2xl-` to avoid digit-leading selectors (docs can say “2xl”).
+`sm 40rem` (640px), `md 48rem` (768px), `lg 64rem` (1024px), `xl 80rem` (1280px), `xxl 96rem` (1536px).
+Classes use `xxl-` to avoid digit-leading selectors (docs can say “xxl”).
 
 ### Extra classes (high-value 95%)
 
 | Area                     | Examples                                                                                                  |
 | ------------------------ | --------------------------------------------------------------------------------------------------------- |
 | Spacing                  | `.p-0…5`, `.m-0…5`, `.gap-0…5`, `px-*`, `py-*`, etc.                                                      |
-| Display                  | `.d-none`, `.d-flex`, `.d-grid` + responsive `sm-*/md-*/lg-*/xl-*/2xl-*`                                |
+| Display                  | `.d-none`, `.d-flex`, `.d-grid` + responsive `sm-*/md-*/lg-*/xl-*/xxl-*`                                |
 | Grid flow/place          | `.flow-row`, `.flow-col`, `.flow-dense`, `.place-items-center`, `.place-content-start`, `.place-self-end` |
 | **Page-shell placement** | `.start-1…12`, `.span-1…12` (only on `.lattice > *`)                                                      |
 | Flexbox                  | `.flex-row`, `.justify-between`, `.items-center`, `.order-1`…                                             |
