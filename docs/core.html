@@ -1,186 +1,156 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lattice Core Documentation</title>
-    <link rel="stylesheet" href="../lattice.css">
-    <style>
-body {
-    max-width: 650px;
-    margin: 40px auto;
-    padding: 0 10px;
-    font: 18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    color: #444
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-h1,h2,h3 {
-    line-height: 1.2
-}
+  <!-- Classless base (Ivy) via CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css" />
 
-@media (prefers-color-scheme: dark) {
-    body {
-        color:#c9d1d9;
-        background: #0d1117
-    }
+  <!-- Lattice (full) — copied to /docs via your workflow -->
+  <link rel="stylesheet" href="./lattice.full.min.css" />
 
-    a:link {
-        color: #58a6ff
-    }
-
-    a:visited {
-        color: #8e96f0
-    }
-}
-
-header {
-    margin-bottom: 2rem;
-}
-
-nav {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-}
-
-a {
-    color: #444;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-}
-
-a:hover {
-    border-bottom-color: currentColor;
-}
-
-h1 {
-    margin-bottom: 0.5rem;
-}
-
-.lead {
-    margin-top: 0;
-    color: rgba(68,68,68,.8);
-}
-
-section + section {
-    margin-top: 3rem;
-}
-
-code {
-    font-family: "SFMono-Regular", ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: .9rem;
-}
-
-pre {
-    background: rgba(15,23,42,.08);
-    padding: 1rem;
-    border-radius: .75rem;
-    overflow-x: auto;
-}
-
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    text-align: left;
-    padding: .5rem 0;
-    border-bottom: 1px solid rgba(68,68,68,.15);
-}
-
-@media (prefers-color-scheme: dark) {
-    .lead {
-        color: rgba(201,209,217,.75);
-    }
-
-    pre {
-        background: rgba(88,166,255,.15);
-    }
-
-    .table th,
-    .table td {
-        border-bottom-color: rgba(201,209,217,.2);
-    }
-}
-    </style>
+  <title>Lattice.css — layout utilities that stay out of your way</title>
+  <meta name="description" content="Lattice gives you a 12-column grid, responsive equal-column helpers, and tiny utilities—without dictating typography or components." />
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="core.html">Lattice Core Docs</a>
-            <a href="extra.html">Lattice Extra Docs</a>
-        </nav>
-        <h1>Lattice Core</h1>
-        <p class="lead">The foundation layer of utilities that power layout, spacing, and typography across every Lattice project.</p>
-    </header>
-    <main>
-        <section>
-            <h2>Installation</h2>
-            <p>Include the compiled stylesheet from npm, a CDN, or the repository. The Core layer is intentionally small and tree-shakeable if you use the source files.</p>
-            <pre><code># npm
-npm install @lattice-css/core
+<body class="lattice">
 
-# import into your CSS build
-@import "@lattice-css/core";
+  <!-- Header / Top bar -->
+  <header class="full-width">
+    <div class="container d-flex justify-between items-center">
+      <nav aria-label="main">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="core.html">Core Docs</a></li>
+          <li><a href="extra.html">Extra Docs</a></li>
+          <li><a href="https://github.com/rlnorthcutt/lattice">GitHub</a></li>
+        </ul>
+      </nav>
+      <dark-mode-toggle></dark-mode-toggle>
+    </div>
 
-# or drop the bundle in HTML
-&lt;link rel="stylesheet" href="https://unpkg.com/@lattice-css/core/dist/lattice-core.min.css"&gt;</code></pre>
-        </section>
-        <section>
-            <h2>Philosophy</h2>
-            <ul>
-                <li><strong>Predictable scales</strong> — spacing, sizing, and typography utilities share a consistent numeric rhythm.</li>
-                <li><strong>Accessibility first</strong> — defaults embrace accessible contrast, focus rings, and motion sensitivity.</li>
-                <li><strong>Composition over components</strong> — keep markup expressive by combining small, purposeful classes.</li>
-            </ul>
-        </section>
-        <section>
-            <h2>Key Utility Families</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Prefix</th>
-                        <th>Example</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Spacing</td>
-                        <td><code>p-</code>, <code>m-</code></td>
-                        <td><code>p-4</code> applies uniform padding from the core spacing scale.</td>
-                    </tr>
-                    <tr>
-                        <td>Layout</td>
-                        <td><code>flex-</code>, <code>grid-</code></td>
-                        <td><code>flex-center</code> creates a flex container centered on both axes.</td>
-                    </tr>
-                    <tr>
-                        <td>Typography</td>
-                        <td><code>text-</code>, <code>font-</code></td>
-                        <td><code>text-lg</code> increases type size while keeping the rhythm intact.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <section>
-            <h2>Example</h2>
-            <p>Combine utilities to ship production-ready interfaces without leaving HTML.</p>
-            <pre><code>&lt;section class="p-6 bg-surface rounded-lg shadow-soft"&gt;
-  &lt;h2 class="text-xl font-semibold mb-2"&gt;Create once, reuse everywhere&lt;/h2&gt;
-  &lt;p class="text-base text-muted"&gt;
-    Core utilities let you iterate quickly and stay consistent across features.
-  &lt;/p&gt;
-  &lt;div class="mt-4 flex gap-3"&gt;
-    &lt;button class="btn btn-primary"&gt;Primary action&lt;/button&gt;
-    &lt;button class="btn btn-ghost"&gt;Secondary&lt;/button&gt;
-  &lt;/div&gt;
+    <!-- Centered hero copy -->
+    <div class="container text-center">
+      <h1>Lattice.css</h1>
+      <p class="muted">A layout-first utility layer: predictable grids, tiny helpers, and zero opinions about your typography or components.</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Value prop -->
+    <section>
+      <article class="card" data-variant="soft">
+        <header><h2>Why Lattice?</h2></header>
+        <p>
+          Lattice focuses on the “boring math” of layout so your team can keep typography, colors, and components in your own design system.
+          You get:
+        </p>
+        <ul>
+          <li><strong>Master 12-col page grid</strong> with fluid outer gutters.</li>
+          <li><strong>Component grids</strong> that default to 12 equal tracks for simple alignment.</li>
+          <li><strong>One-class responsive columns</strong> (<code>.grid .col-N</code>) for equal layouts without extra wrappers.</li>
+          <li><strong>Tiny utility set</strong> for visibility/positioning. Need more? Add <em>Extra</em> for spacing, flex helpers, and unequal spans.</li>
+        </ul>
+        <footer class="btn-group">
+          <a role="button" href="core.html" data-variant="primary">Explore Core</a>
+          <a role="button" href="extra.html" data-variant="outline">Browse Extra</a>
+        </footer>
+      </article>
+    </section>
+
+    <!-- Strategy: responsive 1 -> 3 feature grid -->
+    <section>
+      <h2>Strategy</h2>
+      <!-- 1 column by default, 3 columns ≥ md -->
+      <div class="grid md-col-3 gap-2">
+        <article class="card">
+          <header><h3>Keep Core Tiny</h3></header>
+          <p>Ship only the 12-col page grid, equal-column helpers, and minimal utilities. Fewer classes, faster loads, easier maintenance.</p>
+          <footer><a role="button" href="core.html">Explore Core</a></footer>
+        </article>
+
+        <article class="card">
+          <header><h3>Opt Into Extras</h3></header>
+          <p>Add spacing scales, display/flex helpers, and unequal spans only when you need them—your bundle stays lean by default.</p>
+          <footer><a role="button" href="extra.html">Browse Extra</a></footer>
+        </article>
+
+        <article class="card">
+          <header><h3>Own Your Aesthetics</h3></header>
+          <p>Pair Lattice with a classless base like Ivy for sensible defaults, while your design system controls typography, color, and components.</p>
+          <footer><a role="button" href="https://github.com/rlnorthcutt/ivy">Ivy on GitHub</a></footer>
+        </article>
+      </div>
+    </section>
+
+    <!-- Getting Started -->
+    <section>
+      <h2>Getting Started</h2>
+
+      <h3>CDN (quickest path)</h3>
+      <p>Drop these tags in your <code>&lt;head&gt;</code>:</p>
+<pre><code>&lt;!-- Ivy (classless base) --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css"&gt;
+
+&lt;!-- Lattice (full bundle) --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css"&gt;</code></pre>
+
+      <h3>Local bundle (recommended for this docs site)</h3>
+      <p>Your workflow copies the minified Lattice full build into <code>docs/</code>:</p>
+<pre><code>&lt;link rel="stylesheet" href="./lattice.full.min.css"&gt;</code></pre>
+
+      <details>
+        <summary>What’s in “Core” vs “Extra”?</summary>
+        <ul>
+          <li><strong>Core:</strong> 12-col page grid, <code>.grid</code> with 12 equal tracks, equal-column helpers (<code>.col-1,2,4,6,8,12</code>), responsive <code>sm/md/lg/xl/xxl-col-*</code>, minimal display/visibility.</li>
+          <li><strong>Extra:</strong> spacing/gap scale, display toggles, flex/positioning helpers, and the remaining spans (<code>.span-1..12</code> + responsive) for unequal layouts.</li>
+        </ul>
+      </details>
+    </section>
+
+    <!-- Examples: minimal markup -->
+    <section>
+      <h2>Examples</h2>
+
+      <article class="card">
+        <header><h3>Equal Columns (one class per breakpoint)</h3></header>
+        <p>On small screens items stack; at larger breakpoints they split evenly.</p>
+<pre><code>&lt;section class="grid sm-col-2 lg-col-3 gap-2"&gt;
+  &lt;div class="card"&gt;&lt;h4&gt;Tile 1&lt;/h4&gt;&lt;p&gt;Auto stack → 2 → 3 columns.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="card"&gt;&lt;h4&gt;Tile 2&lt;/h4&gt;&lt;p&gt;No extra wrappers needed.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="card"&gt;&lt;h4&gt;Tile 3&lt;/h4&gt;&lt;p&gt;Equal widths by track count.&lt;/p&gt;&lt;/div&gt;
 &lt;/section&gt;</code></pre>
-        </section>
-    </main>
+      </article>
+
+      <article class="card">
+        <header><h3>Unequal Columns (add Extra)</h3></header>
+        <p>Use child spans when you need 25/75, 3/9, etc.</p>
+<pre><code>&lt;section class="grid gap-2"&gt;
+  &lt;aside class="span-3 card"&gt;&lt;h4&gt;Sidebar (3/12)&lt;/h4&gt;&lt;/aside&gt;
+  &lt;main class="span-9 card"&gt;&lt;h4&gt;Content (9/12)&lt;/h4&gt;&lt;/main&gt;
+&lt;/section&gt;</code></pre>
+      </article>
+
+      <article class="card">
+        <header><h3>Full-bleed Section + Centered Content</h3></header>
+<pre><code>&lt;header class="full-width"&gt;
+  &lt;div class="container"&gt;
+    &lt;h2&gt;Full-bleed shell, centered inner content&lt;/h2&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+      </article>
+    </section>
+
+  </main>
+     
+  <!-- Footer -->
+<footer>
+  <hr />
+  <p class="muted">MIT © Ron Northcutt • Built with Ivy + Lattice</p>
+</footer>
+
+  <!-- Dark mode toggle (web component) -->
+  <script type="module" src="./dark-mode-toggle.min.js" defer></script>
 </body>
 </html>

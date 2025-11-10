@@ -57,9 +57,8 @@ jobs:
       - name: Minify full bundle
         run: cleancss -o dist/lattice.full.min.css dist/lattice.full.css
 
-      # Optionally: generate source maps (uncomment if you want them)
-      # - name: Minify with source maps
-      #   run: cleancss --source-map --source-map-inline-sources -o dist/lattice.full.min.css dist/lattice.full.css
+      - name: Copy minified full to docs
+        run: cp dist/lattice.full.min.css docs/
 
       - name: Commit distribution files
         run: |
