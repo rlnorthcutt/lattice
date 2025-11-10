@@ -59,7 +59,7 @@ jobs:
 
       # --- Copy minified full to docs folder for pages ---
       - name: Copy minified full to docs
-        run: cp dist/lattice.full.min.css docs/
+        run: cp dist/lattice.full.css docs/css/
 
       - name: Commit distribution files
         run: |

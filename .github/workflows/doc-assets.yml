@@ -1,0 +1,94 @@
+name: 🏗️ Build Documentation Assets
+
+# Configure triggers for the workflow
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Optional reason for triggering the manual build'
+        required: false
+        default: 'Manual trigger'
+
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/css/**'
+      - 'docs/js/**'
+      - 'package.json' 
+      - 'package-lock.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_minify:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+
+      # --- New Step to Download External Files ---
+      - name: 📥 Fetch External Assets
+        run: |
+          # Create directories if they don't exist
+          mkdir -p docs/js docs/css
+          
+          echo "Downloading dark-mode-toggle.js..."
+          # Download JS file, naming it for proper load order (e.g., 90_...)
+          curl -o docs/js/dark-mode-toggle.js \
+            https://raw.githubusercontent.com/rlnorthcutt/dark-mode-toggle/refs/heads/main/dark-mode-toggle.js
+            
+          echo "Downloading ivy.full.css..."
+          # Download CSS file, naming it for proper load order (e.g., 01_...)
+          curl -o docs/css/ivy.full.css \
+            https://raw.githubusercontent.com/rlnorthcutt/ivy/refs/heads/main/dist/ivy.full.css
+
+      # --- Node Setup ---
+      - name: 🏃 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Install Build Dependencies
+        run: npm install
+
+      # --- Asset Aggregation and Minification ---
+      - name: ⚙️ Aggregate and Minimize Docs Assets
+        run: |
+          # Define the target directory and output file paths
+          OUTPUT_DIR="docs/static"
+          CSS_OUTPUT="$OUTPUT_DIR/docs.min.css"
+          JS_OUTPUT="$OUTPUT_DIR/docs.min.js"
+
+          echo "Ensuring output directory exists..."
+          mkdir -p $OUTPUT_DIR
+          
+          # --- Processing CSS (Aggregates ALL .css files in alphanumeric order) ---
+          echo "--- Processing CSS ---"
+          # 1. Concatenate all CSS files (including the downloaded 01_ivy_base.css)
+          cat docs/css/*.css > docs/css/temp.css
+          
+          # 2. Minimize the aggregated file
+          npx clean-css-cli docs/css/temp.css -o $CSS_OUTPUT
+          
+          # 3. Clean up
+          rm docs/css/temp.css
+          echo "✅ Minified CSS saved to $CSS_OUTPUT"
+          
+          # --- Processing JavaScript (Aggregates ALL .js files in alphanumeric order) ---
+          echo "--- Processing JavaScript ---"
+          # Minify and aggregate all JS files (including the downloaded 90_dark-mode-toggle.js)
+          npx uglifyjs docs/js/*.js \
+            -c -m -o $JS_OUTPUT
+          echo "✅ Minified JS saved to $JS_OUTPUT"
+
+      # --- Commit Built Assets ---
+      - name: 💾 Commit Minified Assets
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'build(docs): Auto-aggregate and minify documentation assets'
+          files: |
+            docs/static/style.min.css
+            docs/static/script.min.js
