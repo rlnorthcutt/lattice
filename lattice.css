@@ -1,17 +1,16 @@
 /*!
  * Lattice.css — lightweight layout & positioning utilities (CORE)
- * Version: 1.1.0
+ * Version: 1.2.0
  * URL: https://github.com/rlnorthcutt/lattice
  * License: MIT
  */
 
 /** Scope (CORE)
  * - Page layout: 12-col master grid with fluid outer gutters.
- * - Component layout: internal .grid (defaults to 12 tracks).
- * - Item widths: .col (= .col-12) and .col-{1,2,4,6,8,12} + sm/md/lg/xl/xxl responsive variants.
- * - Variable span: .col-var (and responsive) using --lat-span for arbitrary spans.
+ * - Component layout: .grid (defaults to 12 tracks).
+ * - Equal columns (container): .grid.col-* (+ sm/md/lg/xl/xxl).
  * - Simple placements: .full-width (full bleed) / .container (centered).
- * - A few width/display/visibility helpers.
+ * - Minimal display/visibility/width helpers.
  */
 
 /* ==========================================================================
@@ -26,10 +25,10 @@
   /* internal .grid behavior */
   --lat-track:1fr;
 
-  /* rhythm & gaps (standalone scale) */
-  --lat-space:1rem;      /* base spacing unit */
-  --lat-gap-x:1rem;      /* column gap (x) */
-  --lat-gap-y:1rem;      /* row gap (y) */
+  /* rhythm & gaps */
+  --lat-space:1rem;
+  --lat-gap-x:1rem;
+  --lat-gap-y:1rem;
 }
 
 /* ==========================================================================
@@ -38,96 +37,55 @@
 .lattice{
   display:grid;
   grid-template-columns:
-    [fa] var(--lat-fluid-area)
+    var(--lat-fluid-area)
     [m] max(var(--lat-space), env(safe-area-inset-left))
     [c] var(--lat-track) repeat(var(--lat-col-count), [g] var(--lat-gap-x) [c] var(--lat-track))
     [m] max(var(--lat-space), env(safe-area-inset-right))
-    [fa] var(--lat-fluid-area);
+    var(--lat-fluid-area);
 }
-/* common placements (direct children of .lattice) */
-/* Replace your existing .full-width with this */
-.full-width { grid-column: 1 / -1; }
-.container{grid-column:m 1 / m 2;}
+/* placements (direct children of .lattice) */
+.full-width{ grid-column: 1 / -1; }
+.container { grid-column: m 1 / m 2; }
 
 /* ==========================================================================
    2) Internal grids (component-level)
    ========================================================================== */
-/* Default every .grid to a 12-track grid */
+/* Default: 12 tracks unless container sets --lat-cols */
 .grid{
   display:grid;
   row-gap:var(--lat-gap-y);
   column-gap:var(--lat-gap-x);
-  grid-template-columns:repeat(12, minmax(0, 1fr));
+  grid-template-columns: var(--lat-cols, repeat(12, minmax(0, 1fr)));
 }
 
-/* Item widths (mobile-first). .col = full (12) */
-.col-1 { grid-column: span 1; }
-.col-2 { grid-column: span 2; }
-.col-4 { grid-column: span 4; }
-.col-6 { grid-column: span 6; }
-.col-8 { grid-column: span 8; }
-.col,.col-12{ grid-column: span 12; }
+/* Equal columns on the CONTAINER (.grid) */
+.grid.col-1  { --lat-cols: repeat(1,  minmax(0,1fr)); }
+.grid.col-2  { --lat-cols: repeat(2,  minmax(0,1fr)); }
+.grid.col-3  { --lat-cols: repeat(3,  minmax(0,1fr)); }
+.grid.col-4  { --lat-cols: repeat(4,  minmax(0,1fr)); }
+.grid.col-6  { --lat-cols: repeat(6,  minmax(0,1fr)); }
+.grid.col-12 { --lat-cols: repeat(12, minmax(0,1fr)); }
 
-/* Variable span (arbitrary) — defaults to 12 if unset */
-.col-var { grid-column: span var(--lat-span, 12); }
-
-/* Breakpoints (plain CSS; edit values as needed)
-   sm   = 40rem  (640px)
-   md   = 48rem  (768px)
-   lg   = 64rem  (1024px)
-   xl   = 80rem  (1280px)
-   xxl  = 96rem  (1536px)
-*/
-
-/* sm */
-@media (min-width:40rem){
-  .sm-col-1  { grid-column: span 1; }
-  .sm-col-2  { grid-column: span 2; }
-  .sm-col-4  { grid-column: span 4; }
-  .sm-col-6  { grid-column: span 6; }
-  .sm-col-8  { grid-column: span 8; }
-  .sm-col-12 { grid-column: span 12; }
-  .sm-col-var{ grid-column: span var(--lat-span, 12); }
+/* Responsive equal columns (match breakpoints) */
+@media (min-width:40rem){ /* sm */
+  .grid.sm-col-2{ --lat-cols: repeat(2, minmax(0,1fr)); }
+  .grid.sm-col-3{ --lat-cols: repeat(3, minmax(0,1fr)); }
+  .grid.sm-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* md */
-@media (min-width:48rem){
-  .md-col-1  { grid-column: span 1; }
-  .md-col-2  { grid-column: span 2; }
-  .md-col-4  { grid-column: span 4; }
-  .md-col-6  { grid-column: span 6; }
-  .md-col-8  { grid-column: span 8; }
-  .md-col-12 { grid-column: span 12; }
-  .md-col-var{ grid-column: span var(--lat-span, 12); }
+@media (min-width:48rem){ /* md */
+  .grid.md-col-2{ --lat-cols: repeat(2, minmax(0,1fr)); }
+  .grid.md-col-3{ --lat-cols: repeat(3, minmax(0,1fr)); }
+  .grid.md-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* lg */
-@media (min-width:64rem){
-  .lg-col-1  { grid-column: span 1; }
-  .lg-col-2  { grid-column: span 2; }
-  .lg-col-4  { grid-column: span 4; }
-  .lg-col-6  { grid-column: span 6; }
-  .lg-col-8  { grid-column: span 8; }
-  .lg-col-12 { grid-column: span 12; }
-  .lg-col-var{ grid-column: span var(--lat-span, 12); }
+@media (min-width:64rem){ /* lg */
+  .grid.lg-col-3{ --lat-cols: repeat(3, minmax(0,1fr)); }
+  .grid.lg-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* xl */
-@media (min-width:80rem){
-  .xl-col-1  { grid-column: span 1; }
-  .xl-col-2  { grid-column: span 2; }
-  .xl-col-4  { grid-column: span 4; }
-  .xl-col-6  { grid-column: span 6; }
-  .xl-col-8  { grid-column: span 8; }
-  .xl-col-12 { grid-column: span 12; }
-  .xl-col-var{ grid-column: span var(--lat-span, 12); }
+@media (min-width:80rem){ /* xl */
+  .grid.xl-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* 2xl (class prefix: xxl-) */
-@media (min-width:96rem){
-  .xxl-col-1   { grid-column: span 1; }
-  .xxl-col-2   { grid-column: span 2; }
-  .xxl-col-4   { grid-column: span 4; }
-  .xxl-col-6   { grid-column: span 6; }
-  .xxl-col-8   { grid-column: span 8; }
-  .xxl-col-12  { grid-column: span 12; }
-  .xxl-col-var { grid-column: span var(--lat-span, 12); }
+@media (min-width:96rem){ /* xxl */
+  .grid.xxl-col-6{ --lat-cols: repeat(6, minmax(0,1fr)); }
 }
 
 /* ==========================================================================
