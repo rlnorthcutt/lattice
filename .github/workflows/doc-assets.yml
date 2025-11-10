@@ -11,10 +11,11 @@ on:
 
   push:
     branches:
-      - main # Or your default branch
+      - main
     paths:
       - 'docs/css/**'
       - 'docs/js/**'
+      - '.github/workflows/**'
 
 permissions:
   contents: write # Required for the git-auto-commit-action to commit changes
@@ -35,12 +36,12 @@ jobs:
           
           echo "Downloading dark-mode-toggle.js..."
           # Download JS file, naming it for proper load order
-          curl -o docs/js/90_dark-mode-toggle.js \
+          curl -o docs/js/dark-mode-toggle.js \
             https://raw.githubusercontent.com/rlnorthcutt/dark-mode-toggle/refs/heads/main/dark-mode-toggle.js
             
           echo "Downloading ivy.full.css..."
           # Download CSS file, naming it for proper load order
-          curl -o docs/css/01_ivy_base.css \
+          curl -o docs/css/ivy.full.css \
             https://raw.githubusercontent.com/rlnorthcutt/ivy/refs/heads/main/dist/ivy.full.css
 
       # --- 2. Setup Node and Install Tools Globally ---
