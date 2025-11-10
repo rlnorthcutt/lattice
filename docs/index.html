@@ -91,7 +91,7 @@
 
       <h3>Local bundle (recommended for this docs site)</h3>
       <p>Your workflow copies the minified Lattice full build into <code>docs/</code>:</p>
-<pre><code>&lt;link rel="stylesheet" href="./lattice.full.min.css"&gt;</code></pre>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="./lattice.full.min.css"&gt;</code></pre>
 
       <details>
         <summary>What’s in “Core” vs “Extra”?</summary>
@@ -110,9 +110,18 @@
         <h3>Equal Columns (one class per breakpoint)</h3>
         <p>On small screens items stack; at larger breakpoints they split evenly.</p>
 <pre><code class="language-html">&lt;section class="grid sm-col-2 lg-col-3 gap-2"&gt;
-  &lt;div class="card"&gt;&lt;h4&gt;Tile 1&lt;/h4&gt;&lt;p&gt;Auto stack → 2 → 3 columns.&lt;/p&gt;&lt;/div&gt;
-  &lt;div class="card"&gt;&lt;h4&gt;Tile 2&lt;/h4&gt;&lt;p&gt;No extra wrappers needed.&lt;/p&gt;&lt;/div&gt;
-  &lt;div class="card"&gt;&lt;h4&gt;Tile 3&lt;/h4&gt;&lt;p&gt;Equal widths by track count.&lt;/p&gt;&lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h4&gt;Tile 1&lt;/h4&gt;
+    &lt;p&gt;Auto stack → 2 → 3 columns.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h4&gt;Tile 2&lt;/h4&gt;
+    &lt;p&gt;No extra wrappers needed.&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="card"&gt;
+    &lt;h4&gt;Tile 3&lt;/h4&gt;
+    &lt;p&gt;Equal widths by track count.&lt;/p&gt;
+  &lt;/div&gt;
 &lt;/section&gt;</code></pre>
       </article>
 
@@ -120,8 +129,12 @@
         <h3>Unequal Columns (add Extra)</h3>
         <p>Use child spans when you need 25/75, 3/9, etc.</p>
 <pre><code class="language-html">&lt;section class="grid gap-2"&gt;
-  &lt;aside class="span-3 card"&gt;&lt;h4&gt;Sidebar (3/12)&lt;/h4&gt;&lt;/aside&gt;
-  &lt;main class="span-9 card"&gt;&lt;h4&gt;Content (9/12)&lt;/h4&gt;&lt;/main&gt;
+  &lt;aside class="span-3 card"&gt;
+    &lt;h4&gt;Sidebar (3/12)&lt;/h4&gt;
+  &lt;/aside&gt;
+  &lt;main class="span-9 card"&gt;
+    &lt;h4&gt;Content (9/12)&lt;/h4&gt;
+  &lt;/main&gt;
 &lt;/section&gt;</code></pre>
       </article>
 
