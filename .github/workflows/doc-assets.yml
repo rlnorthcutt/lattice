@@ -15,8 +15,6 @@ on:
     paths:
       - 'docs/css/**'
       - 'docs/js/**'
-      - 'package.json' 
-      - 'package-lock.json'
 
 permissions:
   contents: write
