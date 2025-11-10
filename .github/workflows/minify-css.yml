@@ -57,6 +57,7 @@ jobs:
       - name: Minify full bundle
         run: cleancss -o dist/lattice.full.min.css dist/lattice.full.css
 
+      # --- Copy minified full to docs folder for pages ---
       - name: Copy minified full to docs
         run: cp dist/lattice.full.min.css docs/
 
@@ -65,6 +66,7 @@ jobs:
           set -e
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add dist/
+          git add dist/ 
+          git add docs/
           git diff --staged --quiet || git commit -m "Auto-build CSS dist [skip ci]"
           git push
