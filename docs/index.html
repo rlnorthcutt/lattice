@@ -3,12 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Classless base (Ivy) via CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css" />
-
-  <!-- Lattice (full) — copied to /docs via your workflow -->
-  <link rel="stylesheet" href="./lattice.full.min.css" />
+  <link rel="stylesheet" href="./static/docs.min.css" />
 
   <title>Lattice.css — layout utilities that stay out of your way</title>
   <meta name="description" content="Lattice gives you a 12-column grid, responsive equal-column helpers, and tiny utilities—without dictating typography or components." />
@@ -51,7 +46,7 @@
           <li><strong>One-class responsive columns</strong> (<code>.grid .col-N</code>) for equal layouts without extra wrappers.</li>
           <li><strong>Tiny utility set</strong> for visibility/positioning. Need more? Add <em>Extra</em> for spacing, flex helpers, and unequal spans.</li>
         </ul>
-        <div class="btn-group">
+        <div class="btn-group justify-center p-4">
           <a role="button" href="core.html" data-variant="primary">Explore Core</a>
           <a role="button" href="extra.html" data-variant="outline">Browse Extra</a>
         </div>
@@ -61,7 +56,7 @@
     <section>
       <h2>Strategy</h2>
       <!-- 1 column by default, 3 columns ≥ md -->
-      <div class="grid md-col-3 gap-2">
+      <div class="grid col-1 md-col-3">
         <article class="card">
           <header><h3>Keep Core Tiny</h3></header>
           <p>Ship only the 12-col page grid, equal-column helpers, and minimal utilities. Fewer classes, faster loads, easier maintenance.</p>
@@ -112,7 +107,7 @@
       <h2>Examples</h2>
 
       <article>
-        <header><h3>Equal Columns (one class per breakpoint)</h3></header>
+        <h3>Equal Columns (one class per breakpoint)</h3>
         <p>On small screens items stack; at larger breakpoints they split evenly.</p>
 <pre><code>&lt;section class="grid sm-col-2 lg-col-3 gap-2"&gt;
   &lt;div class="card"&gt;&lt;h4&gt;Tile 1&lt;/h4&gt;&lt;p&gt;Auto stack → 2 → 3 columns.&lt;/p&gt;&lt;/div&gt;
@@ -122,7 +117,7 @@
       </article>
 
       <article>
-        <header><h3>Unequal Columns (add Extra)</h3></header>
+        <h3>Unequal Columns (add Extra)</h3>
         <p>Use child spans when you need 25/75, 3/9, etc.</p>
 <pre><code>&lt;section class="grid gap-2"&gt;
   &lt;aside class="span-3 card"&gt;&lt;h4&gt;Sidebar (3/12)&lt;/h4&gt;&lt;/aside&gt;
@@ -131,7 +126,7 @@
       </article>
 
       <article>
-        <header><h3>Full-bleed Section + Centered Content</h3></header>
+        <h3>Full-bleed Section + Centered Content</h3>
 <pre><code>&lt;header class="full-width"&gt;
   &lt;div class="container"&gt;
     &lt;h2&gt;Full-bleed shell, centered inner content&lt;/h2&gt;
@@ -149,6 +144,6 @@
 </footer>
 
   <!-- Dark mode toggle (web component) -->
-  <script type="module" src="./dark-mode-toggle.min.js" defer></script>
+  <script type="module" src="./static/docs.min.js" defer></script>
 </body>
 </html>
