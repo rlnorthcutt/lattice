@@ -1,17 +1,16 @@
 /*!
  * Lattice.css — lightweight layout & positioning utilities (CORE)
- * Version: 1.1.0
+ * Version: 1.2.0
  * URL: https://github.com/rlnorthcutt/lattice
  * License: MIT
  */
 
 /** Scope (CORE)
  * - Page layout: 12-col master grid with fluid outer gutters.
- * - Component layout: internal .grid (defaults to 12 tracks).
- * - Item widths: .col (= .col-12) and .col-{1,2,4,6,8,12} + sm/md/lg/xl/xxl responsive variants.
- * - Variable span: .col-var (and responsive) using --lat-span for arbitrary spans.
+ * - Component layout: .grid (defaults to 12 tracks).
+ * - Equal columns (container): .grid.col-* (+ sm/md/lg/xl/xxl).
  * - Simple placements: .full-width (full bleed) / .container (centered).
- * - A few width/display/visibility helpers.
+ * - Minimal display/visibility/width helpers.
  */
 
 /* ==========================================================================
@@ -26,10 +25,10 @@
   /* internal .grid behavior */
   --lat-track:1fr;
 
-  /* rhythm & gaps (standalone scale) */
-  --lat-space:1rem;      /* base spacing unit */
-  --lat-gap-x:1rem;      /* column gap (x) */
-  --lat-gap-y:1rem;      /* row gap (y) */
+  /* rhythm & gaps */
+  --lat-space:1rem;
+  --lat-gap-x:1rem;
+  --lat-gap-y:1rem;
 }
 
 /* ==========================================================================
@@ -38,96 +37,55 @@
 .lattice{
   display:grid;
   grid-template-columns:
-    [fa] var(--lat-fluid-area)
+    var(--lat-fluid-area)
     [m] max(var(--lat-space), env(safe-area-inset-left))
     [c] var(--lat-track) repeat(var(--lat-col-count), [g] var(--lat-gap-x) [c] var(--lat-track))
     [m] max(var(--lat-space), env(safe-area-inset-right))
-    [fa] var(--lat-fluid-area);
+    var(--lat-fluid-area);
 }
-/* common placements (direct children of .lattice) */
-/* Replace your existing .full-width with this */
-.full-width { grid-column: 1 / -1; }
-.container{grid-column:m 1 / m 2;}
+/* placements (direct children of .lattice) */
+.full-width{ grid-column: 1 / -1; }
+.container { grid-column: m 1 / m 2; }
 
 /* ==========================================================================
    2) Internal grids (component-level)
    ========================================================================== */
-/* Default every .grid to a 12-track grid */
+/* Default: 12 tracks unless container sets --lat-cols */
 .grid{
   display:grid;
   row-gap:var(--lat-gap-y);
   column-gap:var(--lat-gap-x);
-  grid-template-columns:repeat(12, minmax(0, 1fr));
+  grid-template-columns: var(--lat-cols, repeat(12, minmax(0, 1fr)));
 }
 
-/* Item widths (mobile-first). .col = full (12) */
-.col-1 { grid-column: span 1; }
-.col-2 { grid-column: span 2; }
-.col-4 { grid-column: span 4; }
-.col-6 { grid-column: span 6; }
-.col-8 { grid-column: span 8; }
-.col,.col-12{ grid-column: span 12; }
+/* Equal columns on the CONTAINER (.grid) */
+.grid.col-1  { --lat-cols: repeat(1,  minmax(0,1fr)); }
+.grid.col-2  { --lat-cols: repeat(2,  minmax(0,1fr)); }
+.grid.col-3  { --lat-cols: repeat(3,  minmax(0,1fr)); }
+.grid.col-4  { --lat-cols: repeat(4,  minmax(0,1fr)); }
+.grid.col-6  { --lat-cols: repeat(6,  minmax(0,1fr)); }
+.grid.col-12 { --lat-cols: repeat(12, minmax(0,1fr)); }
 
-/* Variable span (arbitrary) — defaults to 12 if unset */
-.col-var { grid-column: span var(--lat-span, 12); }
-
-/* Breakpoints (plain CSS; edit values as needed)
-   sm   = 40rem  (640px)
-   md   = 48rem  (768px)
-   lg   = 64rem  (1024px)
-   xl   = 80rem  (1280px)
-   xxl  = 96rem  (1536px)
-*/
-
-/* sm */
-@media (min-width:40rem){
-  .sm-col-1  { grid-column: span 1; }
-  .sm-col-2  { grid-column: span 2; }
-  .sm-col-4  { grid-column: span 4; }
-  .sm-col-6  { grid-column: span 6; }
-  .sm-col-8  { grid-column: span 8; }
-  .sm-col-12 { grid-column: span 12; }
-  .sm-col-var{ grid-column: span var(--lat-span, 12); }
+/* Responsive equal columns (match breakpoints) */
+@media (min-width:40rem){ /* sm */
+  .grid.sm-col-2{ --lat-cols: repeat(2, minmax(0,1fr)); }
+  .grid.sm-col-3{ --lat-cols: repeat(3, minmax(0,1fr)); }
+  .grid.sm-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* md */
-@media (min-width:48rem){
-  .md-col-1  { grid-column: span 1; }
-  .md-col-2  { grid-column: span 2; }
-  .md-col-4  { grid-column: span 4; }
-  .md-col-6  { grid-column: span 6; }
-  .md-col-8  { grid-column: span 8; }
-  .md-col-12 { grid-column: span 12; }
-  .md-col-var{ grid-column: span var(--lat-span, 12); }
+@media (min-width:48rem){ /* md */
+  .grid.md-col-2{ --lat-cols: repeat(2, minmax(0,1fr)); }
+  .grid.md-col-3{ --lat-cols: repeat(3, minmax(0,1fr)); }
+  .grid.md-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* lg */
-@media (min-width:64rem){
-  .lg-col-1  { grid-column: span 1; }
-  .lg-col-2  { grid-column: span 2; }
-  .lg-col-4  { grid-column: span 4; }
-  .lg-col-6  { grid-column: span 6; }
-  .lg-col-8  { grid-column: span 8; }
-  .lg-col-12 { grid-column: span 12; }
-  .lg-col-var{ grid-column: span var(--lat-span, 12); }
+@media (min-width:64rem){ /* lg */
+  .grid.lg-col-3{ --lat-cols: repeat(3, minmax(0,1fr)); }
+  .grid.lg-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* xl */
-@media (min-width:80rem){
-  .xl-col-1  { grid-column: span 1; }
-  .xl-col-2  { grid-column: span 2; }
-  .xl-col-4  { grid-column: span 4; }
-  .xl-col-6  { grid-column: span 6; }
-  .xl-col-8  { grid-column: span 8; }
-  .xl-col-12 { grid-column: span 12; }
-  .xl-col-var{ grid-column: span var(--lat-span, 12); }
+@media (min-width:80rem){ /* xl */
+  .grid.xl-col-4{ --lat-cols: repeat(4, minmax(0,1fr)); }
 }
-/* 2xl (class prefix: xxl-) */
-@media (min-width:96rem){
-  .xxl-col-1   { grid-column: span 1; }
-  .xxl-col-2   { grid-column: span 2; }
-  .xxl-col-4   { grid-column: span 4; }
-  .xxl-col-6   { grid-column: span 6; }
-  .xxl-col-8   { grid-column: span 8; }
-  .xxl-col-12  { grid-column: span 12; }
-  .xxl-col-var { grid-column: span var(--lat-span, 12); }
+@media (min-width:96rem){ /* xxl */
+  .grid.xxl-col-6{ --lat-cols: repeat(6, minmax(0,1fr)); }
 }
 
 /* ==========================================================================
@@ -149,21 +107,22 @@
 .invisible{visibility:hidden!important;}
 .w-100{width:100%!important;}
 .max-w-100{max-width:100%!important;}
-.text-center{text-align:center!important;}/*!
+.text-center{text-align:center!important;}
+/*!
  * Lattice Extra — utilities that build on Lattice.css
- * Version: 1.1.0
+ * Version: 1.2.0
  * URL: https://github.com/rlnorthcutt/lattice
  * License: MIT
  *
- * Requires: lattice.css (CORE) — relies on .lattice master grid
+ * Requires: lattice.css (CORE)
  */
 
 /** Scope (EXTRA)
  * - Spacing & gaps: 0–5 scale using --lat-space (DRY via fraction tokens).
  * - Display (incl. responsive), a11y helpers.
- * - Grid helpers (flow/place) + PAGE-SHELL placement via .start-* / .span-* (on .lattice children).
+ * - Grid helpers (flow/place).
  * - Flex helpers, positioning/sizing, overflow/z-index, aspect-ratio, clearfix.
- * - Item widths (component grids): adds .col-{3,5,7,9,10,11} + responsive variants.
+ * - Grid child spans (component grids): .span-{1..12} + responsive variants.
  */
 
 /* ==========================================================================
@@ -320,7 +279,7 @@
 }
 
 /* ==========================================================================
-   3) Grid helpers (flow/place) + PAGE-SHELL placement
+   3) Grid helpers (flow/place)
    ========================================================================== */
 /* flow */
 .flow-row{grid-auto-flow:row;} .flow-col{grid-auto-flow:column;}
@@ -332,44 +291,6 @@
 .place-items-start{place-items:start;} .place-items-center{place-items:center;} .place-items-end{place-items:end;}
 .place-content-start{place-content:start;} .place-content-center{place-content:center;} .place-content-end{place-content:end;}
 .place-self-start{place-self:start;} .place-self-center{place-self:center;} .place-self-end{place-self:end;}
-
-/* PAGE-SHELL ONLY: start/span on the master .lattice grid (direct children) */
-.lattice > .start-1  { grid-column-start: c 1; }
-.lattice > .start-2  { grid-column-start: c 2; }
-.lattice > .start-3  { grid-column-start: c 3; }
-.lattice > .start-4  { grid-column-start: c 4; }
-.lattice > .start-5  { grid-column-start: c 5; }
-.lattice > .start-6  { grid-column-start: c 6; }
-.lattice > .start-7  { grid-column-start: c 7; }
-.lattice > .start-8  { grid-column-start: c 8; }
-.lattice > .start-9  { grid-column-start: c 9; }
-.lattice > .start-10 { grid-column-start: c 10; }
-.lattice > .start-11 { grid-column-start: c 11; }
-.lattice > .start-12 { grid-column-start: c 12; }
-
-.lattice > .span-1  { grid-column-end: span 1; }
-.lattice > .span-2  { grid-column-end: span 2; }
-.lattice > .span-3  { grid-column-end: span 3; }
-.lattice > .span-4  { grid-column-end: span 4; }
-.lattice > .span-5  { grid-column-end: span 5; }
-.lattice > .span-6  { grid-column-end: span 6; }
-.lattice > .span-7  { grid-column-end: span 7; }
-.lattice > .span-8  { grid-column-end: span 8; }
-.lattice > .span-9  { grid-column-end: span 9; }
-.lattice > .span-10 { grid-column-end: span 10; }
-.lattice > .span-11 { grid-column-end: span 11; }
-.lattice > .span-12 { grid-column-end: span 12; }
-
-/* Row helpers */
-.row-span-1{grid-row:span 1;} .row-span-2{grid-row:span 2;} .row-span-3{grid-row:span 3;} .row-span-4{grid-row:span 4;}
-.row-span-5{grid-row:span 5;} .row-span-6{grid-row:span 6;} .row-span-7{grid-row:span 7;} .row-span-8{grid-row:span 8;}
-.row-span-9{grid-row:span 9;} .row-span-10{grid-row:span 10;} .row-span-11{grid-row:span 11;} .row-span-12{grid-row:span 12;}
-.row-start-1{grid-row-start:1;} .row-start-2{grid-row-start:2;} .row-start-3{grid-row-start:3;} .row-start-4{grid-row-start:4;}
-.row-start-5{grid-row-start:5;} .row-start-6{grid-row-start:6;} .row-start-7{grid-row-start:7;} .row-start-8{grid-row-start:8;}
-.row-start-9{grid-row-start:9;} .row-start-10{grid-row-start:10;} .row-start-11{grid-row-start:11;} .row-start-12{grid-row-start:12;}
-.row-end-1{grid-row-end:1;} .row-end-2{grid-row-end:2;} .row-end-3{grid-row-end:3;} .row-end-4{grid-row-end:4;}
-.row-end-5{grid-row-end:5;} .row-end-6{grid-row-end:6;} .row-end-7{grid-row-end:7;} .row-end-8{grid-row-end:8;}
-.row-end-9{grid-row-end:9;} .row-end-10{grid-row-end:10;} .row-end-11{grid-row-end:11;} .row-end-12{grid-row-end:12;}
 
 /* ==========================================================================
    4) Flex helpers
@@ -395,56 +316,64 @@
 .order-8{order:8;} .order-9{order:9;} .order-10{order:10;} .order-11{order:11;} .order-12{order:12;}
 
 /* ==========================================================================
-   5) Component grid item widths (adds the missing spans)
+   5) Grid child spans (unequal layouts live in EXTRA)
    ========================================================================== */
 /* Base (mobile-first) */
-.col-3  { grid-column: span 3; }
-.col-5  { grid-column: span 5; }
-.col-7  { grid-column: span 7; }
-.col-9  { grid-column: span 9; }
-.col-10 { grid-column: span 10; }
-.col-11 { grid-column: span 11; }
+.span-1{grid-column:span 1;}   .span-2{grid-column:span 2;}
+.span-3{grid-column:span 3;}   .span-4{grid-column:span 4;}
+.span-5{grid-column:span 5;}   .span-6{grid-column:span 6;}
+.span-7{grid-column:span 7;}   .span-8{grid-column:span 8;}
+.span-9{grid-column:span 9;}   .span-10{grid-column:span 10;}
+.span-11{grid-column:span 11;} .span-12,.span{grid-column:span 12;}
+
+/* Variable span (set --lat-span inline; defaults to 12) */
+.span-var{grid-column:span var(--lat-span,12);}
 
 /* Responsive */
 @media (min-width:40rem){
-  .sm-col-3  { grid-column: span 3; }
-  .sm-col-5  { grid-column: span 5; }
-  .sm-col-7  { grid-column: span 7; }
-  .sm-col-9  { grid-column: span 9; }
-  .sm-col-10 { grid-column: span 10; }
-  .sm-col-11 { grid-column: span 11; }
+  .sm-span-1{grid-column:span 1;}   .sm-span-2{grid-column:span 2;}
+  .sm-span-3{grid-column:span 3;}   .sm-span-4{grid-column:span 4;}
+  .sm-span-5{grid-column:span 5;}   .sm-span-6{grid-column:span 6;}
+  .sm-span-7{grid-column:span 7;}   .sm-span-8{grid-column:span 8;}
+  .sm-span-9{grid-column:span 9;}   .sm-span-10{grid-column:span 10;}
+  .sm-span-11{grid-column:span 11;} .sm-span-12{grid-column:span 12;}
+  .sm-span-var{grid-column:span var(--lat-span,12);}
 }
 @media (min-width:48rem){
-  .md-col-3  { grid-column: span 3; }
-  .md-col-5  { grid-column: span 5; }
-  .md-col-7  { grid-column: span 7; }
-  .md-col-9  { grid-column: span 9; }
-  .md-col-10 { grid-column: span 10; }
-  .md-col-11 { grid-column: span 11; }
+  .md-span-1{grid-column:span 1;}   .md-span-2{grid-column:span 2;}
+  .md-span-3{grid-column:span 3;}   .md-span-4{grid-column:span 4;}
+  .md-span-5{grid-column:span 5;}   .md-span-6{grid-column:span 6;}
+  .md-span-7{grid-column:span 7;}   .md-span-8{grid-column:span 8;}
+  .md-span-9{grid-column:span 9;}   .md-span-10{grid-column:span 10;}
+  .md-span-11{grid-column:span 11;} .md-span-12{grid-column:span 12;}
+  .md-span-var{grid-column:span var(--lat-span,12);}
 }
 @media (min-width:64rem){
-  .lg-col-3  { grid-column: span 3; }
-  .lg-col-5  { grid-column: span 5; }
-  .lg-col-7  { grid-column: span 7; }
-  .lg-col-9  { grid-column: span 9; }
-  .lg-col-10 { grid-column: span 10; }
-  .lg-col-11 { grid-column: span 11; }
+  .lg-span-1{grid-column:span 1;}   .lg-span-2{grid-column:span 2;}
+  .lg-span-3{grid-column:span 3;}   .lg-span-4{grid-column:span 4;}
+  .lg-span-5{grid-column:span 5;}   .lg-span-6{grid-column:span 6;}
+  .lg-span-7{grid-column:span 7;}   .lg-span-8{grid-column:span 8;}
+  .lg-span-9{grid-column:span 9;}   .lg-span-10{grid-column:span 10;}
+  .lg-span-11{grid-column:span 11;} .lg-span-12{grid-column:span 12;}
+  .lg-span-var{grid-column:span var(--lat-span,12);}
 }
 @media (min-width:80rem){
-  .xl-col-3  { grid-column: span 3; }
-  .xl-col-5  { grid-column: span 5; }
-  .xl-col-7  { grid-column: span 7; }
-  .xl-col-9  { grid-column: span 9; }
-  .xl-col-10 { grid-column: span 10; }
-  .xl-col-11 { grid-column: span 11; }
+  .xl-span-1{grid-column:span 1;}   .xl-span-2{grid-column:span 2;}
+  .xl-span-3{grid-column:span 3;}   .xl-span-4{grid-column:span 4;}
+  .xl-span-5{grid-column:span 5;}   .xl-span-6{grid-column:span 6;}
+  .xl-span-7{grid-column:span 7;}   .xl-span-8{grid-column:span 8;}
+  .xl-span-9{grid-column:span 9;}   .xl-span-10{grid-column:span 10;}
+  .xl-span-11{grid-column:span 11;} .xl-span-12{grid-column:span 12;}
+  .xl-span-var{grid-column:span var(--lat-span,12);}
 }
 @media (min-width:96rem){
-  .xxl-col-3  { grid-column: span 3; }
-  .xxl-col-5  { grid-column: span 5; }
-  .xxl-col-7  { grid-column: span 7; }
-  .xxl-col-9  { grid-column: span 9; }
-  .xxl-col-10 { grid-column: span 10; }
-  .xxl-col-11 { grid-column: span 11; }
+  .xxl-span-1{grid-column:span 1;}   .xxl-span-2{grid-column:span 2;}
+  .xxl-span-3{grid-column:span 3;}   .xxl-span-4{grid-column:span 4;}
+  .xxl-span-5{grid-column:span 5;}   .xxl-span-6{grid-column:span 6;}
+  .xxl-span-7{grid-column:span 7;}   .xxl-span-8{grid-column:span 8;}
+  .xxl-span-9{grid-column:span 9;}   .xxl-span-10{grid-column:span 10;}
+  .xxl-span-11{grid-column:span 11;} .xxl-span-12{grid-column:span 12;}
+  .xxl-span-var{grid-column:span var(--lat-span,12);}
 }
 
 /* ==========================================================================
