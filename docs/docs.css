@@ -26,14 +26,6 @@
 }
 
 /* ==========================================================================
-   Header — constrain nav content to container width inside full-width header
-   ========================================================================== */
-body.lattice > header > nav {
-  max-width: var(--lat-container-width, 1024px);
-  margin-inline: auto;
-}
-
-/* ==========================================================================
    Demo blocks — colored cells for layout examples
    Use data-tone to pick a color; add padding classes (.p-1, .p-2, .p-3)
    explicitly since the tone only provides background.
