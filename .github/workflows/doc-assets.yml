@@ -33,7 +33,7 @@ jobs:
 
           echo "Downloading dark-mode-toggle.min.js..."
           curl -fsSL -o docs/dark-mode-toggle.min.js \
-            https://raw.githubusercontent.com/rlnorthcutt/dark-mode-toggle/refs/heads/main/dark-mode-toggle.min.js
+            https://raw.githubusercontent.com/rlnorthcutt/dark-mode-toggle/refs/heads/main/dist/dark-mode-toggle.min.js
 
       - name: 💾 Commit External Assets
         uses: stefanzweifel/git-auto-commit-action@v5
