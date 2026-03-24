@@ -1,6 +1,6 @@
  - ~~BUG - children of .lattice require container or full-width... make it set to container by default (if no class)~~ fixed
  - ~~Docs section~~ core.html and extra.html rewritten as live-demo pages matching ivy pattern
  - ~~Flat docs structure~~ switched to flat like ivy; **manually delete** docs/css/ docs/js/ docs/static/
- - Adjust colors (zzOverrides.css is now orphaned — move palette overrides into a new docs/docs.css or inline them)
- - Code snippets are not shrinking - forcing page to scroll on smaller screen (add overflow-x:auto to pre in docs css)
- - card footer needs adjusting
+ - ~~Adjust colors~~ docs.css created with teal/coral color scheme overriding ivy's palette tokens
+ - ~~Code snippets forcing horizontal scroll~~ fixed with `pre { overflow-x: auto }` in docs.css
+ - ~~card footer needs adjusting~~ fixed double-margin via `.card > :last-child:not(footer) { margin-bottom: 0 }`

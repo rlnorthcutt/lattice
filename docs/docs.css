@@ -1,0 +1,82 @@
+/*!
+ * Lattice docs — color scheme & documentation helpers
+ */
+
+/* ==========================================================================
+   Color scheme — teal primary, coral secondary
+   Override ivy's -light / -dark palette tokens.
+   Applied tokens (no suffix) are remapped automatically by ivy's theme logic.
+   ========================================================================== */
+:root {
+  /* Primary — teal */
+  --color-primary-light:      #0891b2;
+  --color-primary-dark:       #22d3ee;
+  --color-primary-text-light: #ffffff;
+  --color-primary-text-dark:  #083344;
+
+  /* Secondary — warm coral (≈167° from teal, same spectral ratio as ivy's default) */
+  --color-secondary-light:      #e05d29;
+  --color-secondary-dark:       #fb8c5a;
+  --color-secondary-text-light: #ffffff;
+  --color-secondary-text-dark:  #3d1a0a;
+
+  /* Links — match primary */
+  --color-link-light: #0891b2;
+  --color-link-dark:  #22d3ee;
+}
+
+/* ==========================================================================
+   Header — constrain nav content to container width inside full-width header
+   ========================================================================== */
+body.lattice > header > nav {
+  max-width: var(--lat-container-width, 1024px);
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   Demo blocks — colored cells for layout examples
+   Use data-tone to pick a color; add padding classes (.p-1, .p-2, .p-3)
+   explicitly since the tone only provides background.
+   ========================================================================== */
+.demo {
+  border-radius: var(--radius, .375rem);
+  text-align: center;
+}
+
+.demo[data-tone="primary"] {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+}
+.demo[data-tone="secondary"] {
+  background: var(--color-secondary);
+  color: var(--color-secondary-text);
+}
+.demo[data-tone="info"] {
+  background: color-mix(in oklch, var(--info, #60a5fa), transparent 75%);
+}
+.demo[data-tone="success"] {
+  background: color-mix(in oklch, var(--success, #22c55e), transparent 75%);
+}
+.demo[data-tone="warn"] {
+  background: color-mix(in oklch, var(--warn, #f59e0b), transparent 75%);
+}
+.demo[data-tone="danger"] {
+  background: color-mix(in oklch, var(--danger, #ef4444), transparent 75%);
+}
+
+/* ==========================================================================
+   Demo height helpers — for flex/grid demos that need a minimum height
+   ========================================================================== */
+.demo-tall  { min-height: 6rem; }
+.demo-flex  { min-height: 5rem; }
+.demo-grid  { min-height: 8rem; }
+
+/* ==========================================================================
+   Code snippets — prevent forcing horizontal scroll on small screens
+   ========================================================================== */
+pre { overflow-x: auto; }
+
+/* ==========================================================================
+   Card footer — remove double margin when a list immediately precedes footer
+   ========================================================================== */
+.card > :last-child:not(footer) { margin-bottom: 0; }

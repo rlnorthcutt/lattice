@@ -7,12 +7,13 @@
   <meta name="description" content="Live demo of every utility in lattice.extra.css: spacing scale, unequal spans, responsive display, flex helpers, positioning, and accessibility.">
   <link rel="stylesheet" href="ivy.full.min.css">
   <link rel="stylesheet" href="lattice.full.min.css">
+  <link rel="stylesheet" href="docs.css">
 </head>
 <body class="lattice">
   <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
   <header class="full-width sticky top-0 z-50" role="banner">
-    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
+    <nav class="d-flex justify-between items-center px-4" aria-label="Primary">
       <ul class="d-flex gap-3 m-0 p-0">
         <li><a href="./">Lattice CSS</a></li>
         <li><a href="core.html">Core Demo</a></li>
@@ -52,14 +53,14 @@
         <p>A 6-step scale (0–5) derived from <code>--lat-space</code> (default <code>1rem</code>). Available for padding, margin, and gap in all directions using logical CSS properties.</p>
 
         <h3>Padding — <code>.p-{0…5}</code></h3>
-        <p>The background tint shows the actual padding area on each box.</p>
+        <p>Each box uses the matching <code>.p-N</code> class — the tinted background shows how the padding grows.</p>
         <div class="grid col-6 gap-2" style="align-items:start;">
-          <div class="p-0" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-0</code></div>
-          <div class="p-1" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-1</code></div>
-          <div class="p-2" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-2</code></div>
-          <div class="p-3" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-3</code></div>
-          <div class="p-4" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-4</code></div>
-          <div class="p-5" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-5</code></div>
+          <div class="p-0 demo" data-tone="primary"><code>.p-0</code></div>
+          <div class="p-1 demo" data-tone="primary"><code>.p-1</code></div>
+          <div class="p-2 demo" data-tone="primary"><code>.p-2</code></div>
+          <div class="p-3 demo" data-tone="primary"><code>.p-3</code></div>
+          <div class="p-4 demo" data-tone="primary"><code>.p-4</code></div>
+          <div class="p-5 demo" data-tone="primary"><code>.p-5</code></div>
         </div>
 
         <h3>Directional padding</h3>
@@ -74,13 +75,14 @@
         </table>
 
         <h3>Margin — <code>.m-{0…5}</code></h3>
-        <div class="grid col-6 gap-0" style="align-items:start;background:var(--color-surface);border:1px solid var(--color-border);">
-          <div class="m-0" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-0</small></div>
-          <div class="m-1" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-1</small></div>
-          <div class="m-2" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-2</small></div>
-          <div class="m-3" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-3</small></div>
-          <div class="m-4" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-4</small></div>
-          <div class="m-5" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-5</small></div>
+        <p>Each box uses the matching <code>.m-N</code> class — the offset from the grid boundary grows with each step.</p>
+        <div class="grid col-6 gap-0 box">
+          <div class="m-0 demo p-2" data-tone="secondary"><small>.m-0</small></div>
+          <div class="m-1 demo p-2" data-tone="secondary"><small>.m-1</small></div>
+          <div class="m-2 demo p-2" data-tone="secondary"><small>.m-2</small></div>
+          <div class="m-3 demo p-2" data-tone="secondary"><small>.m-3</small></div>
+          <div class="m-4 demo p-2" data-tone="secondary"><small>.m-4</small></div>
+          <div class="m-5 demo p-2" data-tone="secondary"><small>.m-5</small></div>
         </div>
 
         <h3>Gap — <code>.gap-{0…5}</code></h3>
@@ -89,17 +91,17 @@
           <div>
             <p><code>.gap-1</code></p>
             <div class="grid col-3 gap-1">
-              <div class="box" style="text-align:center;padding:.25rem;">A</div>
-              <div class="box" style="text-align:center;padding:.25rem;">B</div>
-              <div class="box" style="text-align:center;padding:.25rem;">C</div>
+              <div class="demo p-2" data-tone="info">A</div>
+              <div class="demo p-2" data-tone="info">B</div>
+              <div class="demo p-2" data-tone="info">C</div>
             </div>
           </div>
           <div>
             <p><code>.gap-5</code></p>
             <div class="grid col-3 gap-5">
-              <div class="box" style="text-align:center;padding:.25rem;">A</div>
-              <div class="box" style="text-align:center;padding:.25rem;">B</div>
-              <div class="box" style="text-align:center;padding:.25rem;">C</div>
+              <div class="demo p-2" data-tone="info">A</div>
+              <div class="demo p-2" data-tone="info">B</div>
+              <div class="demo p-2" data-tone="info">C</div>
             </div>
           </div>
         </div>
@@ -116,22 +118,22 @@
   &lt;main class="span-8"&gt;Content (8/12)&lt;/main&gt;
 &lt;/div&gt;</code></pre>
         <div class="grid gap-3">
-          <div class="span-4 box" style="text-align:center;">Sidebar (4/12)</div>
-          <div class="span-8 box" style="text-align:center;">Content (8/12)</div>
+          <div class="span-4 demo p-3" data-tone="warn">Sidebar (4/12)</div>
+          <div class="span-8 demo p-3" data-tone="info">Content (8/12)</div>
         </div>
 
         <h3>Thirds: 4 + 4 + 4</h3>
         <div class="grid gap-3">
-          <div class="span-4 box" style="text-align:center;">4</div>
-          <div class="span-4 box" style="text-align:center;">4</div>
-          <div class="span-4 box" style="text-align:center;">4</div>
+          <div class="span-4 demo p-3" data-tone="info">4</div>
+          <div class="span-4 demo p-3" data-tone="info">4</div>
+          <div class="span-4 demo p-3" data-tone="info">4</div>
         </div>
 
         <h3>Mixed: 2 + 7 + 3</h3>
         <div class="grid gap-3">
-          <div class="span-2 box" style="text-align:center;">2</div>
-          <div class="span-7 box" style="text-align:center;">7</div>
-          <div class="span-3 box" style="text-align:center;">3</div>
+          <div class="span-2 demo p-3" data-tone="warn">2</div>
+          <div class="span-7 demo p-3" data-tone="info">7</div>
+          <div class="span-3 demo p-3" data-tone="success">3</div>
         </div>
 
         <h3>Responsive spans — full-width on mobile, split at md</h3>
@@ -140,8 +142,8 @@
   &lt;main class="md-span-9"&gt;Content&lt;/main&gt;
 &lt;/div&gt;</code></pre>
         <div class="grid gap-3">
-          <div class="md-span-3 box" style="text-align:center;">Sidebar (full → 3/12 at md)</div>
-          <div class="md-span-9 box" style="text-align:center;">Content (full → 9/12 at md)</div>
+          <div class="md-span-3 demo p-3" data-tone="warn">Sidebar (full → 3/12 at md)</div>
+          <div class="md-span-9 demo p-3" data-tone="info">Content (full → 9/12 at md)</div>
         </div>
         <p><em>Narrow your browser to see these stack. At md (768px) they split 3/9.</em></p>
 
@@ -149,8 +151,8 @@
         <p>Use <code>.span-var</code> with a CSS custom property for dynamic widths:</p>
         <pre><code>&lt;div class="span-var" style="--lat-span: 5"&gt;5 tracks&lt;/div&gt;</code></pre>
         <div class="grid gap-2">
-          <div class="span-var box" style="--lat-span:5;text-align:center;"><code>--lat-span: 5</code></div>
-          <div class="span-var box" style="--lat-span:7;text-align:center;"><code>--lat-span: 7</code></div>
+          <div class="span-var demo p-3" style="--lat-span:5;" data-tone="info"><code>--lat-span: 5</code></div>
+          <div class="span-var demo p-3" style="--lat-span:7;" data-tone="warn"><code>--lat-span: 7</code></div>
         </div>
       </section>
 
@@ -175,7 +177,7 @@
         <pre><code>&lt;nav class="d-none md-d-flex"&gt;Desktop nav&lt;/nav&gt;
 &lt;button class="md-d-none"&gt;☰ Mobile menu&lt;/button&gt;</code></pre>
         <div class="box p-3">
-          <nav class="d-none md-d-flex" style="gap:1rem;">
+          <nav class="d-none md-d-flex gap-3">
             <a href="#">Desktop nav link 1</a>
             <a href="#">Desktop nav link 2</a>
             <a href="#">Desktop nav link 3</a>
@@ -193,30 +195,30 @@
         <div class="grid sm-col-2 gap-3">
           <div>
             <p><code>.justify-start</code></p>
-            <div class="d-flex justify-start gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex justify-start gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
           <div>
             <p><code>.justify-center</code></p>
-            <div class="d-flex justify-center gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex justify-center gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
           <div>
             <p><code>.justify-end</code></p>
-            <div class="d-flex justify-end gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex justify-end gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
           <div>
             <p><code>.justify-between</code></p>
-            <div class="d-flex justify-between gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex justify-between gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
         </div>
@@ -225,23 +227,23 @@
         <div class="grid sm-col-3 gap-3">
           <div>
             <p><code>.items-start</code></p>
-            <div class="d-flex items-start gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;height:5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex items-start gap-2 box p-2 demo-flex">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
           <div>
             <p><code>.items-center</code></p>
-            <div class="d-flex items-center gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;height:5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex items-center gap-2 box p-2 demo-flex">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
           <div>
             <p><code>.items-end</code></p>
-            <div class="d-flex items-end gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;height:5rem;">
-              <div class="box" style="padding:.25rem .5rem;">A</div>
-              <div class="box" style="padding:.25rem .5rem;">B</div>
+            <div class="d-flex items-end gap-2 box p-2 demo-flex">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
             </div>
           </div>
         </div>
@@ -252,22 +254,22 @@
   &lt;div class="flex-1"&gt;Grows to fill space&lt;/div&gt;
   &lt;div class="flex-none"&gt;Fixed&lt;/div&gt;
 &lt;/div&gt;</code></pre>
-        <div class="d-flex gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
-          <div class="flex-none box" style="padding:.25rem .5rem;white-space:nowrap;">Fixed</div>
-          <div class="flex-1 box" style="padding:.25rem .5rem;text-align:center;">Grows to fill space</div>
-          <div class="flex-none box" style="padding:.25rem .5rem;white-space:nowrap;">Fixed</div>
+        <div class="d-flex gap-2 box p-2">
+          <div class="flex-none demo py-1 px-2" data-tone="info">Fixed</div>
+          <div class="flex-1 demo py-1 px-2" data-tone="success">Grows to fill space</div>
+          <div class="flex-none demo py-1 px-2" data-tone="info">Fixed</div>
         </div>
 
         <h3>Order</h3>
         <pre><code>&lt;div class="d-flex gap-2"&gt;
-  &lt;div class="order-3"&gt;Third in DOM, third visually&lt;/div&gt;
-  &lt;div class="order-1"&gt;Second in DOM, first visually&lt;/div&gt;
-  &lt;div class="order-2"&gt;Third in DOM, second visually&lt;/div&gt;
+  &lt;div class="order-3"&gt;DOM: 1st → renders last&lt;/div&gt;
+  &lt;div class="order-1"&gt;DOM: 2nd → renders first&lt;/div&gt;
+  &lt;div class="order-2"&gt;DOM: 3rd → renders second&lt;/div&gt;
 &lt;/div&gt;</code></pre>
         <div class="d-flex gap-2 flex-wrap">
-          <div class="order-3 box" style="padding:.25rem .5rem;">DOM: 1st → order-3</div>
-          <div class="order-1 box" style="padding:.25rem .5rem;">DOM: 2nd → order-1</div>
-          <div class="order-2 box" style="padding:.25rem .5rem;">DOM: 3rd → order-2</div>
+          <div class="order-3 demo py-1 px-2" data-tone="warn">DOM: 1st → order-3</div>
+          <div class="order-1 demo py-1 px-2" data-tone="info">DOM: 2nd → order-1</div>
+          <div class="order-2 demo py-1 px-2" data-tone="success">DOM: 3rd → order-2</div>
         </div>
       </section>
 
@@ -281,32 +283,32 @@
           <div>
             <p>Without dense:</p>
             <div class="grid col-3 gap-1">
-              <div class="box span-2" style="text-align:center;padding:.25rem;">span-2</div>
-              <div class="box" style="text-align:center;padding:.25rem;">1</div>
-              <div class="box" style="text-align:center;padding:.25rem;">1</div>
-              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+              <div class="span-2 demo p-2" data-tone="warn">span-2</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
             </div>
           </div>
           <div>
             <p>With <code>.flow-dense</code>:</p>
             <div class="grid col-3 gap-1 flow-dense">
-              <div class="box span-2" style="text-align:center;padding:.25rem;">span-2</div>
-              <div class="box" style="text-align:center;padding:.25rem;">1</div>
-              <div class="box" style="text-align:center;padding:.25rem;">1</div>
-              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+              <div class="span-2 demo p-2" data-tone="warn">span-2</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
             </div>
           </div>
         </div>
 
-        <h3>Placement — <code>.place-items-center</code></h3>
-        <div class="grid col-3 gap-2" style="height:8rem;">
-          <div class="box place-items-center d-grid" style="text-align:center;">
+        <h3>Placement — <code>.place-items-*</code></h3>
+        <div class="grid col-3 gap-2 demo-grid">
+          <div class="box d-grid place-items-center text-center">
             <span>center</span>
           </div>
-          <div class="box place-items-start d-grid" style="text-align:center;">
+          <div class="box d-grid place-items-start text-center">
             <span>start</span>
           </div>
-          <div class="box place-items-end d-grid" style="text-align:center;">
+          <div class="box d-grid place-items-end text-center">
             <span>end</span>
           </div>
         </div>
@@ -317,27 +319,27 @@
         <h2>Positioning &amp; Sizing</h2>
 
         <h3>Relative + absolute</h3>
-        <pre><code>&lt;div class="relative" style="height:6rem"&gt;
+        <pre><code>&lt;div class="relative"&gt;
   &lt;span class="absolute top-0 right-0"&gt;Top right&lt;/span&gt;
   &lt;span class="absolute bottom-0 left-0"&gt;Bottom left&lt;/span&gt;
 &lt;/div&gt;</code></pre>
-        <div class="relative box" style="height:6rem;">
-          <span class="absolute top-0 right-0" style="background:var(--color-primary);color:var(--color-primary-text);padding:.125rem .5rem;border-radius:.25rem;">top-0 right-0</span>
-          <span class="absolute bottom-0 left-0" style="background:var(--color-secondary);color:var(--color-secondary-text);padding:.125rem .5rem;border-radius:.25rem;">bottom-0 left-0</span>
+        <div class="relative box demo-tall">
+          <span class="absolute top-0 right-0 demo py-1 px-2" data-tone="primary">top-0 right-0</span>
+          <span class="absolute bottom-0 left-0 demo py-1 px-2" data-tone="secondary">bottom-0 left-0</span>
         </div>
 
         <h3>Overflow</h3>
         <div class="grid sm-col-2 gap-3">
           <div>
             <p><code>.overflow-hidden</code></p>
-            <div class="overflow-hidden box" style="height:4rem;">
+            <div class="overflow-hidden box demo-flex">
               <p>This content overflows the box but is clipped by overflow-hidden. Extra text that won't show.</p>
               <p>More overflow content here.</p>
             </div>
           </div>
           <div>
             <p><code>.overflow-auto</code></p>
-            <div class="overflow-auto box" style="height:4rem;">
+            <div class="overflow-auto box demo-flex">
               <p>This content overflows the box and gets a scrollbar from overflow-auto.</p>
               <p>More content to scroll to here.</p>
             </div>
@@ -348,11 +350,11 @@
         <div class="grid sm-col-2 gap-3">
           <div>
             <p><code>.aspect-square</code></p>
-            <div class="aspect-square box d-flex place-items-center" style="text-align:center;max-width:8rem;">1:1</div>
+            <div class="aspect-square demo d-flex place-items-center" data-tone="info" style="max-width:8rem;">1:1</div>
           </div>
           <div>
             <p><code>.aspect-video</code></p>
-            <div class="aspect-video box d-flex place-items-center" style="text-align:center;">16:9</div>
+            <div class="aspect-video demo d-flex place-items-center" data-tone="info">16:9</div>
           </div>
         </div>
 
@@ -375,14 +377,14 @@
         <p><em>(Nothing visible above — that's correct.)</em></p>
 
         <h3>Focusable skip links</h3>
-        <p>Combine with <code>.sr-only-focusable</code> (or <code>.visually-hidden-focusable</code>) to create skip links that appear only on keyboard focus:</p>
+        <p>Combine with <code>.sr-only-focusable</code> to create skip links that appear only on keyboard focus:</p>
         <pre><code>&lt;a class="sr-only sr-only-focusable" href="#content"&gt;Skip to content&lt;/a&gt;</code></pre>
         <p>Tab to the top of this page to see the skip link appear.</p>
 
         <h3>Pointer events</h3>
         <p><code>.pe-none</code> disables click/touch interaction. <code>.pe-auto</code> restores it.</p>
         <div class="box p-3">
-          <button type="button" class="pe-none" style="opacity:.5;">Non-interactive button (<code>.pe-none</code>)</button>
+          <button type="button" class="pe-none" data-variant="outline">Non-interactive button (<code>.pe-none</code>)</button>
         </div>
       </section>
 
