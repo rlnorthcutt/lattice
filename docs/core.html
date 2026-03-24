@@ -1,192 +1,254 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <link rel="stylesheet" href="./static/docs.min.css" />
-
-  <title>Core API — Lattice.css</title>
-  <meta name="description" content="Core API reference for Lattice.css: the 12-column page grid, equal-column helpers, and minimal utilities." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lattice Core — Layout Demo</title>
+  <meta name="description" content="Live demo of every layout feature in lattice.css core. See the 12-column page grid, equal-column helpers, and minimal utilities in action.">
+  <link rel="stylesheet" href="ivy.full.min.css">
+  <link rel="stylesheet" href="lattice.full.min.css">
 </head>
 <body class="lattice">
+  <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
-  <!-- Header / Top bar -->
-  <header class="full-width px-5">
-    <div class="d-flex justify-between items-center">
-      <nav aria-label="main">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="core.html" aria-current="page">Core Docs</a></li>
-          <li><a href="extra.html">Extra Docs</a></li>
-          <li><a href="https://github.com/rlnorthcutt/lattice">GitHub</a></li>
-        </ul>
-      </nav>
+  <header class="full-width sticky top-0 z-50" role="banner">
+    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
+      <ul class="d-flex gap-3 m-0 p-0">
+        <li><a href="./">Lattice CSS</a></li>
+        <li><a href="core.html" aria-current="page">Core Demo</a></li>
+        <li><a href="extra.html">Extra Demo</a></li>
+        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
       <dark-mode-toggle></dark-mode-toggle>
-    </div>
-
-    <div class="text-center">
-      <h1>Core API</h1>
-      <p class="muted">Page shell, component grids, and the minimal utility set bundled with every Lattice install.</p>
-    </div>
+    </nav>
   </header>
 
-  <main class="container">
+  <main id="content">
 
-    <!-- Install -->
-    <section>
-      <h2>Installation</h2>
-      <p>Core is the only required file. Extra is optional.</p>
-<pre><code class="language-html">&lt;!-- Core only --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.min.css"&gt;
-
-&lt;!-- Or the full bundle (Core + Extra) --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css"&gt;</code></pre>
-
-      <details>
-        <summary>Self-host</summary>
-<pre><code class="language-html">&lt;link rel="stylesheet" href="/css/lattice.css"&gt;
-&lt;!-- optional --&gt;
-&lt;link rel="stylesheet" href="/css/lattice.extra.css"&gt;</code></pre>
-      </details>
+    <section class="container py-5 text-center">
+      <p class="kicker">lattice.css core</p>
+      <h1>Core Demo</h1>
+      <p>Every layout feature below is provided by <code>lattice.css</code> alone. No Extra required — just the page grid, component grids, and a handful of utilities.</p>
     </section>
 
-    <!-- CSS custom properties -->
-    <section>
-      <h2>CSS Custom Properties</h2>
-      <p>Override these in your own stylesheet to adjust the grid and spacing rhythm.</p>
-<pre><code class="language-css">:root {
-  --lat-container-width: 1024px;  /* max content width */
-  --lat-col-count: 11;            /* 1 + 11 = 12 content columns */
-  --lat-space: 1rem;              /* spacing rhythm base */
-  --lat-gap-x: 1rem;              /* horizontal grid gap */
-  --lat-gap-y: 1rem;              /* vertical grid gap */
-}</code></pre>
-      <p>For safe-area inset support on notched devices (iOS), include <code>viewport-fit=cover</code> in your viewport meta:</p>
-<pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;</code></pre>
-    </section>
+    <article>
 
-    <!-- Page shell -->
-    <section>
-      <h2>Page Shell</h2>
-      <p>Add <code>.lattice</code> to the page shell (typically <code>&lt;body&gt;</code>). Direct children default to contained width. Use <code>.full-width</code> to bleed edge-to-edge.</p>
+      <nav aria-label="On this page" class="container">
+        <ul>
+          <li><a href="#shell">Page Shell</a></li>
+          <li><a href="#grids">Component Grids</a></li>
+          <li><a href="#responsive">Responsive Columns</a></li>
+          <li><a href="#utilities">Utilities</a></li>
+          <li><a href="#tokens">Custom Properties</a></li>
+        </ul>
+      </nav>
+      <hr>
 
-      <article class="card">
-        <header><h3>Classes</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Effect</th></tr></thead>
-          <tbody>
-            <tr><td><code>.lattice</code></td><td>Activates the 12-column page grid with fluid outer gutters.</td></tr>
-            <tr><td><code>.container</code></td><td>Centers content at <code>--lat-container-width</code>. Default for all direct children.</td></tr>
-            <tr><td><code>.full-width</code></td><td>Spans the full viewport, edge-to-edge (full bleed).</td></tr>
-          </tbody>
-        </table>
-      </article>
+      <!-- Page Shell -->
+      <section id="shell" class="container">
+        <h2>Page Shell</h2>
+        <p>Add <code>.lattice</code> to your page shell element (usually <code>&lt;body&gt;</code>). It creates a 12-column master grid with fluid outer gutters that include safe-area insets on notched devices.</p>
+        <p>Direct children default to <strong>container</strong> width. Add <code>.full-width</code> to bleed an element edge-to-edge.</p>
 
-<pre><code class="language-html">&lt;body class="lattice"&gt;
-  &lt;header class="full-width"&gt;…&lt;/header&gt;  &lt;!-- bleeds to edges --&gt;
-  &lt;main class="container"&gt;…&lt;/main&gt;       &lt;!-- centered, max-width --&gt;
-  &lt;footer&gt;…&lt;/footer&gt;                     &lt;!-- defaults to container --&gt;
+        <pre><code>&lt;body class="lattice"&gt;
+  &lt;header class="full-width"&gt;
+    &lt;!-- spans the full viewport width --&gt;
+  &lt;/header&gt;
+
+  &lt;main class="container"&gt;
+    &lt;!-- centered at --lat-container-width (default: 1024px) --&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;!-- no class needed — defaults to container --&gt;
+  &lt;/footer&gt;
 &lt;/body&gt;</code></pre>
-    </section>
 
-    <!-- Component grids -->
-    <section>
-      <h2>Component Grids</h2>
-      <p>Use <code>.grid</code> for any component-level layout. Set the column count on the <strong>container</strong>; children auto-place into equal tracks.</p>
+        <h3>Live demo — full-width vs container</h3>
+        <p>The colored bands below are direct children of a <code>.lattice</code> container. Resize your browser to see the fluid gutters adjust.</p>
+      </section>
 
-      <article class="card">
-        <header><h3>Equal-column classes (on the container)</h3></header>
+      <!-- Full-width demo strips — outside .container so they actually bleed -->
+      <div class="full-width" style="background:var(--color-primary);color:var(--color-primary-text);padding:.75rem 1rem;text-align:center;">
+        <code>.full-width</code> — spans the entire viewport
+      </div>
+      <div style="background:var(--color-surface);border:1px dashed var(--color-border);padding:.75rem 1rem;text-align:center;margin:.5rem 0;">
+        <em>default (no class)</em> — contained at <code>--lat-container-width</code>
+      </div>
+      <div class="container" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.75rem 1rem;text-align:center;margin:.5rem 0;">
+        <code>.container</code> — same as default, explicit
+      </div>
+
+      <!-- Component Grids -->
+      <section id="grids" class="container">
+        <h2>Component Grids</h2>
+        <p>Use <code>.grid</code> for any component-level layout. It defaults to 12 equal tracks. Set the <strong>column count on the container</strong> with <code>.grid.col-N</code> — all children automatically fill equal shares.</p>
+
+        <h3>1 column (default stack)</h3>
+        <pre><code>&lt;div class="grid col-1"&gt;…&lt;/div&gt;</code></pre>
+        <div class="grid col-1 gap-2">
+          <div class="box">Item 1 of 1</div>
+        </div>
+
+        <h3>2 equal columns</h3>
+        <pre><code>&lt;div class="grid col-2"&gt;…&lt;/div&gt;</code></pre>
+        <div class="grid col-2 gap-2">
+          <div class="box" style="text-align:center;">1</div>
+          <div class="box" style="text-align:center;">2</div>
+        </div>
+
+        <h3>3 equal columns</h3>
+        <pre><code>&lt;div class="grid col-3"&gt;…&lt;/div&gt;</code></pre>
+        <div class="grid col-3 gap-2">
+          <div class="box" style="text-align:center;">1</div>
+          <div class="box" style="text-align:center;">2</div>
+          <div class="box" style="text-align:center;">3</div>
+        </div>
+
+        <h3>4 equal columns</h3>
+        <pre><code>&lt;div class="grid col-4"&gt;…&lt;/div&gt;</code></pre>
+        <div class="grid col-4 gap-2">
+          <div class="box" style="text-align:center;">1</div>
+          <div class="box" style="text-align:center;">2</div>
+          <div class="box" style="text-align:center;">3</div>
+          <div class="box" style="text-align:center;">4</div>
+        </div>
+
+        <h3>6 equal columns</h3>
+        <pre><code>&lt;div class="grid col-6"&gt;…&lt;/div&gt;</code></pre>
+        <div class="grid col-6 gap-2">
+          <div class="box" style="text-align:center;">1</div>
+          <div class="box" style="text-align:center;">2</div>
+          <div class="box" style="text-align:center;">3</div>
+          <div class="box" style="text-align:center;">4</div>
+          <div class="box" style="text-align:center;">5</div>
+          <div class="box" style="text-align:center;">6</div>
+        </div>
+      </section>
+
+      <!-- Responsive Columns -->
+      <section id="responsive" class="container">
+        <h2>Responsive Columns</h2>
+        <p>Prefix any column class to apply it at that breakpoint and above. No prefix = all screen sizes (stacked). The grid is mobile-first — stack by default, then apply columns as the screen grows.</p>
+
         <table>
-          <thead><tr><th>Class</th><th>Columns</th><th>Notes</th></tr></thead>
+          <thead><tr><th>Prefix</th><th>Min-width</th><th>Equivalent</th></tr></thead>
           <tbody>
-            <tr><td><code>.grid</code></td><td>12 equal tracks</td><td>Default. No column class needed for 12-col layouts.</td></tr>
-            <tr><td><code>.grid.col-1</code></td><td>1</td><td>Stacks all items (useful as a mobile base).</td></tr>
-            <tr><td><code>.grid.col-2</code></td><td>2</td><td></td></tr>
-            <tr><td><code>.grid.col-3</code></td><td>3</td><td></td></tr>
-            <tr><td><code>.grid.col-4</code></td><td>4</td><td></td></tr>
-            <tr><td><code>.grid.col-6</code></td><td>6</td><td></td></tr>
-            <tr><td><code>.grid.col-12</code></td><td>12</td><td>Explicit 12-col (same as default).</td></tr>
+            <tr><td><em>none</em></td><td>all sizes</td><td><code>.col-3</code></td></tr>
+            <tr><td><code>sm-</code></td><td>40 rem (640 px)</td><td><code>.sm-col-2</code></td></tr>
+            <tr><td><code>md-</code></td><td>48 rem (768 px)</td><td><code>.md-col-3</code></td></tr>
+            <tr><td><code>lg-</code></td><td>64 rem (1024 px)</td><td><code>.lg-col-4</code></td></tr>
+            <tr><td><code>xl-</code></td><td>80 rem (1280 px)</td><td><code>.xl-col-4</code></td></tr>
+            <tr><td><code>xxl-</code></td><td>96 rem (1536 px)</td><td><code>.xxl-col-6</code></td></tr>
           </tbody>
         </table>
-      </article>
 
-      <article class="card">
-        <header><h3>Responsive prefixes</h3></header>
-        <p>Prefix any column class to apply it at that breakpoint and above. No prefix = all sizes.</p>
-        <table>
-          <thead><tr><th>Prefix</th><th>Min-width</th><th>Example</th></tr></thead>
-          <tbody>
-            <tr><td><em>none</em></td><td>all sizes</td><td><code>col-3</code></td></tr>
-            <tr><td><code>sm-</code></td><td>40 rem (640 px)</td><td><code>sm-col-2</code></td></tr>
-            <tr><td><code>md-</code></td><td>48 rem (768 px)</td><td><code>md-col-3</code></td></tr>
-            <tr><td><code>lg-</code></td><td>64 rem (1024 px)</td><td><code>lg-col-4</code></td></tr>
-            <tr><td><code>xl-</code></td><td>80 rem (1280 px)</td><td><code>xl-col-4</code></td></tr>
-            <tr><td><code>xxl-</code></td><td>96 rem (1536 px)</td><td><code>xxl-col-6</code></td></tr>
-          </tbody>
-        </table>
-      </article>
-
-<pre><code class="language-html">&lt;!-- Stack on mobile; 3 equal columns at md and above --&gt;
-&lt;div class="grid md-col-3 gap-3"&gt;
-  &lt;article&gt;A&lt;/article&gt;
-  &lt;article&gt;B&lt;/article&gt;
-  &lt;article&gt;C&lt;/article&gt;
-&lt;/div&gt;
-
-&lt;!-- Explicit 2-col on small, 4-col on large --&gt;
-&lt;div class="grid sm-col-2 lg-col-4"&gt;
-  &lt;div&gt;…&lt;/div&gt;
-  &lt;div&gt;…&lt;/div&gt;
-  &lt;div&gt;…&lt;/div&gt;
-  &lt;div&gt;…&lt;/div&gt;
+        <h3>Stack → 2 cols at sm → 3 cols at lg</h3>
+        <pre><code>&lt;div class="grid sm-col-2 lg-col-3 gap-2"&gt;
+  &lt;div&gt;A&lt;/div&gt;
+  &lt;div&gt;B&lt;/div&gt;
+  &lt;div&gt;C&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        <div class="grid sm-col-2 lg-col-3 gap-2">
+          <div class="box" style="text-align:center;">A</div>
+          <div class="box" style="text-align:center;">B</div>
+          <div class="box" style="text-align:center;">C</div>
+        </div>
+        <p><em>Narrow your browser to see these stack. At sm (640px) they become 2 columns. At lg (1024px) they become 3.</em></p>
 
-      <p>For <strong>unequal</strong> columns (e.g. 3/9, 4/8), use <code>.span-*</code> on items—see <a href="extra.html">Extra Docs</a>.</p>
-    </section>
+        <h3>Three cards: stack → thirds</h3>
+        <pre><code>&lt;div class="grid md-col-3 gap-3"&gt;
+  &lt;article class="card"&gt;…&lt;/article&gt;
+  &lt;article class="card"&gt;…&lt;/article&gt;
+  &lt;article class="card"&gt;…&lt;/article&gt;
+&lt;/div&gt;</code></pre>
+        <div class="grid md-col-3 gap-3">
+          <article class="card">
+            <header><h4>Card One</h4></header>
+            <p>Stacks on mobile, sits in thirds at md and above.</p>
+          </article>
+          <article class="card">
+            <header><h4>Card Two</h4></header>
+            <p>No extra classes needed on children — the container handles it.</p>
+          </article>
+          <article class="card">
+            <header><h4>Card Three</h4></header>
+            <p>Children auto-fill equal tracks.</p>
+          </article>
+        </div>
 
-    <!-- Core utilities -->
-    <section>
-      <h2>Utility Classes</h2>
+        <div class="callout" data-tone="info">
+          <strong>For unequal columns</strong> — use <code>.span-N</code> on child items (requires Extra). See the <a href="extra.html">Extra demo</a>.
+        </div>
+      </section>
 
-      <article class="card">
-        <header><h3>Display</h3></header>
+      <!-- Utilities -->
+      <section id="utilities" class="container">
+        <h2>Utilities</h2>
+        <p>Core ships a minimal set of high-value utilities. For the full set (spacing, flex, positioning) load Extra.</p>
+
+        <h3>Display</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><strong><code>.hidden</code></strong> — removes from layout</p>
+            <p>I am visible. <span class="hidden">I am hidden.</span> Back to visible.</p>
+          </div>
+          <div>
+            <p><strong><code>.invisible</code></strong> — hidden but holds space</p>
+            <p>Before. <span class="invisible">[invisible, holds space]</span> After.</p>
+          </div>
+          <div>
+            <p><strong><code>.inline-block</code></strong></p>
+            <div class="inline-block" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;">inline-block div</div>
+          </div>
+          <div>
+            <p><strong><code>.flex</code></strong> with <code>.mx-auto</code></p>
+            <div class="flex" style="gap:.5rem">
+              <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;">A</span>
+              <span class="mx-auto" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;">auto pushed</span>
+              <span style="background:var(--color-surface);border:1px solid var(--color-border);padding:.25rem .5rem;">B</span>
+            </div>
+          </div>
+        </div>
+
+        <h3>Width</h3>
+        <div style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
+          <div class="w-100" style="background:var(--color-primary);color:var(--color-primary-text);padding:.25rem .5rem;text-align:center;"><code>.w-100</code></div>
+        </div>
+
+        <h3>Text</h3>
+        <p class="text-center"><code>.text-center</code> — this paragraph is centered.</p>
+      </section>
+
+      <!-- Custom Properties -->
+      <section id="tokens" class="container">
+        <h2>Custom Properties</h2>
+        <p>Override these tokens in your own stylesheet to adjust the layout system.</p>
         <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
+          <thead><tr><th>Token</th><th>Default</th><th>Controls</th></tr></thead>
           <tbody>
-            <tr><td><code>.inline</code></td><td><code>display: inline</code></td></tr>
-            <tr><td><code>.block</code></td><td><code>display: block</code></td></tr>
-            <tr><td><code>.inline-block</code></td><td><code>display: inline-block</code></td></tr>
-            <tr><td><code>.flex</code></td><td><code>display: flex</code></td></tr>
-            <tr><td><code>.inline-flex</code></td><td><code>display: inline-flex</code></td></tr>
-            <tr><td><code>.inline-grid</code></td><td><code>display: inline-grid</code></td></tr>
-            <tr><td><code>.hidden</code>, <code>[hidden]</code></td><td><code>display: none</code></td></tr>
-            <tr><td><code>.invisible</code></td><td><code>visibility: hidden</code></td></tr>
+            <tr><td><code>--lat-container-width</code></td><td><code>1024px</code></td><td>Max content width for <code>.container</code></td></tr>
+            <tr><td><code>--lat-col-count</code></td><td><code>11</code></td><td>Column count minus one (1 + 11 = 12 tracks)</td></tr>
+            <tr><td><code>--lat-space</code></td><td><code>1rem</code></td><td>Rhythm base; Extra derives all spacing tokens from this</td></tr>
+            <tr><td><code>--lat-gap-x</code></td><td><code>1rem</code></td><td>Horizontal gap in <code>.grid</code></td></tr>
+            <tr><td><code>--lat-gap-y</code></td><td><code>1rem</code></td><td>Vertical gap in <code>.grid</code></td></tr>
           </tbody>
         </table>
-      </article>
+        <pre><code>/* Example: wider container, tighter grid gaps */
+:root {
+  --lat-container-width: 1200px;
+  --lat-gap-x: 0.75rem;
+  --lat-gap-y: 0.75rem;
+}</code></pre>
+      </section>
 
-      <article class="card">
-        <header><h3>Spacing &amp; sizing</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.m-auto</code></td><td><code>margin: auto</code></td></tr>
-            <tr><td><code>.mx-auto</code></td><td><code>margin-left: auto; margin-right: auto</code></td></tr>
-            <tr><td><code>.w-100</code></td><td><code>width: 100%</code></td></tr>
-            <tr><td><code>.max-w-100</code></td><td><code>max-width: 100%</code></td></tr>
-            <tr><td><code>.text-center</code></td><td><code>text-align: center</code></td></tr>
-          </tbody>
-        </table>
-      </article>
-    </section>
-
+    </article>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p class="muted">MIT © Ron Northcutt • Built with Ivy + Lattice</p>
+  <footer class="container text-center">
+    <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 
-  <script type="module" src="./static/docs.min.js" defer></script>
+  <script type="module" src="dark-mode-toggle.min.js" defer></script>
 </body>
 </html>

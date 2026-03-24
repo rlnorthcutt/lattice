@@ -1,307 +1,398 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <link rel="stylesheet" href="./static/docs.min.css" />
-
-  <title>Extra API — Lattice.css</title>
-  <meta name="description" content="Extra API reference for Lattice.css: spacing scale, responsive display, flex helpers, unequal spans, positioning, and a11y utilities." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lattice Extra — Utilities Demo</title>
+  <meta name="description" content="Live demo of every utility in lattice.extra.css: spacing scale, unequal spans, responsive display, flex helpers, positioning, and accessibility.">
+  <link rel="stylesheet" href="ivy.full.min.css">
+  <link rel="stylesheet" href="lattice.full.min.css">
 </head>
 <body class="lattice">
+  <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
-  <!-- Header / Top bar -->
-  <header class="full-width px-5">
-    <div class="d-flex justify-between items-center">
-      <nav aria-label="main">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="core.html">Core Docs</a></li>
-          <li><a href="extra.html" aria-current="page">Extra Docs</a></li>
-          <li><a href="https://github.com/rlnorthcutt/lattice">GitHub</a></li>
-        </ul>
-      </nav>
+  <header class="full-width sticky top-0 z-50" role="banner">
+    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
+      <ul class="d-flex gap-3 m-0 p-0">
+        <li><a href="./">Lattice CSS</a></li>
+        <li><a href="core.html">Core Demo</a></li>
+        <li><a href="extra.html" aria-current="page">Extra Demo</a></li>
+        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
       <dark-mode-toggle></dark-mode-toggle>
-    </div>
-
-    <div class="text-center">
-      <h1>Extra API</h1>
-      <p class="muted">Optional helpers for spacing, display, flex, unequal spans, positioning, and accessibility. Load after Core.</p>
-    </div>
+    </nav>
   </header>
 
-  <main class="container">
+  <main id="content">
 
-    <!-- Install -->
-    <section>
-      <h2>Installation</h2>
-      <p>Extra requires Core. Load them in order, or use the full bundle.</p>
-<pre><code class="language-html">&lt;!-- Core (required) --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.min.css"&gt;
-&lt;!-- Extra (optional) --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.extra.min.css"&gt;
-
-&lt;!-- Or the full bundle --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css"&gt;</code></pre>
+    <section class="container py-5 text-center">
+      <p class="kicker">lattice.extra.css</p>
+      <h1>Extra Demo</h1>
+      <p>Optional helpers that extend Core. Load <code>lattice.extra.css</code> after <code>lattice.css</code>, or use the full bundle. Every example below requires Extra.</p>
     </section>
 
-    <!-- Spacing scale -->
-    <section>
-      <h2>Spacing Scale</h2>
-      <p>A 6-step scale (0–5) built on <code>--lat-space</code> (default: <code>1rem</code>). Available for padding, margin, and gap.</p>
+    <article>
 
-      <article class="card">
-        <header><h3>Scale values</h3></header>
-        <table>
-          <thead><tr><th>Step</th><th>Token</th><th>Value</th></tr></thead>
-          <tbody>
-            <tr><td>0</td><td>—</td><td><code>0</code></td></tr>
-            <tr><td>1</td><td><code>--lat-q</code></td><td><code>0.25 × --lat-space</code> (0.25 rem)</td></tr>
-            <tr><td>2</td><td><code>--lat-h</code></td><td><code>0.50 × --lat-space</code> (0.5 rem)</td></tr>
-            <tr><td>3</td><td><code>--lat-1</code></td><td><code>1.00 × --lat-space</code> (1 rem)</td></tr>
-            <tr><td>4</td><td><code>--lat-15</code></td><td><code>1.50 × --lat-space</code> (1.5 rem)</td></tr>
-            <tr><td>5</td><td><code>--lat-2</code></td><td><code>2.00 × --lat-space</code> (2 rem)</td></tr>
-          </tbody>
-        </table>
-      </article>
+      <nav aria-label="On this page" class="container">
+        <ul>
+          <li><a href="#spacing">Spacing scale</a></li>
+          <li><a href="#spans">Unequal spans</a></li>
+          <li><a href="#display">Display &amp; responsive</a></li>
+          <li><a href="#flex">Flex helpers</a></li>
+          <li><a href="#grid-helpers">Grid helpers</a></li>
+          <li><a href="#position">Positioning</a></li>
+          <li><a href="#a11y">Accessibility</a></li>
+        </ul>
+      </nav>
+      <hr>
 
-      <article class="card">
-        <header><h3>Padding</h3></header>
+      <!-- Spacing scale -->
+      <section id="spacing" class="container">
+        <h2>Spacing Scale</h2>
+        <p>A 6-step scale (0–5) derived from <code>--lat-space</code> (default <code>1rem</code>). Available for padding, margin, and gap in all directions using logical CSS properties.</p>
+
+        <h3>Padding — <code>.p-{0…5}</code></h3>
+        <p>The background tint shows the actual padding area on each box.</p>
+        <div class="grid col-6 gap-2" style="align-items:start;">
+          <div class="p-0" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-0</code></div>
+          <div class="p-1" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-1</code></div>
+          <div class="p-2" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-2</code></div>
+          <div class="p-3" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-3</code></div>
+          <div class="p-4" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-4</code></div>
+          <div class="p-5" style="background:var(--color-primary);color:var(--color-primary-text);text-align:center;"><code>.p-5</code></div>
+        </div>
+
+        <h3>Directional padding</h3>
         <table>
-          <thead><tr><th>Class pattern</th><th>Property</th></tr></thead>
+          <thead><tr><th>Pattern</th><th>Property</th></tr></thead>
           <tbody>
-            <tr><td><code>.p-{0–5}</code></td><td><code>padding</code> (all sides)</td></tr>
             <tr><td><code>.px-{0–5}</code></td><td><code>padding-inline</code> (left + right)</td></tr>
             <tr><td><code>.py-{0–5}</code></td><td><code>padding-block</code> (top + bottom)</td></tr>
-            <tr><td><code>.ps-{0–5}</code></td><td><code>padding-inline-start</code></td></tr>
-            <tr><td><code>.pe-{0–5}</code></td><td><code>padding-inline-end</code></td></tr>
-            <tr><td><code>.pt-{0–5}</code></td><td><code>padding-block-start</code></td></tr>
-            <tr><td><code>.pb-{0–5}</code></td><td><code>padding-block-end</code></td></tr>
+            <tr><td><code>.ps-{0–5}</code> / <code>.pe-{0–5}</code></td><td>inline-start / inline-end</td></tr>
+            <tr><td><code>.pt-{0–5}</code> / <code>.pb-{0–5}</code></td><td>block-start / block-end</td></tr>
           </tbody>
         </table>
-      </article>
 
-      <article class="card">
-        <header><h3>Margin</h3></header>
+        <h3>Margin — <code>.m-{0…5}</code></h3>
+        <div class="grid col-6 gap-0" style="align-items:start;background:var(--color-surface);border:1px solid var(--color-border);">
+          <div class="m-0" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-0</small></div>
+          <div class="m-1" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-1</small></div>
+          <div class="m-2" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-2</small></div>
+          <div class="m-3" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-3</small></div>
+          <div class="m-4" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-4</small></div>
+          <div class="m-5" style="background:var(--color-secondary);color:var(--color-secondary-text);text-align:center;padding:.25rem;"><small>.m-5</small></div>
+        </div>
+
+        <h3>Gap — <code>.gap-{0…5}</code></h3>
+        <p>Applied to grid or flex containers to control space between children.</p>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.gap-1</code></p>
+            <div class="grid col-3 gap-1">
+              <div class="box" style="text-align:center;padding:.25rem;">A</div>
+              <div class="box" style="text-align:center;padding:.25rem;">B</div>
+              <div class="box" style="text-align:center;padding:.25rem;">C</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.gap-5</code></p>
+            <div class="grid col-3 gap-5">
+              <div class="box" style="text-align:center;padding:.25rem;">A</div>
+              <div class="box" style="text-align:center;padding:.25rem;">B</div>
+              <div class="box" style="text-align:center;padding:.25rem;">C</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Unequal spans -->
+      <section id="spans" class="container">
+        <h2>Unequal Column Spans</h2>
+        <p>Put <code>.span-N</code> on <strong>items inside <code>.grid</code></strong> for unequal column widths. The grid is 12 tracks wide by default.</p>
+
+        <h3>Sidebar + content (4 / 8)</h3>
+        <pre><code>&lt;div class="grid gap-3"&gt;
+  &lt;aside class="span-4"&gt;Sidebar (4/12)&lt;/aside&gt;
+  &lt;main class="span-8"&gt;Content (8/12)&lt;/main&gt;
+&lt;/div&gt;</code></pre>
+        <div class="grid gap-3">
+          <div class="span-4 box" style="text-align:center;">Sidebar (4/12)</div>
+          <div class="span-8 box" style="text-align:center;">Content (8/12)</div>
+        </div>
+
+        <h3>Thirds: 4 + 4 + 4</h3>
+        <div class="grid gap-3">
+          <div class="span-4 box" style="text-align:center;">4</div>
+          <div class="span-4 box" style="text-align:center;">4</div>
+          <div class="span-4 box" style="text-align:center;">4</div>
+        </div>
+
+        <h3>Mixed: 2 + 7 + 3</h3>
+        <div class="grid gap-3">
+          <div class="span-2 box" style="text-align:center;">2</div>
+          <div class="span-7 box" style="text-align:center;">7</div>
+          <div class="span-3 box" style="text-align:center;">3</div>
+        </div>
+
+        <h3>Responsive spans — full-width on mobile, split at md</h3>
+        <pre><code>&lt;div class="grid gap-3"&gt;
+  &lt;aside class="md-span-3"&gt;Sidebar&lt;/aside&gt;
+  &lt;main class="md-span-9"&gt;Content&lt;/main&gt;
+&lt;/div&gt;</code></pre>
+        <div class="grid gap-3">
+          <div class="md-span-3 box" style="text-align:center;">Sidebar (full → 3/12 at md)</div>
+          <div class="md-span-9 box" style="text-align:center;">Content (full → 9/12 at md)</div>
+        </div>
+        <p><em>Narrow your browser to see these stack. At md (768px) they split 3/9.</em></p>
+
+        <h3>Variable span</h3>
+        <p>Use <code>.span-var</code> with a CSS custom property for dynamic widths:</p>
+        <pre><code>&lt;div class="span-var" style="--lat-span: 5"&gt;5 tracks&lt;/div&gt;</code></pre>
+        <div class="grid gap-2">
+          <div class="span-var box" style="--lat-span:5;text-align:center;"><code>--lat-span: 5</code></div>
+          <div class="span-var box" style="--lat-span:7;text-align:center;"><code>--lat-span: 7</code></div>
+        </div>
+      </section>
+
+      <!-- Display & responsive -->
+      <section id="display" class="container">
+        <h2>Display &amp; Responsive Visibility</h2>
+        <p>All display classes carry <code>!important</code>. Responsive variants apply at their breakpoint and above, so <code>.sm-d-block</code> can reveal something hidden with <code>.d-none</code>.</p>
+
+        <h3>Base display classes</h3>
         <table>
-          <thead><tr><th>Class pattern</th><th>Property</th></tr></thead>
+          <thead><tr><th>Class</th><th>Effect</th></tr></thead>
           <tbody>
-            <tr><td><code>.m-{0–5}</code></td><td><code>margin</code> (all sides)</td></tr>
-            <tr><td><code>.mx-{0–5}</code></td><td><code>margin-inline</code></td></tr>
-            <tr><td><code>.my-{0–5}</code></td><td><code>margin-block</code></td></tr>
-            <tr><td><code>.ms-{0–5}</code></td><td><code>margin-inline-start</code></td></tr>
-            <tr><td><code>.me-{0–5}</code></td><td><code>margin-inline-end</code></td></tr>
-            <tr><td><code>.mt-{0–5}</code></td><td><code>margin-block-start</code></td></tr>
-            <tr><td><code>.mb-{0–5}</code></td><td><code>margin-block-end</code></td></tr>
-          </tbody>
-        </table>
-      </article>
-
-      <article class="card">
-        <header><h3>Gap</h3></header>
-        <table>
-          <thead><tr><th>Class pattern</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.gap-{0–5}</code></td><td><code>gap</code> (row + column)</td></tr>
-            <tr><td><code>.gap-x-{0–5}</code></td><td><code>column-gap</code></td></tr>
-            <tr><td><code>.gap-y-{0–5}</code></td><td><code>row-gap</code></td></tr>
-          </tbody>
-        </table>
-      </article>
-    </section>
-
-    <!-- Display -->
-    <section>
-      <h2>Display &amp; Visibility</h2>
-      <p>All display classes carry <code>!important</code> for reliable overrides. Responsive versions work at their breakpoint and above.</p>
-
-      <article class="card">
-        <header><h3>Classes</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.d-none</code></td><td><code>display: none</code></td></tr>
+            <tr><td><code>.d-none</code></td><td>Removes from layout</td></tr>
             <tr><td><code>.d-block</code></td><td><code>display: block</code></td></tr>
             <tr><td><code>.d-flex</code></td><td><code>display: flex</code></td></tr>
             <tr><td><code>.d-grid</code></td><td><code>display: grid</code></td></tr>
           </tbody>
         </table>
-        <p>Responsive prefix: <code>sm-</code>, <code>md-</code>, <code>lg-</code>, <code>xl-</code>, <code>xxl-</code>. Example: <code>.md-d-none</code>, <code>.lg-d-flex</code>.</p>
-      </article>
+        <p>Responsive prefix: <code>sm-</code>, <code>md-</code>, <code>lg-</code>, <code>xl-</code>, <code>xxl-</code>. E.g. <code>.d-none.md-d-flex</code> hides on mobile, shows as flex on md+.</p>
 
-<pre><code class="language-html">&lt;!-- Hide on mobile, show as flex on md+ --&gt;
-&lt;nav class="d-none md-d-flex"&gt;…&lt;/nav&gt;</code></pre>
+        <h3>Hide on mobile, show at md</h3>
+        <pre><code>&lt;nav class="d-none md-d-flex"&gt;Desktop nav&lt;/nav&gt;
+&lt;button class="md-d-none"&gt;☰ Mobile menu&lt;/button&gt;</code></pre>
+        <div class="box p-3">
+          <nav class="d-none md-d-flex" style="gap:1rem;">
+            <a href="#">Desktop nav link 1</a>
+            <a href="#">Desktop nav link 2</a>
+            <a href="#">Desktop nav link 3</a>
+          </nav>
+          <button class="md-d-none" type="button">☰ Mobile menu (visible below md)</button>
+        </div>
+      </section>
 
-      <article class="card">
-        <header><h3>A11y</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Effect</th></tr></thead>
-          <tbody>
-            <tr><td><code>.sr-only</code>, <code>.visually-hidden</code></td><td>Visually hidden; readable by screen readers.</td></tr>
-            <tr><td><code>.sr-only-focusable</code></td><td>Same as above, but revealed on focus (skip links).</td></tr>
-          </tbody>
-        </table>
-      </article>
-    </section>
+      <!-- Flex helpers -->
+      <section id="flex" class="container">
+        <h2>Flex Helpers</h2>
+        <p>Apply to any element with <code>display: flex</code> (e.g. via <code>.flex</code> from Core or <code>.d-flex</code> from Extra).</p>
 
-    <!-- Unequal spans -->
-    <section>
-      <h2>Unequal Column Spans</h2>
-      <p>Put <code>.span-*</code> on <strong>items inside <code>.grid</code></strong> to create non-uniform layouts. The grid is 12 tracks wide by default.</p>
+        <h3>Justify content</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.justify-start</code></p>
+            <div class="d-flex justify-start gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.justify-center</code></p>
+            <div class="d-flex justify-center gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.justify-end</code></p>
+            <div class="d-flex justify-end gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.justify-between</code></p>
+            <div class="d-flex justify-between gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+        </div>
 
-<pre><code class="language-html">&lt;div class="grid gap-3"&gt;
-  &lt;aside class="span-4"&gt;Sidebar (4/12)&lt;/aside&gt;
-  &lt;main class="span-8"&gt;Content (8/12)&lt;/main&gt;
-&lt;/div&gt;
+        <h3>Align items</h3>
+        <div class="grid sm-col-3 gap-3">
+          <div>
+            <p><code>.items-start</code></p>
+            <div class="d-flex items-start gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;height:5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.items-center</code></p>
+            <div class="d-flex items-center gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;height:5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.items-end</code></p>
+            <div class="d-flex items-end gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;height:5rem;">
+              <div class="box" style="padding:.25rem .5rem;">A</div>
+              <div class="box" style="padding:.25rem .5rem;">B</div>
+            </div>
+          </div>
+        </div>
 
-&lt;!-- Responsive: full-width on mobile, split at md --&gt;
-&lt;div class="grid gap-3"&gt;
-  &lt;aside class="md-span-3"&gt;Sidebar&lt;/aside&gt;
-  &lt;main class="md-span-9"&gt;Content&lt;/main&gt;
+        <h3>Flex sizing</h3>
+        <pre><code>&lt;div class="d-flex gap-2"&gt;
+  &lt;div class="flex-none"&gt;Fixed&lt;/div&gt;
+  &lt;div class="flex-1"&gt;Grows to fill space&lt;/div&gt;
+  &lt;div class="flex-none"&gt;Fixed&lt;/div&gt;
 &lt;/div&gt;</code></pre>
+        <div class="d-flex gap-2" style="background:var(--color-surface);border:1px solid var(--color-border);padding:.5rem;">
+          <div class="flex-none box" style="padding:.25rem .5rem;white-space:nowrap;">Fixed</div>
+          <div class="flex-1 box" style="padding:.25rem .5rem;text-align:center;">Grows to fill space</div>
+          <div class="flex-none box" style="padding:.25rem .5rem;white-space:nowrap;">Fixed</div>
+        </div>
 
-      <article class="card">
-        <header><h3>Span classes</h3></header>
-        <p>Available from <code>.span-1</code> to <code>.span-12</code>, plus responsive variants with <code>sm-</code>, <code>md-</code>, <code>lg-</code>, <code>xl-</code>, and <code>xxl-</code> prefixes.</p>
-        <p>Use <code>.span-var</code> with a custom property: <code style="white-space:nowrap">&lt;div class="span-var" style="--lat-span:5"&gt;</code>.</p>
-      </article>
-    </section>
+        <h3>Order</h3>
+        <pre><code>&lt;div class="d-flex gap-2"&gt;
+  &lt;div class="order-3"&gt;Third in DOM, third visually&lt;/div&gt;
+  &lt;div class="order-1"&gt;Second in DOM, first visually&lt;/div&gt;
+  &lt;div class="order-2"&gt;Third in DOM, second visually&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div class="d-flex gap-2 flex-wrap">
+          <div class="order-3 box" style="padding:.25rem .5rem;">DOM: 1st → order-3</div>
+          <div class="order-1 box" style="padding:.25rem .5rem;">DOM: 2nd → order-1</div>
+          <div class="order-2 box" style="padding:.25rem .5rem;">DOM: 3rd → order-2</div>
+        </div>
+      </section>
 
-    <!-- Grid helpers -->
-    <section>
-      <h2>Grid Helpers</h2>
+      <!-- Grid helpers -->
+      <section id="grid-helpers" class="container">
+        <h2>Grid Helpers</h2>
 
-      <article class="card">
-        <header><h3>Flow</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.flow-row</code></td><td><code>grid-auto-flow: row</code></td></tr>
-            <tr><td><code>.flow-col</code></td><td><code>grid-auto-flow: column</code></td></tr>
-            <tr><td><code>.flow-dense</code></td><td><code>grid-auto-flow: dense</code></td></tr>
-            <tr><td><code>.flow-row-dense</code></td><td><code>grid-auto-flow: row dense</code></td></tr>
-            <tr><td><code>.flow-col-dense</code></td><td><code>grid-auto-flow: column dense</code></td></tr>
-          </tbody>
-        </table>
-      </article>
+        <h3>Dense packing — <code>.flow-dense</code></h3>
+        <p>Auto-places items into holes in the grid for tighter packing.</p>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p>Without dense:</p>
+            <div class="grid col-3 gap-1">
+              <div class="box span-2" style="text-align:center;padding:.25rem;">span-2</div>
+              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+            </div>
+          </div>
+          <div>
+            <p>With <code>.flow-dense</code>:</p>
+            <div class="grid col-3 gap-1 flow-dense">
+              <div class="box span-2" style="text-align:center;padding:.25rem;">span-2</div>
+              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+              <div class="box" style="text-align:center;padding:.25rem;">1</div>
+            </div>
+          </div>
+        </div>
 
-      <article class="card">
-        <header><h3>Placement</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.place-items-{start|center|end}</code></td><td><code>place-items</code></td></tr>
-            <tr><td><code>.place-content-{start|center|end}</code></td><td><code>place-content</code></td></tr>
-            <tr><td><code>.place-self-{start|center|end}</code></td><td><code>place-self</code></td></tr>
-          </tbody>
-        </table>
-      </article>
-    </section>
+        <h3>Placement — <code>.place-items-center</code></h3>
+        <div class="grid col-3 gap-2" style="height:8rem;">
+          <div class="box place-items-center d-grid" style="text-align:center;">
+            <span>center</span>
+          </div>
+          <div class="box place-items-start d-grid" style="text-align:center;">
+            <span>start</span>
+          </div>
+          <div class="box place-items-end d-grid" style="text-align:center;">
+            <span>end</span>
+          </div>
+        </div>
+      </section>
 
-    <!-- Flex helpers -->
-    <section>
-      <h2>Flex Helpers</h2>
+      <!-- Positioning -->
+      <section id="position" class="container">
+        <h2>Positioning &amp; Sizing</h2>
 
-      <article class="card">
-        <header><h3>Direction &amp; wrap</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.flex-row</code></td><td><code>flex-direction: row</code></td></tr>
-            <tr><td><code>.flex-col</code></td><td><code>flex-direction: column</code></td></tr>
-            <tr><td><code>.flex-wrap</code></td><td><code>flex-wrap: wrap</code></td></tr>
-            <tr><td><code>.flex-nowrap</code></td><td><code>flex-wrap: nowrap</code></td></tr>
-          </tbody>
-        </table>
-      </article>
+        <h3>Relative + absolute</h3>
+        <pre><code>&lt;div class="relative" style="height:6rem"&gt;
+  &lt;span class="absolute top-0 right-0"&gt;Top right&lt;/span&gt;
+  &lt;span class="absolute bottom-0 left-0"&gt;Bottom left&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        <div class="relative box" style="height:6rem;">
+          <span class="absolute top-0 right-0" style="background:var(--color-primary);color:var(--color-primary-text);padding:.125rem .5rem;border-radius:.25rem;">top-0 right-0</span>
+          <span class="absolute bottom-0 left-0" style="background:var(--color-secondary);color:var(--color-secondary-text);padding:.125rem .5rem;border-radius:.25rem;">bottom-0 left-0</span>
+        </div>
 
-      <article class="card">
-        <header><h3>Alignment</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.justify-{start|center|end|between|around|evenly}</code></td><td><code>justify-content</code></td></tr>
-            <tr><td><code>.items-{start|center|end|stretch|baseline}</code></td><td><code>align-items</code></td></tr>
-            <tr><td><code>.content-{start|center|end|between|around|stretch}</code></td><td><code>align-content</code></td></tr>
-            <tr><td><code>.self-{auto|start|center|end|stretch|baseline}</code></td><td><code>align-self</code></td></tr>
-          </tbody>
-        </table>
-      </article>
+        <h3>Overflow</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.overflow-hidden</code></p>
+            <div class="overflow-hidden box" style="height:4rem;">
+              <p>This content overflows the box but is clipped by overflow-hidden. Extra text that won't show.</p>
+              <p>More overflow content here.</p>
+            </div>
+          </div>
+          <div>
+            <p><code>.overflow-auto</code></p>
+            <div class="overflow-auto box" style="height:4rem;">
+              <p>This content overflows the box and gets a scrollbar from overflow-auto.</p>
+              <p>More content to scroll to here.</p>
+            </div>
+          </div>
+        </div>
 
-      <article class="card">
-        <header><h3>Flex sizing &amp; order</h3></header>
-        <table>
-          <thead><tr><th>Class</th><th>Property</th></tr></thead>
-          <tbody>
-            <tr><td><code>.flex-1</code></td><td><code>flex: 1 1 0%</code></td></tr>
-            <tr><td><code>.flex-auto</code></td><td><code>flex: 1 1 auto</code></td></tr>
-            <tr><td><code>.flex-initial</code></td><td><code>flex: 0 1 auto</code></td></tr>
-            <tr><td><code>.flex-none</code></td><td><code>flex: none</code></td></tr>
-            <tr><td><code>.order-{0–12}</code></td><td><code>order</code></td></tr>
-            <tr><td><code>.order-first</code></td><td><code>order: -9999</code></td></tr>
-            <tr><td><code>.order-last</code></td><td><code>order: 9999</code></td></tr>
-          </tbody>
-        </table>
-      </article>
-    </section>
+        <h3>Aspect ratio</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.aspect-square</code></p>
+            <div class="aspect-square box d-flex place-items-center" style="text-align:center;max-width:8rem;">1:1</div>
+          </div>
+          <div>
+            <p><code>.aspect-video</code></p>
+            <div class="aspect-video box d-flex place-items-center" style="text-align:center;">16:9</div>
+          </div>
+        </div>
 
-    <!-- Positioning -->
-    <section>
-      <h2>Positioning &amp; Sizing</h2>
+        <h3>Z-index scale</h3>
+        <p>Available: <code>.z-0</code> <code>.z-10</code> <code>.z-20</code> <code>.z-30</code> <code>.z-40</code> <code>.z-50</code></p>
+      </section>
 
-      <div class="grid md-col-2 gap-3">
-        <article class="card">
-          <header><h3>Position</h3></header>
-          <table>
-            <thead><tr><th>Class</th><th>Value</th></tr></thead>
-            <tbody>
-              <tr><td><code>.relative</code></td><td><code>position: relative</code></td></tr>
-              <tr><td><code>.absolute</code></td><td><code>position: absolute</code></td></tr>
-              <tr><td><code>.fixed</code></td><td><code>position: fixed</code></td></tr>
-              <tr><td><code>.sticky</code></td><td><code>position: sticky</code></td></tr>
-              <tr><td><code>.inset-0</code></td><td><code>inset: 0</code></td></tr>
-              <tr><td><code>.inset-x-0</code></td><td><code>left: 0; right: 0</code></td></tr>
-              <tr><td><code>.inset-y-0</code></td><td><code>top: 0; bottom: 0</code></td></tr>
-              <tr><td><code>.top-0</code> / <code>.right-0</code> / <code>.bottom-0</code> / <code>.left-0</code></td><td><code>0</code></td></tr>
-            </tbody>
-          </table>
-        </article>
+      <!-- A11y -->
+      <section id="a11y" class="container">
+        <h2>Accessibility</h2>
 
-        <article class="card">
-          <header><h3>Sizing &amp; misc</h3></header>
-          <table>
-            <thead><tr><th>Class</th><th>Value</th></tr></thead>
-            <tbody>
-              <tr><td><code>.w-screen</code></td><td><code>width: 100vw</code></td></tr>
-              <tr><td><code>.h-screen</code></td><td><code>height: 100vh</code></td></tr>
-              <tr><td><code>.w-auto</code></td><td><code>width: auto</code></td></tr>
-              <tr><td><code>.h-auto</code></td><td><code>height: auto</code></td></tr>
-              <tr><td><code>.h-full</code></td><td><code>height: 100%</code></td></tr>
-              <tr><td><code>.overflow-{auto|hidden|visible|scroll}</code></td><td><code>overflow</code></td></tr>
-              <tr><td><code>.overflow-x-auto</code> / <code>.overflow-y-auto</code></td><td>axis-specific</td></tr>
-              <tr><td><code>.z-{0|10|20|30|40|50}</code></td><td><code>z-index</code></td></tr>
-              <tr><td><code>.pe-none</code> / <code>.pe-auto</code></td><td><code>pointer-events</code></td></tr>
-              <tr><td><code>.aspect-square</code></td><td><code>aspect-ratio: 1/1</code></td></tr>
-              <tr><td><code>.aspect-video</code></td><td><code>aspect-ratio: 16/9</code></td></tr>
-            </tbody>
-          </table>
-        </article>
-      </div>
-    </section>
+        <h3>Screen-reader only text</h3>
+        <p>Both <code>.sr-only</code> and <code>.visually-hidden</code> hide content visually while keeping it available to screen readers.</p>
+        <pre><code>&lt;button&gt;
+  &lt;svg aria-hidden="true"&gt;…&lt;/svg&gt;
+  &lt;span class="sr-only"&gt;Close dialog&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        <p>The text below is present in the DOM but visually invisible:</p>
+        <span class="sr-only">This text is only visible to screen readers.</span>
+        <p><em>(Nothing visible above — that's correct.)</em></p>
 
-    <!-- Legacy -->
-    <section>
-      <h2>Legacy Helpers</h2>
-      <p><code>.clearfix</code> and <code>.cf</code> add float-clearing pseudo-elements for legacy float-based layouts.</p>
-    </section>
+        <h3>Focusable skip links</h3>
+        <p>Combine with <code>.sr-only-focusable</code> (or <code>.visually-hidden-focusable</code>) to create skip links that appear only on keyboard focus:</p>
+        <pre><code>&lt;a class="sr-only sr-only-focusable" href="#content"&gt;Skip to content&lt;/a&gt;</code></pre>
+        <p>Tab to the top of this page to see the skip link appear.</p>
 
+        <h3>Pointer events</h3>
+        <p><code>.pe-none</code> disables click/touch interaction. <code>.pe-auto</code> restores it.</p>
+        <div class="box p-3">
+          <button type="button" class="pe-none" style="opacity:.5;">Non-interactive button (<code>.pe-none</code>)</button>
+        </div>
+      </section>
+
+    </article>
   </main>
 
-  <footer class="container">
-    <hr />
-    <p class="muted">MIT © Ron Northcutt • Built with Ivy + Lattice</p>
+  <footer class="container text-center">
+    <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 
-  <script type="module" src="./static/docs.min.js" defer></script>
+  <script type="module" src="dark-mode-toggle.min.js" defer></script>
 </body>
 </html>
