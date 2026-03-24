@@ -32,9 +32,8 @@
       <p>Every layout feature below is provided by <code>lattice.css</code> alone. No Extra required — just the page grid, component grids, and a handful of utilities.</p>
     </section>
 
-    <article>
-
-      <nav aria-label="On this page" class="container">
+      
+      <nav class="sticky py-2" aria-label="On this page" style="--sticky-top:6rem; --sticky-z:99;">
         <ul>
           <li><a href="#shell">Page Shell</a></li>
           <li><a href="#grids">Component Grids</a></li>
@@ -45,8 +44,10 @@
       </nav>
       <hr>
 
+    <article class="container">
+
       <!-- Page Shell -->
-      <section id="shell" class="container">
+      <section id="shell">
         <h2>Page Shell</h2>
         <p>Add <code>.lattice</code> to your page shell element (usually <code>&lt;body&gt;</code>). It creates a 12-column master grid with fluid outer gutters that include safe-area insets on notched devices.</p>
         <p>Direct children default to <strong>container</strong> width. Add <code>.full-width</code> to bleed an element edge-to-edge.</p>

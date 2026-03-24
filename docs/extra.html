@@ -32,9 +32,7 @@
       <p>Optional helpers that extend Core. Load <code>lattice.extra.css</code> after <code>lattice.css</code>, or use the full bundle. Every example below requires Extra.</p>
     </section>
 
-    <article>
-
-      <nav aria-label="On this page" class="container">
+      <nav class="sticky py-2" aria-label="On this page" style="--sticky-top:6rem; --sticky-z:99;">
         <ul>
           <li><a href="#spacing">Spacing scale</a></li>
           <li><a href="#spans">Unequal spans</a></li>
@@ -47,8 +45,9 @@
       </nav>
       <hr>
 
+    <article class="container">
       <!-- Spacing scale -->
-      <section id="spacing" class="container">
+      <section id="spacing">
         <h2>Spacing Scale</h2>
         <p>A 6-step scale (0–5) derived from <code>--lat-space</code> (default <code>1rem</code>). Available for padding, margin, and gap in all directions using logical CSS properties.</p>
 
