@@ -277,6 +277,11 @@
 .overflow-visible{overflow:visible;} .overflow-scroll{overflow:scroll;}
 .overflow-x-auto{overflow-x:auto;} .overflow-y-auto{overflow-y:auto;}
 
+/* sticky positioning — apply to header or nav to keep it fixed at the top while scrolling.
+   Override --sticky-top (default 0) to offset below another sticky element (e.g. a sticky header).
+   Override --sticky-z (default 100) to control stacking when multiple sticky elements coexist. */
+.sticky{position:sticky; top:var(--sticky-top,0); z-index:var(--sticky-z,100); background:color-mix(in oklab,var(--color-bg) 92%,transparent); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:var(--bw-1) solid var(--color-border);}
+
 .z-0{z-index:0;} .z-10{z-index:10;} .z-20{z-index:20;} .z-30{z-index:30;} .z-40{z-index:40;} .z-50{z-index:50;}
 .pe-none{pointer-events:none;} .pe-auto{pointer-events:auto;}
 
