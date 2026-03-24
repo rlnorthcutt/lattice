@@ -2,26 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <link rel="stylesheet" href="./static/docs.min.css" />
 
-  <!-- Classless base (Ivy) via CDN -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css" />
-
-  <!-- Lattice (full) — copied to /docs via your workflow -->
-  <link rel="stylesheet" href="./lattice.full.min.css" />
-
-  <title>Lattice.css — layout utilities that stay out of your way</title>
-  <meta name="description" content="Lattice gives you a 12-column grid, responsive equal-column helpers, and tiny utilities—without dictating typography or components." />
+  <title>Core API — Lattice.css</title>
+  <meta name="description" content="Core API reference for Lattice.css: the 12-column page grid, equal-column helpers, and minimal utilities." />
 </head>
 <body class="lattice">
 
   <!-- Header / Top bar -->
-  <header class="full-width">
-    <div class="container d-flex justify-between items-center">
+  <header class="full-width px-5">
+    <div class="d-flex justify-between items-center">
       <nav aria-label="main">
         <ul>
-          <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="core.html">Core Docs</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="core.html" aria-current="page">Core Docs</a></li>
           <li><a href="extra.html">Extra Docs</a></li>
           <li><a href="https://github.com/rlnorthcutt/lattice">GitHub</a></li>
         </ul>
@@ -29,128 +24,169 @@
       <dark-mode-toggle></dark-mode-toggle>
     </div>
 
-    <!-- Centered hero copy -->
-    <div class="container text-center">
-      <h1>Lattice.css</h1>
-      <p class="muted">A layout-first utility layer: predictable grids, tiny helpers, and zero opinions about your typography or components.</p>
+    <div class="text-center">
+      <h1>Core API</h1>
+      <p class="muted">Page shell, component grids, and the minimal utility set bundled with every Lattice install.</p>
     </div>
   </header>
 
   <main class="container">
 
-    <!-- Value prop -->
+    <!-- Install -->
     <section>
-      <article class="card" data-variant="soft">
-        <header><h2>Why Lattice?</h2></header>
-        <p>
-          Lattice focuses on the “boring math” of layout so your team can keep typography, colors, and components in your own design system.
-          You get:
-        </p>
-        <ul>
-          <li><strong>Master 12-col page grid</strong> with fluid outer gutters.</li>
-          <li><strong>Component grids</strong> that default to 12 equal tracks for simple alignment.</li>
-          <li><strong>One-class responsive columns</strong> (<code>.grid .col-N</code>) for equal layouts without extra wrappers.</li>
-          <li><strong>Tiny utility set</strong> for visibility/positioning. Need more? Add <em>Extra</em> for spacing, flex helpers, and unequal spans.</li>
-        </ul>
-        <footer class="btn-group">
-          <a role="button" href="core.html" data-variant="primary">Explore Core</a>
-          <a role="button" href="extra.html" data-variant="outline">Browse Extra</a>
-        </footer>
-      </article>
-    </section>
+      <h2>Installation</h2>
+      <p>Core is the only required file. Extra is optional.</p>
+<pre><code class="language-html">&lt;!-- Core only --&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.min.css"&gt;
 
-    <!-- Strategy: responsive 1 -> 3 feature grid -->
-    <section>
-      <h2>Strategy</h2>
-      <!-- 1 column by default, 3 columns ≥ md -->
-      <div class="grid md-col-3 gap-2">
-        <article class="card">
-          <header><h3>Keep Core Tiny</h3></header>
-          <p>Ship only the 12-col page grid, equal-column helpers, and minimal utilities. Fewer classes, faster loads, easier maintenance.</p>
-          <footer><a role="button" href="core.html">Explore Core</a></footer>
-        </article>
-
-        <article class="card">
-          <header><h3>Opt Into Extras</h3></header>
-          <p>Add spacing scales, display/flex helpers, and unequal spans only when you need them—your bundle stays lean by default.</p>
-          <footer><a role="button" href="extra.html">Browse Extra</a></footer>
-        </article>
-
-        <article class="card">
-          <header><h3>Own Your Aesthetics</h3></header>
-          <p>Pair Lattice with a classless base like Ivy for sensible defaults, while your design system controls typography, color, and components.</p>
-          <footer><a role="button" href="https://github.com/rlnorthcutt/ivy">Ivy on GitHub</a></footer>
-        </article>
-      </div>
-    </section>
-
-    <!-- Getting Started -->
-    <section>
-      <h2>Getting Started</h2>
-
-      <h3>CDN (quickest path)</h3>
-      <p>Drop these tags in your <code>&lt;head&gt;</code>:</p>
-<pre><code>&lt;!-- Ivy (classless base) --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css"&gt;
-
-&lt;!-- Lattice (full bundle) --&gt;
+&lt;!-- Or the full bundle (Core + Extra) --&gt;
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css"&gt;</code></pre>
 
-      <h3>Local bundle (recommended for this docs site)</h3>
-      <p>Your workflow copies the minified Lattice full build into <code>docs/</code>:</p>
-<pre><code>&lt;link rel="stylesheet" href="./lattice.full.min.css"&gt;</code></pre>
-
       <details>
-        <summary>What’s in “Core” vs “Extra”?</summary>
-        <ul>
-          <li><strong>Core:</strong> 12-col page grid, <code>.grid</code> with 12 equal tracks, equal-column helpers (<code>.col-1,2,4,6,8,12</code>), responsive <code>sm/md/lg/xl/xxl-col-*</code>, minimal display/visibility.</li>
-          <li><strong>Extra:</strong> spacing/gap scale, display toggles, flex/positioning helpers, and the remaining spans (<code>.span-1..12</code> + responsive) for unequal layouts.</li>
-        </ul>
+        <summary>Self-host</summary>
+<pre><code class="language-html">&lt;link rel="stylesheet" href="/css/lattice.css"&gt;
+&lt;!-- optional --&gt;
+&lt;link rel="stylesheet" href="/css/lattice.extra.css"&gt;</code></pre>
       </details>
     </section>
 
-    <!-- Examples: minimal markup -->
+    <!-- CSS custom properties -->
     <section>
-      <h2>Examples</h2>
+      <h2>CSS Custom Properties</h2>
+      <p>Override these in your own stylesheet to adjust the grid and spacing rhythm.</p>
+<pre><code class="language-css">:root {
+  --lat-container-width: 1024px;  /* max content width */
+  --lat-col-count: 11;            /* 1 + 11 = 12 content columns */
+  --lat-space: 1rem;              /* spacing rhythm base */
+  --lat-gap-x: 1rem;              /* horizontal grid gap */
+  --lat-gap-y: 1rem;              /* vertical grid gap */
+}</code></pre>
+      <p>For safe-area inset support on notched devices (iOS), include <code>viewport-fit=cover</code> in your viewport meta:</p>
+<pre><code class="language-html">&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;</code></pre>
+    </section>
+
+    <!-- Page shell -->
+    <section>
+      <h2>Page Shell</h2>
+      <p>Add <code>.lattice</code> to the page shell (typically <code>&lt;body&gt;</code>). Direct children default to contained width. Use <code>.full-width</code> to bleed edge-to-edge.</p>
 
       <article class="card">
-        <header><h3>Equal Columns (one class per breakpoint)</h3></header>
-        <p>On small screens items stack; at larger breakpoints they split evenly.</p>
-<pre><code>&lt;section class="grid sm-col-2 lg-col-3 gap-2"&gt;
-  &lt;div class="card"&gt;&lt;h4&gt;Tile 1&lt;/h4&gt;&lt;p&gt;Auto stack → 2 → 3 columns.&lt;/p&gt;&lt;/div&gt;
-  &lt;div class="card"&gt;&lt;h4&gt;Tile 2&lt;/h4&gt;&lt;p&gt;No extra wrappers needed.&lt;/p&gt;&lt;/div&gt;
-  &lt;div class="card"&gt;&lt;h4&gt;Tile 3&lt;/h4&gt;&lt;p&gt;Equal widths by track count.&lt;/p&gt;&lt;/div&gt;
-&lt;/section&gt;</code></pre>
+        <header><h3>Classes</h3></header>
+        <table>
+          <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code>.lattice</code></td><td>Activates the 12-column page grid with fluid outer gutters.</td></tr>
+            <tr><td><code>.container</code></td><td>Centers content at <code>--lat-container-width</code>. Default for all direct children.</td></tr>
+            <tr><td><code>.full-width</code></td><td>Spans the full viewport, edge-to-edge (full bleed).</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+<pre><code class="language-html">&lt;body class="lattice"&gt;
+  &lt;header class="full-width"&gt;…&lt;/header&gt;  &lt;!-- bleeds to edges --&gt;
+  &lt;main class="container"&gt;…&lt;/main&gt;       &lt;!-- centered, max-width --&gt;
+  &lt;footer&gt;…&lt;/footer&gt;                     &lt;!-- defaults to container --&gt;
+&lt;/body&gt;</code></pre>
+    </section>
+
+    <!-- Component grids -->
+    <section>
+      <h2>Component Grids</h2>
+      <p>Use <code>.grid</code> for any component-level layout. Set the column count on the <strong>container</strong>; children auto-place into equal tracks.</p>
+
+      <article class="card">
+        <header><h3>Equal-column classes (on the container)</h3></header>
+        <table>
+          <thead><tr><th>Class</th><th>Columns</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td><code>.grid</code></td><td>12 equal tracks</td><td>Default. No column class needed for 12-col layouts.</td></tr>
+            <tr><td><code>.grid.col-1</code></td><td>1</td><td>Stacks all items (useful as a mobile base).</td></tr>
+            <tr><td><code>.grid.col-2</code></td><td>2</td><td></td></tr>
+            <tr><td><code>.grid.col-3</code></td><td>3</td><td></td></tr>
+            <tr><td><code>.grid.col-4</code></td><td>4</td><td></td></tr>
+            <tr><td><code>.grid.col-6</code></td><td>6</td><td></td></tr>
+            <tr><td><code>.grid.col-12</code></td><td>12</td><td>Explicit 12-col (same as default).</td></tr>
+          </tbody>
+        </table>
       </article>
 
       <article class="card">
-        <header><h3>Unequal Columns (add Extra)</h3></header>
-        <p>Use child spans when you need 25/75, 3/9, etc.</p>
-<pre><code>&lt;section class="grid gap-2"&gt;
-  &lt;aside class="span-3 card"&gt;&lt;h4&gt;Sidebar (3/12)&lt;/h4&gt;&lt;/aside&gt;
-  &lt;main class="span-9 card"&gt;&lt;h4&gt;Content (9/12)&lt;/h4&gt;&lt;/main&gt;
-&lt;/section&gt;</code></pre>
+        <header><h3>Responsive prefixes</h3></header>
+        <p>Prefix any column class to apply it at that breakpoint and above. No prefix = all sizes.</p>
+        <table>
+          <thead><tr><th>Prefix</th><th>Min-width</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td><em>none</em></td><td>all sizes</td><td><code>col-3</code></td></tr>
+            <tr><td><code>sm-</code></td><td>40 rem (640 px)</td><td><code>sm-col-2</code></td></tr>
+            <tr><td><code>md-</code></td><td>48 rem (768 px)</td><td><code>md-col-3</code></td></tr>
+            <tr><td><code>lg-</code></td><td>64 rem (1024 px)</td><td><code>lg-col-4</code></td></tr>
+            <tr><td><code>xl-</code></td><td>80 rem (1280 px)</td><td><code>xl-col-4</code></td></tr>
+            <tr><td><code>xxl-</code></td><td>96 rem (1536 px)</td><td><code>xxl-col-6</code></td></tr>
+          </tbody>
+        </table>
+      </article>
+
+<pre><code class="language-html">&lt;!-- Stack on mobile; 3 equal columns at md and above --&gt;
+&lt;div class="grid md-col-3 gap-3"&gt;
+  &lt;article&gt;A&lt;/article&gt;
+  &lt;article&gt;B&lt;/article&gt;
+  &lt;article&gt;C&lt;/article&gt;
+&lt;/div&gt;
+
+&lt;!-- Explicit 2-col on small, 4-col on large --&gt;
+&lt;div class="grid sm-col-2 lg-col-4"&gt;
+  &lt;div&gt;…&lt;/div&gt;
+  &lt;div&gt;…&lt;/div&gt;
+  &lt;div&gt;…&lt;/div&gt;
+  &lt;div&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <p>For <strong>unequal</strong> columns (e.g. 3/9, 4/8), use <code>.span-*</code> on items—see <a href="extra.html">Extra Docs</a>.</p>
+    </section>
+
+    <!-- Core utilities -->
+    <section>
+      <h2>Utility Classes</h2>
+
+      <article class="card">
+        <header><h3>Display</h3></header>
+        <table>
+          <thead><tr><th>Class</th><th>Property</th></tr></thead>
+          <tbody>
+            <tr><td><code>.inline</code></td><td><code>display: inline</code></td></tr>
+            <tr><td><code>.block</code></td><td><code>display: block</code></td></tr>
+            <tr><td><code>.inline-block</code></td><td><code>display: inline-block</code></td></tr>
+            <tr><td><code>.flex</code></td><td><code>display: flex</code></td></tr>
+            <tr><td><code>.inline-flex</code></td><td><code>display: inline-flex</code></td></tr>
+            <tr><td><code>.inline-grid</code></td><td><code>display: inline-grid</code></td></tr>
+            <tr><td><code>.hidden</code>, <code>[hidden]</code></td><td><code>display: none</code></td></tr>
+            <tr><td><code>.invisible</code></td><td><code>visibility: hidden</code></td></tr>
+          </tbody>
+        </table>
       </article>
 
       <article class="card">
-        <header><h3>Full-bleed Section + Centered Content</h3></header>
-<pre><code>&lt;header class="full-width"&gt;
-  &lt;div class="container"&gt;
-    &lt;h2&gt;Full-bleed shell, centered inner content&lt;/h2&gt;
-  &lt;/div&gt;
-&lt;/header&gt;</code></pre>
+        <header><h3>Spacing &amp; sizing</h3></header>
+        <table>
+          <thead><tr><th>Class</th><th>Property</th></tr></thead>
+          <tbody>
+            <tr><td><code>.m-auto</code></td><td><code>margin: auto</code></td></tr>
+            <tr><td><code>.mx-auto</code></td><td><code>margin-left: auto; margin-right: auto</code></td></tr>
+            <tr><td><code>.w-100</code></td><td><code>width: 100%</code></td></tr>
+            <tr><td><code>.max-w-100</code></td><td><code>max-width: 100%</code></td></tr>
+            <tr><td><code>.text-center</code></td><td><code>text-align: center</code></td></tr>
+          </tbody>
+        </table>
       </article>
     </section>
 
   </main>
-     
-  <!-- Footer -->
-<footer>
-  <hr />
-  <p class="muted">MIT © Ron Northcutt • Built with Ivy + Lattice</p>
-</footer>
 
-  <!-- Dark mode toggle (web component) -->
-  <script type="module" src="./dark-mode-toggle.min.js" defer></script>
+  <footer class="container">
+    <hr />
+    <p class="muted">MIT © Ron Northcutt • Built with Ivy + Lattice</p>
+  </footer>
+
+  <script type="module" src="./static/docs.min.js" defer></script>
 </body>
 </html>

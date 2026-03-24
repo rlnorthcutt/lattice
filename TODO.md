@@ -1,5 +1,5 @@
- - Docs section
- - BUG - children of .lattice require container or full-width... make it set to container by default (if no class)
- - Adjust colors
+ - ~~BUG - children of .lattice require container or full-width... make it set to container by default (if no class)~~ fixed
+ - ~~Docs section~~ core.html and extra.html rewritten as proper API references
+ - Adjust colors (zzOverrides.css)
  - Code snippets are not shrinking - forcing page to scroll on smaller screen
  - card footer needs adjusting

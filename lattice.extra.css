@@ -108,7 +108,6 @@
 .gap-x-4{column-gap:var(--lat-15);} .gap-y-4{row-gap:var(--lat-15);}
 .gap-x-5{column-gap:var(--lat-2);}  .gap-y-5{row-gap:var(--lat-2);}
 
-.gap-none{gap:0;}
 
 /* ==========================================================================
    2) Display & visibility (includes responsive toggles)
@@ -127,33 +126,33 @@
 */
 @media (min-width:40rem){
   .sm-d-none{display:none !important;}
-  .sm-d-block{display:block;}
-  .sm-d-flex{display:flex;}
-  .sm-d-grid{display:grid;}
+  .sm-d-block{display:block !important;}
+  .sm-d-flex{display:flex !important;}
+  .sm-d-grid{display:grid !important;}
 }
 @media (min-width:48rem){
   .md-d-none{display:none !important;}
-  .md-d-block{display:block;}
-  .md-d-flex{display:flex;}
-  .md-d-grid{display:grid;}
+  .md-d-block{display:block !important;}
+  .md-d-flex{display:flex !important;}
+  .md-d-grid{display:grid !important;}
 }
 @media (min-width:64rem){
   .lg-d-none{display:none !important;}
-  .lg-d-block{display:block;}
-  .lg-d-flex{display:flex;}
-  .lg-d-grid{display:grid;}
+  .lg-d-block{display:block !important;}
+  .lg-d-flex{display:flex !important;}
+  .lg-d-grid{display:grid !important;}
 }
 @media (min-width:80rem){
   .xl-d-none{display:none !important;}
-  .xl-d-block{display:block;}
-  .xl-d-flex{display:flex;}
-  .xl-d-grid{display:grid;}
+  .xl-d-block{display:block !important;}
+  .xl-d-flex{display:flex !important;}
+  .xl-d-grid{display:grid !important;}
 }
 @media (min-width:96rem){
   .xxl-d-none{display:none !important;}
-  .xxl-d-block{display:block;}
-  .xxl-d-flex{display:flex;}
-  .xxl-d-grid{display:grid;}
+  .xxl-d-block{display:block !important;}
+  .xxl-d-flex{display:flex !important;}
+  .xxl-d-grid{display:grid !important;}
 }
 
 /* a11y helpers */

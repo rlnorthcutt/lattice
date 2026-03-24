@@ -44,8 +44,10 @@
     var(--lat-fluid-area);
 }
 /* placements (direct children of .lattice) */
-.full-width{ grid-column: 1 / -1; }
-.container { grid-column: m 1 / m 2; }
+/* default: everything acts as .container unless overridden */
+.lattice > * { grid-column: m 1 / m 2; }
+.full-width  { grid-column: 1 / -1; }
+.container   { grid-column: m 1 / m 2; }
 
 /* ==========================================================================
    2) Internal grids (component-level)
