@@ -12,5 +12,5 @@
   --color-border-dark:#23262b; --color-surface-dark:#111418;
   --surface-2-dark:#0f1216;  --surface-3-dark:#12161b;
 
-  --code-block: #001416;
+  --code-block: var(--surface-2-dark);
 }

@@ -1,4 +1,4 @@
-name: Minify CSS and Deploy
+name: 🗜️ Minify CSS and Deploy
 
 on:
   push:

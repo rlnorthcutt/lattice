@@ -108,12 +108,10 @@
 .gap-x-4{column-gap:var(--lat-15);} .gap-y-4{row-gap:var(--lat-15);}
 .gap-x-5{column-gap:var(--lat-2);}  .gap-y-5{row-gap:var(--lat-2);}
 
-.gap-none{gap:0;}
-
 /* ==========================================================================
    2) Display & visibility (includes responsive toggles)
    ========================================================================== */
-.d-none{display:none !important;} /* hard override is intentional */
+.d-none{display:none;}
 .d-block{display:block;}
 .d-flex{display:flex;}
 .d-grid{display:grid;}
@@ -126,31 +124,31 @@
    xxl = 96rem (1536px)
 */
 @media (min-width:40rem){
-  .sm-d-none{display:none !important;}
+  .sm-d-none{display:none;}
   .sm-d-block{display:block;}
   .sm-d-flex{display:flex;}
   .sm-d-grid{display:grid;}
 }
 @media (min-width:48rem){
-  .md-d-none{display:none !important;}
+  .md-d-none{display:none;}
   .md-d-block{display:block;}
   .md-d-flex{display:flex;}
   .md-d-grid{display:grid;}
 }
 @media (min-width:64rem){
-  .lg-d-none{display:none !important;}
+  .lg-d-none{display:none;}
   .lg-d-block{display:block;}
   .lg-d-flex{display:flex;}
   .lg-d-grid{display:grid;}
 }
 @media (min-width:80rem){
-  .xl-d-none{display:none !important;}
+  .xl-d-none{display:none;}
   .xl-d-block{display:block;}
   .xl-d-flex{display:flex;}
   .xl-d-grid{display:grid;}
 }
 @media (min-width:96rem){
-  .xxl-d-none{display:none !important;}
+  .xxl-d-none{display:none;}
   .xxl-d-block{display:block;}
   .xxl-d-flex{display:flex;}
   .xxl-d-grid{display:grid;}

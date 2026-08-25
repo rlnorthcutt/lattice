@@ -3,3 +3,4 @@
  - Adjust colors
  - Code snippets are not shrinking - forcing page to scroll on smaller screen
  - card footer needs adjusting
+ - prismjs for code coloring (with light/dark?)
