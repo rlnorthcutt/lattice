@@ -1,162 +1,169 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="./static/docs.min.css" />
-
-  <title>Lattice.css — layout utilities that stay out of your way</title>
-  <meta name="description" content="Lattice gives you a 12-column grid, responsive equal-column helpers, and tiny utilities—without dictating typography or components." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lattice CSS — Layout Utilities That Stay Out of Your Way</title>
+  <meta name="description" content="Lattice: a layout-first utility layer. 12-column page grid, responsive equal-column helpers, and minimal utilities — no opinions about typography or components.">
+  <link rel="stylesheet" href="ivy.full.min.css">
+  <link rel="stylesheet" href="lattice.full.min.css">
+  <link rel="stylesheet" href="docs.css">
 </head>
 <body class="lattice">
+  <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
-  <!-- Header / Top bar -->
-  <header class="full-width px-5">
-    <div class="d-flex justify-between items-center">
-      <nav aria-label="main">
-        <ul>
-          <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="core.html">Core Docs</a></li>
-          <li><a href="extra.html">Extra Docs</a></li>
-          <li><a href="https://github.com/rlnorthcutt/lattice">GitHub</a></li>
-        </ul>
-      </nav>
+  <header class="full-width sticky" role="banner">
+    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
+      <ul class="d-flex gap-3 m-0 p-0">
+        <li><a href="./" aria-current="page"><strong>Lattice CSS</strong></a></li>
+        <li><a href="core.html">Core Demo</a></li>
+        <li><a href="extra.html">Extra Demo</a></li>
+        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
       <dark-mode-toggle></dark-mode-toggle>
-    </div>
-
-    <!-- Centered hero copy -->
-    <div class="container text-center">
-      <h1>Lattice.css</h1>
-      <p class="muted">A layout-first utility layer: predictable grids, tiny helpers, and zero opinions about your typography or components.</p>
-    </div>
+    </nav>
   </header>
 
-  <main class="container">
+  <main id="content">
 
-    <!-- Value prop -->
-    <section>
-        <h2>Why Lattice?</h2>
-        <p>
-          Lattice focuses on the “boring math” of layout so your team can keep typography, colors, and components in your own design system.
-          You get:
-        </p>
-        <ul>
-          <li><strong>Master 12-col page grid</strong> with fluid outer gutters.</li>
-          <li><strong>Component grids</strong> that default to 12 equal tracks for simple alignment.</li>
-          <li><strong>One-class responsive columns</strong> (<code>.grid .col-N</code>) for equal layouts without extra wrappers.</li>
-          <li><strong>Tiny utility set</strong> for visibility/positioning. Need more? Add <em>Extra</em> for spacing, flex helpers, and unequal spans.</li>
-        </ul>
-        <div class="btn-group justify-center p-4">
-          <a role="button" href="core.html" data-variant="primary">Explore Core</a>
-          <a role="button" href="extra.html" data-variant="outline">Browse Extra</a>
-        </div>
-    </section>
-
-    <!-- Strategy: responsive 1 -> 3 feature grid -->
-    <section>
-      <h2>Strategy</h2>
-      <!-- 1 column by default, 3 columns ≥ md -->
-      <div class="grid col-1 md-col-3">
-        <article class="card">
-          <header><h3>Keep Core Tiny</h3></header>
-          <p>Ship only the 12-col page grid, equal-column helpers, and minimal utilities. Fewer classes, faster loads, easier maintenance.</p>
-          <footer><a role="button" href="core.html">Explore Core</a></footer>
-        </article>
-
-        <article class="card">
-          <header><h3>Opt Into Extras</h3></header>
-          <p>Add spacing scales, display/flex helpers, and unequal spans only when you need them—your bundle stays lean by default.</p>
-          <footer><a role="button" href="extra.html">Browse Extra</a></footer>
-        </article>
-
-        <article class="card">
-          <header><h3>Own Your Aesthetics</h3></header>
-          <p>Pair Lattice with a classless base like Ivy for sensible defaults, while your design system controls typography, color, and components.</p>
-          <footer><a role="button" href="https://github.com/rlnorthcutt/ivy">Ivy on GitHub</a></footer>
-        </article>
+    <!-- Hero -->
+    <section class="container py-5 text-center">
+      <p class="kicker">v1.2.0 — MIT License</p>
+      <h1>Lattice CSS</h1>
+      <p>A layout-first utility layer: predictable 12-column grids, responsive equal-column helpers,<br>
+      and a minimal set of utilities — with zero opinions about your typography or components.</p>
+      <div class="btn-group" data-align="center">
+        <a role="button" data-variant="primary" href="#install">Get started</a>
+        <a role="button" data-variant="outline" href="core.html">Core demo</a>
+        <a role="button" data-variant="outline" href="extra.html">Extra demo</a>
+        <a role="button" data-variant="ghost" href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </section>
 
-    <!-- Getting Started -->
-    <section>
-      <h2>Getting Started</h2>
+    <article>
 
-      <h3>CDN (quickest path)</h3>
-      <p>Drop these tags in your <code>&lt;head&gt;</code>:</p>
-<pre><code class="language-html">&lt;!-- Ivy (classless base) --&gt;
-&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css"&gt;
+      <!-- Two layers -->
+      <section id="layers" class="container">
+        <h2>Two layers</h2>
+        <p>Lattice is split into two files so you only ship what you need. Pair with <a href="https://github.com/rlnorthcutt/ivy">Ivy</a> for classless HTML defaults.</p>
+        <div class="grid sm-col-2 gap-3">
+          <div class="card" data-variant="primary">
+            <header><h3>Core — <code>lattice.css</code></h3></header>
+            <p>The 12-column page shell and component grids. Everything you need for reliable, responsive layout.</p>
+            <ul>
+              <li>Master page grid (<code>.lattice</code>)</li>
+              <li>Full-bleed and centered sections</li>
+              <li>12-track component grid (<code>.grid</code>)</li>
+              <li>Equal-column helpers (<code>.grid.col-N</code>)</li>
+              <li>Responsive breakpoints (sm → xxl)</li>
+              <li>Minimal display and visibility utilities</li>
+            </ul>
+            <footer><a href="core.html">View core demo →</a></footer>
+          </div>
+          <div class="card" data-variant="secondary">
+            <header><h3>Extra — <code>lattice.extra.css</code></h3></header>
+            <p>Optional helpers for spacing, unequal layouts, flex, positioning, and accessibility.</p>
+            <ul>
+              <li>Spacing scale (padding, margin, gap)</li>
+              <li>Responsive display toggles</li>
+              <li>Unequal column spans (<code>.span-N</code>)</li>
+              <li>Flex direction, alignment, order</li>
+              <li>Positioning, overflow, z-index</li>
+              <li>Screen-reader utilities</li>
+            </ul>
+            <footer><a href="extra.html">View extra demo →</a></footer>
+          </div>
+        </div>
+      </section>
 
-&lt;!-- Lattice (full bundle) --&gt;
+      <!-- Installation -->
+      <section id="install" class="container">
+        <h2>Installation</h2>
+
+        <h3>Option 1 — Core only</h3>
+        <p>Just the page grid and equal-column helpers. Great for structured layouts without spacing utilities.</p>
+        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.min.css"&gt;</code></pre>
+
+        <h3>Option 2 — Core + Extra</h3>
+        <p>Add spacing, spans, flex helpers, and positioning utilities.</p>
+        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.min.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.extra.min.css"&gt;</code></pre>
+
+        <h3>Option 3 — Full bundle</h3>
+        <p>Core + Extra in one file. Simplest option for most projects.</p>
+        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css"&gt;</code></pre>
+
+        <h3>Option 4 — With Ivy (recommended)</h3>
+        <p>Load <a href="https://github.com/rlnorthcutt/ivy">Ivy</a> first for classless HTML defaults, then Lattice for layout control.</p>
+        <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css"&gt;
 &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css"&gt;</code></pre>
+      </section>
 
-      <h3>Local bundle (recommended for this docs site)</h3>
-      <p>Your workflow copies the minified Lattice full build into <code>docs/</code>:</p>
-<pre><code class="language-html">&lt;link rel="stylesheet" href="./lattice.full.min.css"&gt;</code></pre>
+      <!-- Quick start -->
+      <section id="quickstart" class="container">
+        <h2>Quick start</h2>
+        <p>Add <code>.lattice</code> to your page shell. Direct children default to centered (container) width. Add <code>.full-width</code> for edge-to-edge sections.</p>
+        <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;
 
-      <details>
-        <summary>What’s in “Core” vs “Extra”?</summary>
-        <ul>
-          <li><strong>Core:</strong> 12-col page grid, <code>.grid</code> with 12 equal tracks, equal-column helpers (<code>.col-1,2,4,6,8,12</code>), responsive <code>sm/md/lg/xl/xxl-col-*</code>, minimal display/visibility.</li>
-          <li><strong>Extra:</strong> spacing/gap scale, display toggles, flex/positioning helpers, and the remaining spans (<code>.span-1..12</code> + responsive) for unequal layouts.</li>
-        </ul>
-      </details>
-    </section>
+&lt;body class="lattice"&gt;
+  &lt;header class="full-width"&gt;…&lt;/header&gt;  &lt;!-- bleeds to viewport edges --&gt;
 
-    <!-- Examples: minimal markup -->
-    <section>
-      <h2>Examples</h2>
+  &lt;main class="container"&gt;
+    &lt;!-- Equal columns: stack → 3 cols at md+ --&gt;
+    &lt;div class="grid md-col-3 gap-3"&gt;
+      &lt;article&gt;A&lt;/article&gt;
+      &lt;article&gt;B&lt;/article&gt;
+      &lt;article&gt;C&lt;/article&gt;
+    &lt;/div&gt;
 
-      <article>
-        <h3>Equal Columns (one class per breakpoint)</h3>
-        <p>On small screens items stack; at larger breakpoints they split evenly.</p>
-<pre><code class="language-html">&lt;section class="grid sm-col-2 lg-col-3 gap-2"&gt;
-  &lt;div class="card"&gt;
-    &lt;h4&gt;Tile 1&lt;/h4&gt;
-    &lt;p&gt;Auto stack → 2 → 3 columns.&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class="card"&gt;
-    &lt;h4&gt;Tile 2&lt;/h4&gt;
-    &lt;p&gt;No extra wrappers needed.&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div class="card"&gt;
-    &lt;h4&gt;Tile 3&lt;/h4&gt;
-    &lt;p&gt;Equal widths by track count.&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/section&gt;</code></pre>
-      </article>
-
-      <article>
-        <h3>Unequal Columns (add Extra)</h3>
-        <p>Use child spans when you need 25/75, 3/9, etc.</p>
-<pre><code class="language-html">&lt;section class="grid gap-2"&gt;
-  &lt;aside class="span-3 card"&gt;
-    &lt;h4&gt;Sidebar (3/12)&lt;/h4&gt;
-  &lt;/aside&gt;
-  &lt;main class="span-9 card"&gt;
-    &lt;h4&gt;Content (9/12)&lt;/h4&gt;
+    &lt;!-- Unequal columns (requires Extra) --&gt;
+    &lt;div class="grid gap-3"&gt;
+      &lt;aside class="md-span-4"&gt;Sidebar&lt;/aside&gt;
+      &lt;section class="md-span-8"&gt;Content&lt;/section&gt;
+    &lt;/div&gt;
   &lt;/main&gt;
-&lt;/section&gt;</code></pre>
-      </article>
 
-      <article>
-        <h3>Full-bleed Section + Centered Content</h3>
-<pre><code class="language-html">&lt;header class="full-width"&gt;
-  &lt;div class="container"&gt;
-    &lt;h2&gt;Full-bleed shell, centered inner content&lt;/h2&gt;
-  &lt;/div&gt;
-&lt;/header&gt;</code></pre>
-      </article>
-    </section>
+  &lt;footer class="full-width"&gt;…&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+      </section>
 
+      <!-- Customization -->
+      <section id="customize" class="container">
+        <h2>Customization</h2>
+        <p>Lattice is driven by CSS custom properties. Override any token in your own stylesheet.</p>
+        <pre><code>:root {
+  --lat-container-width: 1200px;  /* max content width (default: 1024px) */
+  --lat-space: 1.125rem;          /* spacing rhythm base (default: 1rem) */
+  --lat-gap-x: 1.5rem;            /* horizontal grid gap */
+  --lat-gap-y: 1.5rem;            /* vertical grid gap */
+}</code></pre>
+        <div class="callout" data-tone="info">
+          <strong>Safe-area insets</strong>
+          <p>Lattice uses <code>env(safe-area-inset-left/right)</code> in the master grid gutters for notched devices. Include <code>viewport-fit=cover</code> in your viewport meta to activate this.</p>
+        </div>
+      </section>
+
+      <!-- File sizes -->
+      <section id="files" class="container">
+        <h2>Files &amp; builds</h2>
+        <table>
+          <thead><tr><th>File</th><th>Contents</th><th>Approx. size</th></tr></thead>
+          <tbody>
+            <tr><td><code>dist/lattice.min.css</code></td><td>Core only</td><td>~3 KB</td></tr>
+            <tr><td><code>dist/lattice.extra.min.css</code></td><td>Extra only (requires core)</td><td>~5 KB</td></tr>
+            <tr><td><code>dist/lattice.full.css</code></td><td>Core + Extra (unminified)</td><td>~13 KB</td></tr>
+            <tr><td><code>dist/lattice.full.min.css</code></td><td>Core + Extra combined</td><td>~8 KB</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </article>
   </main>
-     
-  <!-- Footer -->
-<footer class="container">
-  <hr />
-  <p class="muted">MIT © Ron Northcutt • Built with Ivy + Lattice</p>
-</footer>
 
-  <!-- Dark mode toggle (web component) -->
-  <script type="module" src="./static/docs.min.js" defer></script>
+  <footer class="container text-center">
+    <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
+  </footer>
+
+  <script type="module" src="dark-mode-toggle.min.js" defer></script>
 </body>
 </html>

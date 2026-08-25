@@ -10,7 +10,7 @@
  * - Component layout: .grid (defaults to 12 tracks).
  * - Equal columns (container): .grid.col-* (+ sm/md/lg/xl/xxl).
  * - Simple placements: .full-width (full bleed) / .container (centered).
- * - Minimal display/visibility/width helpers.
+ * - Minimal display/visibility/width helpers. 
  */
 
 /* ==========================================================================
@@ -44,8 +44,10 @@
     var(--lat-fluid-area);
 }
 /* placements (direct children of .lattice) */
-.full-width{ grid-column: 1 / -1; }
-.container { grid-column: m 1 / m 2; }
+/* default: everything acts as .container unless overridden */
+.lattice > * { grid-column: m 1 / m 2; }
+.full-width  { grid-column: 1 / -1; }
+.container   { grid-column: m 1 / m 2; }
 
 /* ==========================================================================
    2) Internal grids (component-level)
@@ -218,7 +220,6 @@
 .gap-x-4{column-gap:var(--lat-15);} .gap-y-4{row-gap:var(--lat-15);}
 .gap-x-5{column-gap:var(--lat-2);}  .gap-y-5{row-gap:var(--lat-2);}
 
-.gap-none{gap:0;}
 
 /* ==========================================================================
    2) Display & visibility (includes responsive toggles)
@@ -237,33 +238,33 @@
 */
 @media (min-width:40rem){
   .sm-d-none{display:none !important;}
-  .sm-d-block{display:block;}
-  .sm-d-flex{display:flex;}
-  .sm-d-grid{display:grid;}
+  .sm-d-block{display:block !important;}
+  .sm-d-flex{display:flex !important;}
+  .sm-d-grid{display:grid !important;}
 }
 @media (min-width:48rem){
   .md-d-none{display:none !important;}
-  .md-d-block{display:block;}
-  .md-d-flex{display:flex;}
-  .md-d-grid{display:grid;}
+  .md-d-block{display:block !important;}
+  .md-d-flex{display:flex !important;}
+  .md-d-grid{display:grid !important;}
 }
 @media (min-width:64rem){
   .lg-d-none{display:none !important;}
-  .lg-d-block{display:block;}
-  .lg-d-flex{display:flex;}
-  .lg-d-grid{display:grid;}
+  .lg-d-block{display:block !important;}
+  .lg-d-flex{display:flex !important;}
+  .lg-d-grid{display:grid !important;}
 }
 @media (min-width:80rem){
   .xl-d-none{display:none !important;}
-  .xl-d-block{display:block;}
-  .xl-d-flex{display:flex;}
-  .xl-d-grid{display:grid;}
+  .xl-d-block{display:block !important;}
+  .xl-d-flex{display:flex !important;}
+  .xl-d-grid{display:grid !important;}
 }
 @media (min-width:96rem){
   .xxl-d-none{display:none !important;}
-  .xxl-d-block{display:block;}
-  .xxl-d-flex{display:flex;}
-  .xxl-d-grid{display:grid;}
+  .xxl-d-block{display:block !important;}
+  .xxl-d-flex{display:flex !important;}
+  .xxl-d-grid{display:grid !important;}
 }
 
 /* a11y helpers */
@@ -387,6 +388,11 @@
 .overflow-auto{overflow:auto;} .overflow-hidden{overflow:hidden;}
 .overflow-visible{overflow:visible;} .overflow-scroll{overflow:scroll;}
 .overflow-x-auto{overflow-x:auto;} .overflow-y-auto{overflow-y:auto;}
+
+/* sticky positioning — apply to header or nav to keep it fixed at the top while scrolling.
+   Override --sticky-top (default 0) to offset below another sticky element (e.g. a sticky header).
+   Override --sticky-z (default 100) to control stacking when multiple sticky elements coexist. */
+.sticky{position:sticky; top:var(--sticky-top,0); z-index:var(--sticky-z,100); background:color-mix(in oklab,var(--color-bg) 92%,transparent); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:var(--bw-1) solid var(--color-border);}
 
 .z-0{z-index:0;} .z-10{z-index:10;} .z-20{z-index:20;} .z-30{z-index:30;} .z-40{z-index:40;} .z-50{z-index:50;}
 .pe-none{pointer-events:none;} .pe-auto{pointer-events:auto;}

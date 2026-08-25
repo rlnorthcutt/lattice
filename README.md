@@ -60,9 +60,16 @@ Or ship the one-file bundle:
   </header>
 
   <main class="container">
-    <div class="grid gap-3 my-4">
-      <aside class="col md-col-4">Sidebar</aside>
-      <article class="col md-col-8">Main content</article>
+    <!-- Equal columns: 1 col → 2 cols at md -->
+    <div class="grid md-col-2 gap-3 my-4">
+      <aside>Sidebar</aside>
+      <article>Main content</article>
+    </div>
+
+    <!-- Unequal columns (requires Extra) -->
+    <div class="grid gap-3">
+      <aside class="md-span-4">Sidebar (4/12)</aside>
+      <article class="md-span-8">Main content (8/12)</article>
     </div>
   </main>
 
@@ -70,10 +77,10 @@ Or ship the one-file bundle:
 </body>
 ```
 
-* `.lattice` once at the page shell.
-* Its **direct children** pick **bleed** (`.full-width`) or **contained** (`.container`).
-* Inside, use `.grid` for components; items size with `.col-*` (mobile-first).
-* `.col` = `.col-12`. Breakpoints: `sm-`, `md-`, `lg-`, `xl-`, `xxl-` (xxl).
+* `.lattice` once at the page shell. Direct children default to contained width; add `.full-width` for full-bleed sections.
+* Inside, use `.grid` for component grids. Set the **column count on the container**: `.grid.col-N` or `.grid.md-col-N`.
+* For **unequal** columns, put `.span-*` on items (requires Extra).
+* Breakpoints: `sm-`, `md-`, `lg-`, `xl-`, `xxl-`.
 
 ## Core concepts
 
@@ -91,41 +98,50 @@ Or ship the one-file bundle:
 ### 2) Component grids (Core)
 
 ```html
+<!-- Equal thirds: stack on mobile, 3 columns at md -->
+<section class="grid md-col-3">
+  <div>A</div>
+  <div>B</div>
+  <div>C</div>
+</section>
+
+<!-- Unequal layout (requires Extra): sidebar + content -->
 <section class="grid">
-  <div class="col md-col-4">A</div>
-  <div class="col md-col-4">B</div>
-  <div class="col md-col-4">C</div>
+  <aside class="md-span-4">Sidebar</aside>
+  <main class="md-span-8">Content</main>
 </section>
 ```
 
-* `.grid` **defaults to 12 tracks**—no boilerplate needed.
-* Items: `.col-1,2,3,4,6,8,10,12` (+ responsive `sm-`, `md-`, `lg-`, `xl-`, `xxl-`).
+* `.grid` **defaults to 12 equal tracks**—no boilerplate needed.
+* Set equal columns on the **container**: `.grid.col-N` or `.grid.md-col-N` (N = 1, 2, 3, 4, 6, 12).
+* Set unequal spans on **items** with `.span-N` or `.md-span-N` (requires Extra).
 
-### 3) Page-level placement (Extra)
+### 3) Unequal column spans (Extra)
 
-For precise art-direction on the **master grid**:
+When you need non-uniform columns inside a `.grid`, use `.span-*` on child items:
 
 ```html
-<main class="lattice">
-  <aside  class="start-1 span-3">Nav</aside>
-  <section class="start-4 span-9">Main</section>
-</main>
+<div class="grid gap-3">
+  <aside class="span-4">Sidebar (4/12)</aside>
+  <main class="span-8">Content (8/12)</main>
+</div>
 ```
 
-* **Only** for **direct children of `.lattice`** (enforced in CSS).
-* Inside `.grid`, keep using `.col-*`.
+* Use responsive variants: `sm-span-*`, `md-span-*`, etc. to change spans per breakpoint.
+* Keep equal layouts using `.grid.col-N` on the container (Core).
 
 ## API reference (practical)
 
 ### Core classes
 
-| Area            | Classes                                        | Notes                                               |
-| --------------- | ---------------------------------------------- | --------------------------------------------------- |
-| Page shell      | `.lattice`                                     | One per page. Provides fluid gutters + named lines. |
-| Sections        | `.container`, `.full-width`                    | Must be direct children of `.lattice`.              |
-| Component grids | `.grid`                                        | Defaults to 12 equal tracks.                        |
-| Item widths     | `.col` (= `.col-12`), `.col-1,2,3,4,6,8,10,12` | Mobile-first spans inside `.grid`.                  |
-| Responsive      | `sm-`, `md-`, `lg-`, `xl-`, `xxl-`           | E.g. `md-col-4`.                                    |
+| Area              | Classes                                  | Notes                                                                    |
+| ----------------- | ---------------------------------------- | ------------------------------------------------------------------------ |
+| Page shell        | `.lattice`                               | One per page. Direct children default to contained width.                |
+| Sections          | `.container`, `.full-width`              | Direct children of `.lattice`. `.container` is the default.              |
+| Component grids   | `.grid`                                  | Defaults to 12 equal tracks.                                             |
+| Equal columns     | `.grid.col-1,2,3,4,6,12`                | Set on the **container** to create N equal columns. Mobile-first.        |
+| Responsive cols   | `.grid.sm-col-*`, `.grid.md-col-*`, …   | E.g. `<div class="grid md-col-3">` stacks on mobile, 3 cols at md+.     |
+| Unequal spans     | `.span-1…12` (Extra)                    | Set on **items** inside `.grid` for 25/75, 3/9, etc. Requires Extra.    |
 
 **Breakpoints (min-width):**
 `sm 40rem` (640px), `md 48rem` (768px), `lg 64rem` (1024px), `xl 80rem` (1280px), `xxl 96rem` (1536px).
@@ -133,16 +149,16 @@ Classes use `xxl-` to avoid digit-leading selectors (docs can say “xxl”).
 
 ### Extra classes (high-value 95%)
 
-| Area                     | Examples                                                                                                  |
-| ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| Spacing                  | `.p-0…5`, `.m-0…5`, `.gap-0…5`, `px-*`, `py-*`, etc.                                                      |
-| Display                  | `.d-none`, `.d-flex`, `.d-grid` + responsive `sm-*/md-*/lg-*/xl-*/xxl-*`                                |
-| Grid flow/place          | `.flow-row`, `.flow-col`, `.flow-dense`, `.place-items-center`, `.place-content-start`, `.place-self-end` |
-| **Page-shell placement** | `.start-1…12`, `.span-1…12` (only on `.lattice > *`)                                                      |
-| Flexbox                  | `.flex-row`, `.justify-between`, `.items-center`, `.order-1`…                                             |
-| Positioning & misc       | `.relative`, `.sticky`, `.inset-0`, `.overflow-auto`, `.z-10`, `.aspect-video`                            |
-| A11y                     | `.sr-only`, `.sr-only-focusable`                                                                          |
-| Legacy helpers           | `.clearfix`, `.cf`                                                                                        |
+| Area               | Examples                                                                                                  |
+| ------------------ | --------------------------------------------------------------------------------------------------------- |
+| Spacing            | `.p-0…5`, `.m-0…5`, `.gap-0…5`, `px-*`, `py-*`, etc.                                                      |
+| Display            | `.d-none`, `.d-flex`, `.d-grid` + responsive `sm-*/md-*/lg-*/xl-*/xxl-*`                                |
+| Grid flow/place    | `.flow-row`, `.flow-col`, `.flow-dense`, `.place-items-center`, `.place-content-start`, `.place-self-end` |
+| Unequal spans      | `.span-1…12` + responsive `sm-span-*`, `md-span-*`, … (items inside `.grid`)                             |
+| Flexbox            | `.flex-row`, `.justify-between`, `.items-center`, `.order-1`…                                             |
+| Positioning & misc | `.relative`, `.sticky`, `.inset-0`, `.overflow-auto`, `.z-10`, `.aspect-video`                            |
+| A11y               | `.sr-only`, `.visually-hidden`, `.sr-only-focusable`                                                      |
+| Legacy helpers     | `.clearfix`, `.cf`                                                                                        |
 
 ## Customization
 
@@ -187,18 +203,21 @@ Override these tokens to match your rhythm:
 **Three cards (stack → thirds)**
 
 ```html
-<div class="grid gap-3">
-  <article class="col md-col-4">A</article>
-  <article class="col md-col-4">B</article>
-  <article class="col md-col-4">C</article>
+<div class="grid md-col-3 gap-3">
+  <article>A</article>
+  <article>B</article>
+  <article>C</article>
 </div>
 ```
 
-**Designer slice on the page shell (Extra)**
+**Sidebar + content (Extra)**
 
 ```html
-<main class="lattice">
-  <section class="start-3 span-6">Centered feature</section>
+<main class="container">
+  <div class="grid gap-3">
+    <aside class="md-span-3">Sidebar</aside>
+    <section class="md-span-9">Content</section>
+  </div>
 </main>
 ```
 

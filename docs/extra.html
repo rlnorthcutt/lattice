@@ -1,181 +1,398 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lattice Extra Documentation</title>
-    <link rel="stylesheet" href="../lattice.extra.css">
-    <style>
-body {
-    max-width: 650px;
-    margin: 40px auto;
-    padding: 0 10px;
-    font: 18px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    color: #444
-}
-
-h1,h2,h3 {
-    line-height: 1.2
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        color:#c9d1d9;
-        background: #0d1117
-    }
-
-    a:link {
-        color: #58a6ff
-    }
-
-    a:visited {
-        color: #8e96f0
-    }
-}
-
-header {
-    margin-bottom: 2rem;
-}
-
-nav {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-}
-
-a {
-    color: #444;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-}
-
-a:hover {
-    border-bottom-color: currentColor;
-}
-
-.lead {
-    margin-top: 0;
-    color: rgba(68,68,68,.8);
-}
-
-section + section {
-    margin-top: 3rem;
-}
-
-pre {
-    background: rgba(15,23,42,.08);
-    padding: 1rem;
-    border-radius: .75rem;
-    overflow-x: auto;
-}
-
-.callout {
-    border-left: 4px solid #222;
-    padding: 1rem;
-    background: rgba(68,68,68,.06);
-}
-
-.patterns {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    gap: 1.5rem;
-}
-
-.patterns li {
-    border: 1px solid rgba(68,68,68,.2);
-    border-radius: .75rem;
-    padding: 1rem;
-}
-
-.patterns h3 {
-    margin-top: 0;
-}
-
-@media (prefers-color-scheme: dark) {
-    .lead {
-        color: rgba(201,209,217,.75);
-    }
-
-    pre {
-        background: rgba(88,166,255,.15);
-    }
-
-    .callout {
-        border-left-color: #58a6ff;
-        background: rgba(88,166,255,.08);
-    }
-
-    .patterns li {
-        border-color: rgba(201,209,217,.2);
-    }
-}
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Lattice Extra — Utilities Demo</title>
+  <meta name="description" content="Live demo of every utility in lattice.extra.css: spacing scale, unequal spans, responsive display, flex helpers, positioning, and accessibility.">
+  <link rel="stylesheet" href="ivy.full.min.css">
+  <link rel="stylesheet" href="lattice.full.min.css">
+  <link rel="stylesheet" href="docs.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="core.html">Lattice Core Docs</a>
-            <a href="extra.html">Lattice Extra Docs</a>
-        </nav>
-        <h1>Lattice Extra</h1>
-        <p class="lead">Optional enhancements that layer on top of Core utilities to deliver polished, production-ready UI patterns.</p>
-    </header>
-    <main>
-        <section>
-            <h2>Installation</h2>
-            <p>The Extra bundle is published separately so that you only ship what you need.</p>
-            <pre><code># npm
-npm install @lattice-css/extra
+<body class="lattice">
+  <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
-# import alongside the core layer
-@import "@lattice-css/extra";
+  <header class="full-width sticky" role="banner">
+    <nav class="container d-flex justify-between" aria-label="Primary">
+      <ul class="d-flex gap-2 m-0 p-0">
+        <li><a href="./">Lattice CSS</a></li>
+        <li><a href="core.html">Core Demo</a></li>
+        <li><a href="extra.html" aria-current="page">Extra Demo</a></li>
+        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
+      </ul>
+      <dark-mode-toggle></dark-mode-toggle>
+    </nav>
+  </header>
 
-# via CDN
-&lt;link rel="stylesheet" href="https://unpkg.com/@lattice-css/extra/dist/lattice-extra.min.css"&gt;</code></pre>
-        </section>
-        <section>
-            <h2>When to use Extra</h2>
-            <div class="callout">
-                <p>Reach for Extra when you need interactive affordances, refined component primitives, or design tokens that extend the base theme.</p>
+  <main id="content">
+
+    <section class="container py-5 text-center">
+      <p class="kicker">lattice.extra.css</p>
+      <h1>Extra Demo</h1>
+      <p>Optional helpers that extend Core. Load <code>lattice.extra.css</code> after <code>lattice.css</code>, or use the full bundle. Every example below requires Extra.</p>
+    </section>
+
+      <nav class="sticky py-2" aria-label="On this page" style="--sticky-top:6rem; --sticky-z:99;">
+        <ul class="container d-flex flex-wrap gap-2 m-0 p-0" >
+          <li><a href="#spacing">Spacing scale</a></li>
+          <li><a href="#spans">Unequal spans</a></li>
+          <li><a href="#display">Display &amp; responsive</a></li>
+          <li><a href="#flex">Flex helpers</a></li>
+          <li><a href="#grid-helpers">Grid helpers</a></li>
+          <li><a href="#position">Positioning</a></li>
+          <li><a href="#a11y">Accessibility</a></li>
+        </ul>
+      </nav>
+
+    <article class="container">
+      <!-- Spacing scale -->
+      <section id="spacing">
+        <h2>Spacing Scale</h2>
+        <p>A 6-step scale (0–5) derived from <code>--lat-space</code> (default <code>1rem</code>). Available for padding, margin, and gap in all directions using logical CSS properties.</p>
+
+        <h3>Padding — <code>.p-{0…5}</code></h3>
+        <p>Each box uses the matching <code>.p-N</code> class — the tinted background shows how the padding grows.</p>
+        <div class="grid col-6 gap-2" style="align-items:start;">
+          <div class="p-0 demo" data-tone="primary"><code>.p-0</code></div>
+          <div class="p-1 demo" data-tone="primary"><code>.p-1</code></div>
+          <div class="p-2 demo" data-tone="primary"><code>.p-2</code></div>
+          <div class="p-3 demo" data-tone="primary"><code>.p-3</code></div>
+          <div class="p-4 demo" data-tone="primary"><code>.p-4</code></div>
+          <div class="p-5 demo" data-tone="primary"><code>.p-5</code></div>
+        </div>
+
+        <h3>Directional padding</h3>
+        <table>
+          <thead><tr><th>Pattern</th><th>Property</th></tr></thead>
+          <tbody>
+            <tr><td><code>.px-{0–5}</code></td><td><code>padding-inline</code> (left + right)</td></tr>
+            <tr><td><code>.py-{0–5}</code></td><td><code>padding-block</code> (top + bottom)</td></tr>
+            <tr><td><code>.ps-{0–5}</code> / <code>.pe-{0–5}</code></td><td>inline-start / inline-end</td></tr>
+            <tr><td><code>.pt-{0–5}</code> / <code>.pb-{0–5}</code></td><td>block-start / block-end</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Margin — <code>.m-{0…5}</code></h3>
+        <p>Each box uses the matching <code>.m-N</code> class — the offset from the grid boundary grows with each step.</p>
+        <div class="grid col-6 gap-0 box">
+          <div class="m-0 demo p-2" data-tone="secondary"><small>.m-0</small></div>
+          <div class="m-1 demo p-2" data-tone="secondary"><small>.m-1</small></div>
+          <div class="m-2 demo p-2" data-tone="secondary"><small>.m-2</small></div>
+          <div class="m-3 demo p-2" data-tone="secondary"><small>.m-3</small></div>
+          <div class="m-4 demo p-2" data-tone="secondary"><small>.m-4</small></div>
+          <div class="m-5 demo p-2" data-tone="secondary"><small>.m-5</small></div>
+        </div>
+
+        <h3>Gap — <code>.gap-{0…5}</code></h3>
+        <p>Applied to grid or flex containers to control space between children.</p>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.gap-1</code></p>
+            <div class="grid col-3 gap-1">
+              <div class="demo p-2" data-tone="info">A</div>
+              <div class="demo p-2" data-tone="info">B</div>
+              <div class="demo p-2" data-tone="info">C</div>
             </div>
-            <ul>
-                <li><strong>Component primitives</strong> such as buttons, badges, cards, and alerts.</li>
-                <li><strong>Design tokens</strong> for motion, shadows, and gradients that match the Lattice aesthetic.</li>
-                <li><strong>State-driven utilities</strong> that respond to hover, focus-visible, and data attributes.</li>
-            </ul>
-        </section>
-        <section>
-            <h2>Featured Patterns</h2>
-            <ul class="patterns">
-                <li>
-                    <h3>Cards</h3>
-                    <p>Compose <code>card</code>, <code>card-header</code>, and <code>card-body</code> utilities to build responsive card layouts.</p>
-                    <pre><code>&lt;article class="card shadow-soft"&gt;
-  &lt;header class="card-header flex-between"&gt;
-    &lt;h3 class="text-lg"&gt;Release notes&lt;/h3&gt;
-    &lt;span class="badge badge-soft"&gt;v2.1&lt;/span&gt;
-  &lt;/header&gt;
-  &lt;div class="card-body text-muted"&gt;
-    Meet the latest refinements to typography and spacing scales.
-  &lt;/div&gt;
-&lt;/article&gt;</code></pre>
-                </li>
-                <li>
-                    <h3>Command palette</h3>
-                    <p>Pair <code>surface-elevated</code>, <code>backdrop-blur</code>, and key bindings classes for a delightful command palette.</p>
-                    <pre><code>&lt;div class="palette surface-elevated backdrop-blur-md" role="dialog"&gt;
-  &lt;input class="palette-input" placeholder="Search commands" autofocus&gt;
-  &lt;ul class="palette-list" role="listbox"&gt;
-    &lt;li class="palette-item is-active"&gt;Open docs&lt;/li&gt;
-    &lt;li class="palette-item"&gt;Toggle theme&lt;/li&gt;
-  &lt;/ul&gt;
+          </div>
+          <div>
+            <p><code>.gap-5</code></p>
+            <div class="grid col-3 gap-5">
+              <div class="demo p-2" data-tone="info">A</div>
+              <div class="demo p-2" data-tone="info">B</div>
+              <div class="demo p-2" data-tone="info">C</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Unequal spans -->
+      <section id="spans" class="container">
+        <h2>Unequal Column Spans</h2>
+        <p>Put <code>.span-N</code> on <strong>items inside <code>.grid</code></strong> for unequal column widths. The grid is 12 tracks wide by default.</p>
+
+        <h3>Sidebar + content (4 / 8)</h3>
+        <pre><code>&lt;div class="grid gap-3"&gt;
+  &lt;aside class="span-4"&gt;Sidebar (4/12)&lt;/aside&gt;
+  &lt;main class="span-8"&gt;Content (8/12)&lt;/main&gt;
 &lt;/div&gt;</code></pre>
-                </li>
-            </ul>
-        </section>
-    </main>
+        <div class="grid gap-3">
+          <div class="span-4 demo p-3" data-tone="warn">Sidebar (4/12)</div>
+          <div class="span-8 demo p-3" data-tone="info">Content (8/12)</div>
+        </div>
+
+        <h3>Thirds: 4 + 4 + 4</h3>
+        <div class="grid gap-3">
+          <div class="span-4 demo p-3" data-tone="info">4</div>
+          <div class="span-4 demo p-3" data-tone="info">4</div>
+          <div class="span-4 demo p-3" data-tone="info">4</div>
+        </div>
+
+        <h3>Mixed: 2 + 7 + 3</h3>
+        <div class="grid gap-3">
+          <div class="span-2 demo p-3" data-tone="warn">2</div>
+          <div class="span-7 demo p-3" data-tone="info">7</div>
+          <div class="span-3 demo p-3" data-tone="success">3</div>
+        </div>
+
+        <h3>Responsive spans — full-width on mobile, split at md</h3>
+        <pre><code>&lt;div class="grid gap-3"&gt;
+  &lt;aside class="md-span-3"&gt;Sidebar&lt;/aside&gt;
+  &lt;main class="md-span-9"&gt;Content&lt;/main&gt;
+&lt;/div&gt;</code></pre>
+        <div class="grid gap-3">
+          <div class="md-span-3 demo p-3" data-tone="warn">Sidebar (full → 3/12 at md)</div>
+          <div class="md-span-9 demo p-3" data-tone="info">Content (full → 9/12 at md)</div>
+        </div>
+        <p><em>Narrow your browser to see these stack. At md (768px) they split 3/9.</em></p>
+
+        <h3>Variable span</h3>
+        <p>Use <code>.span-var</code> with a CSS custom property for dynamic widths:</p>
+        <pre><code>&lt;div class="span-var" style="--lat-span: 5"&gt;5 tracks&lt;/div&gt;</code></pre>
+        <div class="grid gap-2">
+          <div class="span-var demo p-3" style="--lat-span:5;" data-tone="info"><code>--lat-span: 5</code></div>
+          <div class="span-var demo p-3" style="--lat-span:7;" data-tone="warn"><code>--lat-span: 7</code></div>
+        </div>
+      </section>
+
+      <!-- Display & responsive -->
+      <section id="display" class="container">
+        <h2>Display &amp; Responsive Visibility</h2>
+        <p>All display classes carry <code>!important</code>. Responsive variants apply at their breakpoint and above, so <code>.sm-d-block</code> can reveal something hidden with <code>.d-none</code>.</p>
+
+        <h3>Base display classes</h3>
+        <table>
+          <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+          <tbody>
+            <tr><td><code>.d-none</code></td><td>Removes from layout</td></tr>
+            <tr><td><code>.d-block</code></td><td><code>display: block</code></td></tr>
+            <tr><td><code>.d-flex</code></td><td><code>display: flex</code></td></tr>
+            <tr><td><code>.d-grid</code></td><td><code>display: grid</code></td></tr>
+          </tbody>
+        </table>
+        <p>Responsive prefix: <code>sm-</code>, <code>md-</code>, <code>lg-</code>, <code>xl-</code>, <code>xxl-</code>. E.g. <code>.d-none.md-d-flex</code> hides on mobile, shows as flex on md+.</p>
+
+        <h3>Hide on mobile, show at md</h3>
+        <pre><code>&lt;nav class="d-none md-d-flex"&gt;Desktop nav&lt;/nav&gt;
+&lt;button class="md-d-none"&gt;☰ Mobile menu&lt;/button&gt;</code></pre>
+        <div class="box p-3">
+          <nav class="d-none md-d-flex gap-3">
+            <a href="#">Desktop nav link 1</a>
+            <a href="#">Desktop nav link 2</a>
+            <a href="#">Desktop nav link 3</a>
+          </nav>
+          <button class="md-d-none" type="button">☰ Mobile menu (visible below md)</button>
+        </div>
+      </section>
+
+      <!-- Flex helpers -->
+      <section id="flex" class="container">
+        <h2>Flex Helpers</h2>
+        <p>Apply to any element with <code>display: flex</code> (e.g. via <code>.flex</code> from Core or <code>.d-flex</code> from Extra).</p>
+
+        <h3>Justify content</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.justify-start</code></p>
+            <div class="d-flex justify-start gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.justify-center</code></p>
+            <div class="d-flex justify-center gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.justify-end</code></p>
+            <div class="d-flex justify-end gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.justify-between</code></p>
+            <div class="d-flex justify-between gap-2 box p-2">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Align items</h3>
+        <div class="grid sm-col-3 gap-3">
+          <div>
+            <p><code>.items-start</code></p>
+            <div class="d-flex items-start gap-2 box p-2 demo-flex">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.items-center</code></p>
+            <div class="d-flex items-center gap-2 box p-2 demo-flex">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+          <div>
+            <p><code>.items-end</code></p>
+            <div class="d-flex items-end gap-2 box p-2 demo-flex">
+              <div class="demo py-1 px-2" data-tone="info">A</div>
+              <div class="demo py-1 px-2" data-tone="info">B</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Flex sizing</h3>
+        <pre><code>&lt;div class="d-flex gap-2"&gt;
+  &lt;div class="flex-none"&gt;Fixed&lt;/div&gt;
+  &lt;div class="flex-1"&gt;Grows to fill space&lt;/div&gt;
+  &lt;div class="flex-none"&gt;Fixed&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div class="d-flex gap-2 box p-2">
+          <div class="flex-none demo py-1 px-2" data-tone="info">Fixed</div>
+          <div class="flex-1 demo py-1 px-2" data-tone="success">Grows to fill space</div>
+          <div class="flex-none demo py-1 px-2" data-tone="info">Fixed</div>
+        </div>
+
+        <h3>Order</h3>
+        <pre><code>&lt;div class="d-flex gap-2"&gt;
+  &lt;div class="order-3"&gt;DOM: 1st → renders last&lt;/div&gt;
+  &lt;div class="order-1"&gt;DOM: 2nd → renders first&lt;/div&gt;
+  &lt;div class="order-2"&gt;DOM: 3rd → renders second&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <div class="d-flex gap-2 flex-wrap">
+          <div class="order-3 demo py-1 px-2" data-tone="warn">DOM: 1st → order-3</div>
+          <div class="order-1 demo py-1 px-2" data-tone="info">DOM: 2nd → order-1</div>
+          <div class="order-2 demo py-1 px-2" data-tone="success">DOM: 3rd → order-2</div>
+        </div>
+      </section>
+
+      <!-- Grid helpers -->
+      <section id="grid-helpers" class="container">
+        <h2>Grid Helpers</h2>
+
+        <h3>Dense packing — <code>.flow-dense</code></h3>
+        <p>Auto-places items into holes in the grid for tighter packing.</p>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p>Without dense:</p>
+            <div class="grid col-3 gap-1">
+              <div class="span-2 demo p-2" data-tone="warn">span-2</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
+            </div>
+          </div>
+          <div>
+            <p>With <code>.flow-dense</code>:</p>
+            <div class="grid col-3 gap-1 flow-dense">
+              <div class="span-2 demo p-2" data-tone="warn">span-2</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
+              <div class="demo p-2" data-tone="info">1</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Placement — <code>.place-items-*</code></h3>
+        <div class="grid col-3 gap-2 demo-grid">
+          <div class="box d-grid place-items-center text-center">
+            <span>center</span>
+          </div>
+          <div class="box d-grid place-items-start text-center">
+            <span>start</span>
+          </div>
+          <div class="box d-grid place-items-end text-center">
+            <span>end</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Positioning -->
+      <section id="position" class="container">
+        <h2>Positioning &amp; Sizing</h2>
+
+        <h3>Relative + absolute</h3>
+        <pre><code>&lt;div class="relative"&gt;
+  &lt;span class="absolute top-0 right-0"&gt;Top right&lt;/span&gt;
+  &lt;span class="absolute bottom-0 left-0"&gt;Bottom left&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+        <div class="relative box demo-tall">
+          <span class="absolute top-0 right-0 demo py-1 px-2" data-tone="primary">top-0 right-0</span>
+          <span class="absolute bottom-0 left-0 demo py-1 px-2" data-tone="secondary">bottom-0 left-0</span>
+        </div>
+
+        <h3>Overflow</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.overflow-hidden</code></p>
+            <div class="overflow-hidden box demo-flex">
+              <p>This content overflows the box but is clipped by overflow-hidden. Extra text that won't show.</p>
+              <p>More overflow content here.</p>
+            </div>
+          </div>
+          <div>
+            <p><code>.overflow-auto</code></p>
+            <div class="overflow-auto box demo-flex">
+              <p>This content overflows the box and gets a scrollbar from overflow-auto.</p>
+              <p>More content to scroll to here.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Aspect ratio</h3>
+        <div class="grid sm-col-2 gap-3">
+          <div>
+            <p><code>.aspect-square</code></p>
+            <div class="aspect-square demo d-flex place-items-center" data-tone="info" style="max-width:8rem;">1:1</div>
+          </div>
+          <div>
+            <p><code>.aspect-video</code></p>
+            <div class="aspect-video demo d-flex place-items-center" data-tone="info">16:9</div>
+          </div>
+        </div>
+
+        <h3>Z-index scale</h3>
+        <p>Available: <code>.z-0</code> <code>.z-10</code> <code>.z-20</code> <code>.z-30</code> <code>.z-40</code> <code>.z-50</code></p>
+      </section>
+
+      <!-- A11y -->
+      <section id="a11y" class="container">
+        <h2>Accessibility</h2>
+
+        <h3>Screen-reader only text</h3>
+        <p>Both <code>.sr-only</code> and <code>.visually-hidden</code> hide content visually while keeping it available to screen readers.</p>
+        <pre><code>&lt;button&gt;
+  &lt;svg aria-hidden="true"&gt;…&lt;/svg&gt;
+  &lt;span class="sr-only"&gt;Close dialog&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+        <p>The text below is present in the DOM but visually invisible:</p>
+        <span class="sr-only">This text is only visible to screen readers.</span>
+        <p><em>(Nothing visible above — that's correct.)</em></p>
+
+        <h3>Focusable skip links</h3>
+        <p>Combine with <code>.sr-only-focusable</code> to create skip links that appear only on keyboard focus:</p>
+        <pre><code>&lt;a class="sr-only sr-only-focusable" href="#content"&gt;Skip to content&lt;/a&gt;</code></pre>
+        <p>Tab to the top of this page to see the skip link appear.</p>
+
+        <h3>Pointer events</h3>
+        <p><code>.pe-none</code> disables click/touch interaction. <code>.pe-auto</code> restores it.</p>
+        <div class="box p-3">
+          <button type="button" class="pe-none" data-variant="outline">Non-interactive button (<code>.pe-none</code>)</button>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <footer class="container text-center">
+    <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
+  </footer>
+
+  <script type="module" src="dark-mode-toggle.min.js" defer></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 name: 🏗️ Build Documentation Assets
 
-# Configure triggers for the workflow
 on:
   workflow_dispatch:
     inputs:
@@ -13,82 +12,33 @@ on:
     branches:
       - main
     paths:
-      - 'docs/css/**'
-      - 'docs/js/**'
       - '.github/workflows/**'
 
 permissions:
-  contents: write # Required for the git-auto-commit-action to commit changes
+  contents: write
 
 jobs:
-  build_and_minify:
+  fetch_external_assets:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
 
-      # --- 1. Fetch External Files ---
       - name: 📥 Fetch External Assets
         run: |
-          # Create directories if they don't exist
-          mkdir -p docs/js docs/css
-          
-          echo "Downloading dark-mode-toggle.js..."
-          # Download JS file, naming it for proper load order
-          curl -o docs/js/dark-mode-toggle.js \
-            https://raw.githubusercontent.com/rlnorthcutt/dark-mode-toggle/refs/heads/main/dark-mode-toggle.js
-            
-          echo "Downloading ivy.full.css..."
-          # Download CSS file, naming it for proper load order
-          curl -o docs/css/ivy.full.css \
-            https://raw.githubusercontent.com/rlnorthcutt/ivy/refs/heads/main/dist/ivy.full.css
+          echo "Downloading ivy.full.min.css..."
+          curl -fsSL -o docs/ivy.full.min.css \
+            https://raw.githubusercontent.com/rlnorthcutt/ivy/refs/heads/main/dist/ivy.full.min.css
 
-      # --- 2. Setup Node and Install Tools Globally ---
-      - name: 🏃 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+          echo "Downloading dark-mode-toggle.min.js..."
+          curl -fsSL -o docs/dark-mode-toggle.min.js \
+            https://raw.githubusercontent.com/rlnorthcutt/dark-mode-toggle/refs/heads/main/dist/dark-mode-toggle.min.js
 
-      - name: 📦 Install Build Dependencies Globally
-        # Install uglify-js and clean-css-cli globally (g) since there is no package.json
-        run: npm install -g uglify-js clean-css-cli
-
-      # --- 3. Aggregate and Minify Assets ---
-      - name: ⚙️ Aggregate and Minimize Docs Assets
-        run: |
-          # Define the target directory and output file paths
-          OUTPUT_DIR="docs/static"
-          CSS_OUTPUT="$OUTPUT_DIR/docs.min.css"
-          JS_OUTPUT="$OUTPUT_DIR/docs.min.js"
-
-          echo "Ensuring output directory exists..."
-          mkdir -p $OUTPUT_DIR
-          
-          # --- Processing CSS ---
-          echo "--- Processing CSS ---"
-          # 1. Concatenate all CSS files (ensures load order via numerical/alphabetical naming)
-          cat docs/css/*.css > docs/css/temp.css
-          
-          # 2. Minimize the aggregated file using the globally installed tool
-          cleancss docs/css/temp.css -o $CSS_OUTPUT
-          
-          # 3. Clean up
-          rm docs/css/temp.css
-          echo "✅ Minified CSS saved to $CSS_OUTPUT"
-          
-          # --- Processing JavaScript ---
-          echo "--- Processing JavaScript ---"
-          # Minify and aggregate all JS files using the globally installed tool
-          uglifyjs docs/js/*.js \
-            -c -m -o $JS_OUTPUT
-          echo "✅ Minified JS saved to $JS_OUTPUT"
-
-      # --- 4. Commit Built Assets ---
-      - name: 💾 Commit Minified Assets
+      - name: 💾 Commit External Assets
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: 'build(docs): Auto-aggregate and minify documentation assets'
-          files: |
-            docs/static/docs.min.css
-            docs/static/docs.min.js
+          commit_message: 'build(docs): Refresh external assets (ivy, dark-mode-toggle)'
+          file_pattern: |
+            docs/ivy.full.min.css
+            docs/dark-mode-toggle.min.js

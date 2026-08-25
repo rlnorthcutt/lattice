@@ -1,6 +1,0 @@
- - Docs section
- - BUG - children of .lattice require container or full-width... make it set to container by default (if no class)
- - Adjust colors
- - Code snippets are not shrinking - forcing page to scroll on smaller screen
- - card footer needs adjusting
- - prismjs for code coloring (with light/dark?)
