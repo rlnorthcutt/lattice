@@ -18,6 +18,7 @@
         <li><a href="./" aria-current="page"><strong>Lattice CSS</strong></a></li>
         <li><a href="core.html">Core Demo</a></li>
         <li><a href="extra.html">Extra Demo</a></li>
+        <li><a href="examples.html">Examples</a></li>
         <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
       </ul>
       <dark-mode-toggle></dark-mode-toggle>
@@ -27,7 +28,7 @@
   <main id="content">
 
     <!-- Hero -->
-    <section class="container py-5 text-center">
+    <section class="py-5 text-center">
       <p class="kicker">v1.2.0 — MIT License</p>
       <h1>Lattice CSS</h1>
       <p>A layout-first utility layer: predictable 12-column grids, responsive equal-column helpers,<br>
@@ -43,10 +44,10 @@
     <article>
 
       <!-- Two layers -->
-      <section id="layers" class="container">
+      <section id="layers">
         <h2>Two layers</h2>
         <p>Lattice is split into two files so you only ship what you need. Pair with <a href="https://github.com/rlnorthcutt/ivy">Ivy</a> for classless HTML defaults.</p>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div class="card" data-variant="primary">
             <header><h3>Core — <code>lattice.css</code></h3></header>
             <p>The 12-column page shell and component grids. Everything you need for reliable, responsive layout.</p>
@@ -77,7 +78,7 @@
       </section>
 
       <!-- Installation -->
-      <section id="install" class="container">
+      <section id="install">
         <h2>Installation</h2>
 
         <h3>Option 1 — Core only</h3>
@@ -100,7 +101,7 @@
       </section>
 
       <!-- Quick start -->
-      <section id="quickstart" class="container">
+      <section id="quickstart">
         <h2>Quick start</h2>
         <p>Add <code>.lattice</code> to your page shell. Direct children default to centered (container) width. Add <code>.full-width</code> for edge-to-edge sections.</p>
         <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"&gt;
@@ -110,7 +111,7 @@
 
   &lt;main class="container"&gt;
     &lt;!-- Equal columns: stack → 3 cols at md+ --&gt;
-    &lt;div class="grid md-col-3 gap-3"&gt;
+    &lt;div class="grid col-1 md-col-3 gap-3"&gt;
       &lt;article&gt;A&lt;/article&gt;
       &lt;article&gt;B&lt;/article&gt;
       &lt;article&gt;C&lt;/article&gt;
@@ -118,8 +119,8 @@
 
     &lt;!-- Unequal columns (requires Extra) --&gt;
     &lt;div class="grid gap-3"&gt;
-      &lt;aside class="md-span-4"&gt;Sidebar&lt;/aside&gt;
-      &lt;section class="md-span-8"&gt;Content&lt;/section&gt;
+      &lt;aside class="span md-span-4"&gt;Sidebar&lt;/aside&gt;
+      &lt;section class="span md-span-8"&gt;Content&lt;/section&gt;
     &lt;/div&gt;
   &lt;/main&gt;
 
@@ -128,7 +129,7 @@
       </section>
 
       <!-- Customization -->
-      <section id="customize" class="container">
+      <section id="customize">
         <h2>Customization</h2>
         <p>Lattice is driven by CSS custom properties. Override any token in your own stylesheet.</p>
         <pre><code>:root {
@@ -144,15 +145,15 @@
       </section>
 
       <!-- File sizes -->
-      <section id="files" class="container">
+      <section id="files">
         <h2>Files &amp; builds</h2>
         <table>
           <thead><tr><th>File</th><th>Contents</th><th>Approx. size</th></tr></thead>
           <tbody>
-            <tr><td><code>dist/lattice.min.css</code></td><td>Core only</td><td>~3 KB</td></tr>
-            <tr><td><code>dist/lattice.extra.min.css</code></td><td>Extra only (requires core)</td><td>~5 KB</td></tr>
-            <tr><td><code>dist/lattice.full.css</code></td><td>Core + Extra (unminified)</td><td>~13 KB</td></tr>
-            <tr><td><code>dist/lattice.full.min.css</code></td><td>Core + Extra combined</td><td>~8 KB</td></tr>
+            <tr><td><code>dist/lattice.min.css</code></td><td>Core only</td><td>~2.3 KB</td></tr>
+            <tr><td><code>dist/lattice.extra.min.css</code></td><td>Extra only (requires core)</td><td>~11 KB</td></tr>
+            <tr><td><code>dist/lattice.full.css</code></td><td>Core + Extra (unminified)</td><td>~18 KB</td></tr>
+            <tr><td><code>dist/lattice.full.min.css</code></td><td>Core + Extra combined</td><td>~13 KB</td></tr>
           </tbody>
         </table>
       </section>
@@ -160,7 +161,7 @@
     </article>
   </main>
 
-  <footer class="container text-center">
+  <footer class="text-center">
     <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 

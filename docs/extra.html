@@ -13,11 +13,12 @@
   <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
   <header class="full-width sticky" role="banner">
-    <nav class="container d-flex justify-between" aria-label="Primary">
-      <ul class="d-flex gap-2 m-0 p-0">
+    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
+      <ul class="d-flex gap-3 m-0 p-0">
         <li><a href="./">Lattice CSS</a></li>
         <li><a href="core.html">Core Demo</a></li>
         <li><a href="extra.html" aria-current="page">Extra Demo</a></li>
+        <li><a href="examples.html">Examples</a></li>
         <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
       </ul>
       <dark-mode-toggle></dark-mode-toggle>
@@ -26,14 +27,14 @@
 
   <main id="content">
 
-    <section class="container py-5 text-center">
+    <section class="py-5 text-center">
       <p class="kicker">lattice.extra.css</p>
       <h1>Extra Demo</h1>
       <p>Optional helpers that extend Core. Load <code>lattice.extra.css</code> after <code>lattice.css</code>, or use the full bundle. Every example below requires Extra.</p>
     </section>
 
       <nav class="sticky py-2" aria-label="On this page" style="--sticky-top:6rem; --sticky-z:99;">
-        <ul class="container d-flex flex-wrap gap-2 m-0 p-0" >
+        <ul class="d-flex flex-wrap gap-2 m-0 p-0">
           <li><a href="#spacing">Spacing scale</a></li>
           <li><a href="#spans">Unequal spans</a></li>
           <li><a href="#display">Display &amp; responsive</a></li>
@@ -44,7 +45,7 @@
         </ul>
       </nav>
 
-    <article class="container">
+    <article>
       <!-- Spacing scale -->
       <section id="spacing">
         <h2>Spacing Scale</h2>
@@ -85,7 +86,7 @@
 
         <h3>Gap — <code>.gap-{0…5}</code></h3>
         <p>Applied to grid or flex containers to control space between children.</p>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div>
             <p><code>.gap-1</code></p>
             <div class="grid col-3 gap-1">
@@ -106,7 +107,7 @@
       </section>
 
       <!-- Unequal spans -->
-      <section id="spans" class="container">
+      <section id="spans">
         <h2>Unequal Column Spans</h2>
         <p>Put <code>.span-N</code> on <strong>items inside <code>.grid</code></strong> for unequal column widths. The grid is 12 tracks wide by default.</p>
 
@@ -136,12 +137,12 @@
 
         <h3>Responsive spans — full-width on mobile, split at md</h3>
         <pre><code>&lt;div class="grid gap-3"&gt;
-  &lt;aside class="md-span-3"&gt;Sidebar&lt;/aside&gt;
-  &lt;main class="md-span-9"&gt;Content&lt;/main&gt;
+  &lt;aside class="span md-span-3"&gt;Sidebar&lt;/aside&gt;
+  &lt;main class="span md-span-9"&gt;Content&lt;/main&gt;
 &lt;/div&gt;</code></pre>
         <div class="grid gap-3">
-          <div class="md-span-3 demo p-3" data-tone="warn">Sidebar (full → 3/12 at md)</div>
-          <div class="md-span-9 demo p-3" data-tone="info">Content (full → 9/12 at md)</div>
+          <div class="span md-span-3 demo p-3" data-tone="warn">Sidebar (full → 3/12 at md)</div>
+          <div class="span md-span-9 demo p-3" data-tone="info">Content (full → 9/12 at md)</div>
         </div>
         <p><em>Narrow your browser to see these stack. At md (768px) they split 3/9.</em></p>
 
@@ -155,9 +156,9 @@
       </section>
 
       <!-- Display & responsive -->
-      <section id="display" class="container">
+      <section id="display">
         <h2>Display &amp; Responsive Visibility</h2>
-        <p>All display classes carry <code>!important</code>. Responsive variants apply at their breakpoint and above, so <code>.sm-d-block</code> can reveal something hidden with <code>.d-none</code>.</p>
+        <p>Display classes use normal mobile-first cascade order (no <code>!important</code>). Responsive variants apply at their breakpoint and above, so <code>.md-d-flex</code> can reveal something hidden with <code>.d-none</code>.</p>
 
         <h3>Base display classes</h3>
         <table>
@@ -185,12 +186,12 @@
       </section>
 
       <!-- Flex helpers -->
-      <section id="flex" class="container">
+      <section id="flex">
         <h2>Flex Helpers</h2>
         <p>Apply to any element with <code>display: flex</code> (e.g. via <code>.flex</code> from Core or <code>.d-flex</code> from Extra).</p>
 
         <h3>Justify content</h3>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div>
             <p><code>.justify-start</code></p>
             <div class="d-flex justify-start gap-2 box p-2">
@@ -222,7 +223,7 @@
         </div>
 
         <h3>Align items</h3>
-        <div class="grid sm-col-3 gap-3">
+        <div class="grid col-1 sm-col-3 gap-3">
           <div>
             <p><code>.items-start</code></p>
             <div class="d-flex items-start gap-2 box p-2 demo-flex">
@@ -272,12 +273,12 @@
       </section>
 
       <!-- Grid helpers -->
-      <section id="grid-helpers" class="container">
+      <section id="grid-helpers">
         <h2>Grid Helpers</h2>
 
         <h3>Dense packing — <code>.flow-dense</code></h3>
         <p>Auto-places items into holes in the grid for tighter packing.</p>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div>
             <p>Without dense:</p>
             <div class="grid col-3 gap-1">
@@ -313,7 +314,7 @@
       </section>
 
       <!-- Positioning -->
-      <section id="position" class="container">
+      <section id="position">
         <h2>Positioning &amp; Sizing</h2>
 
         <h3>Relative + absolute</h3>
@@ -327,7 +328,7 @@
         </div>
 
         <h3>Overflow</h3>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div>
             <p><code>.overflow-hidden</code></p>
             <div class="overflow-hidden box demo-flex">
@@ -345,7 +346,7 @@
         </div>
 
         <h3>Aspect ratio</h3>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div>
             <p><code>.aspect-square</code></p>
             <div class="aspect-square demo d-flex place-items-center" data-tone="info" style="max-width:8rem;">1:1</div>
@@ -361,7 +362,7 @@
       </section>
 
       <!-- A11y -->
-      <section id="a11y" class="container">
+      <section id="a11y">
         <h2>Accessibility</h2>
 
         <h3>Screen-reader only text</h3>
@@ -389,7 +390,7 @@
     </article>
   </main>
 
-  <footer class="container text-center">
+  <footer class="text-center">
     <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 

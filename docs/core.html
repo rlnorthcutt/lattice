@@ -13,20 +13,34 @@
   <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
   <header class="full-width sticky" role="banner">
-    <nav class="container d-flex justify-between" aria-label="Primary">
-      <ul class="d-flex gap-2 m-0 p-0">
+    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
+      <ul class="d-flex gap-3 m-0 p-0">
         <li><a href="./">Lattice CSS</a></li>
         <li><a href="core.html" aria-current="page">Core Demo</a></li>
         <li><a href="extra.html">Extra Demo</a></li>
+        <li><a href="examples.html">Examples</a></li>
         <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
       </ul>
       <dark-mode-toggle></dark-mode-toggle>
     </nav>
   </header>
 
+  <!-- Demo strips must be direct children of .lattice (body) to show the grid effect —
+       nesting them inside <main> would put them inside a non-grid ancestor, making
+       .full-width / .container inert. -->
+  <div class="full-width demo p-3" data-tone="primary">
+    <code>.full-width</code> — spans the entire viewport
+  </div>
+  <div class="demo p-3 my-2" data-tone="success">
+    <em>default (no class)</em> — contained at <code>--lat-container-width</code>
+  </div>
+  <div class="container demo p-3 my-2" data-tone="info">
+    <code>.container</code> — same as default, explicit
+  </div>
+
   <main id="content">
 
-    <section class="container center py-4 px-5">
+    <section class="center py-4 px-5">
       <p class="kicker">lattice.css core</p>
       <h1>Core Demo</h1>
       <p>Every layout feature below is provided by <code>lattice.css</code> alone. No Extra required — just the page grid, component grids, and a handful of utilities.</p>
@@ -34,7 +48,7 @@
 
       
       <nav class="sticky py-2" aria-label="On this page" style="--sticky-top:6rem; --sticky-z:99;">
-        <ul  class="container d-flex flex-wrap gap-2 m-0 p-0" >
+        <ul class="d-flex flex-wrap gap-2 m-0 p-0">
           <li><a href="#shell">Page Shell</a></li>
           <li><a href="#grids">Component Grids</a></li>
           <li><a href="#responsive">Responsive Columns</a></li>
@@ -43,7 +57,7 @@
         </ul>
       </nav>
 
-    <article class="container">
+    <article>
 
       <!-- Page Shell -->
       <section id="shell">
@@ -66,22 +80,11 @@
 &lt;/body&gt;</code></pre>
 
         <h3>Live demo — full-width vs container</h3>
-        <p>The colored bands below are direct children of a <code>.lattice</code> container. Resize your browser to see the fluid gutters adjust.</p>
+        <p>The colored bands directly under the header above are direct children of <code>.lattice</code> (this page's <code>&lt;body&gt;</code>). Resize your browser to see the fluid gutters adjust.</p>
       </section>
 
-      <!-- Demo strips must be direct children of .lattice to show the grid effect -->
-      <div class="full-width demo p-3" data-tone="primary">
-        <code>.full-width</code> — spans the entire viewport
-      </div>
-      <div class="demo p-3 my-2" data-tone="success">
-        <em>default (no class)</em> — contained at <code>--lat-container-width</code>
-      </div>
-      <div class="container demo p-3 my-2" data-tone="info">
-        <code>.container</code> — same as default, explicit
-      </div>
-
       <!-- Component Grids -->
-      <section id="grids" class="container">
+      <section id="grids">
         <h2>Component Grids</h2>
         <p>Use <code>.grid</code> for any component-level layout. It defaults to 12 equal tracks. Set the <strong>column count on the container</strong> with <code>.grid.col-N</code> — all children automatically fill equal shares.</p>
 
@@ -128,7 +131,7 @@
       </section>
 
       <!-- Responsive Columns -->
-      <section id="responsive" class="container">
+      <section id="responsive">
         <h2>Responsive Columns</h2>
         <p>Prefix any column class to apply it at that breakpoint and above. No prefix = all screen sizes (stacked). The grid is mobile-first — stack by default, then apply columns as the screen grows.</p>
 
@@ -158,7 +161,7 @@
         <p><em>Narrow your browser to see these stack. At sm (640px) they become 2 columns. At lg (1024px) they become 3.</em></p>
 
         <h3>Three cards: stack → thirds</h3>
-        <pre><code>&lt;div class="grid md-col-3 gap-3"&gt;
+        <pre><code>&lt;div class="grid col-1 md-col-3 gap-3"&gt;
   &lt;article class="card"&gt;…&lt;/article&gt;
   &lt;article class="card"&gt;…&lt;/article&gt;
   &lt;article class="card"&gt;…&lt;/article&gt;
@@ -184,12 +187,12 @@
       </section>
 
       <!-- Utilities -->
-      <section id="utilities" class="container">
+      <section id="utilities">
         <h2>Utilities</h2>
         <p>Core ships a minimal set of high-value utilities. For the full set (spacing, flex, positioning) load Extra.</p>
 
         <h3>Display</h3>
-        <div class="grid sm-col-2 gap-3">
+        <div class="grid col-1 sm-col-2 gap-3">
           <div>
             <p><strong><code>.hidden</code></strong> — removes from layout</p>
             <p>I am visible. <span class="hidden">I am hidden.</span> Back to visible.</p>
@@ -214,7 +217,7 @@
 
         <h3>Width</h3>
         <div class="box p-2">
-          <div class="w-100 demo p-2" data-tone="primary"><code>.w-100</code></div>
+          <div class="w-full demo p-2" data-tone="primary"><code>.w-full</code></div>
         </div>
 
         <h3>Text</h3>
@@ -222,7 +225,7 @@
       </section>
 
       <!-- Custom Properties -->
-      <section id="tokens" class="container">
+      <section id="tokens">
         <h2>Custom Properties</h2>
         <p>Override these tokens in your own stylesheet to adjust the layout system.</p>
         <table>
@@ -246,7 +249,7 @@
     </article>
   </main>
 
-  <footer class="container text-center">
+  <footer class="text-center">
     <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 
