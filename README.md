@@ -1,3 +1,10 @@
+<p align="center">
+  <img alt="CSS Only" src="https://img.shields.io/badge/CSS-Only-0?style=flat&color=0aa" />
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-000?style=flat&color=333" />
+</p>
+
+[![Sample screenshot of Lattice site](image.png)](https://rlnorthcutt.github.io/lattice/)
+
 # Lattice CSS
 
 **Lattice** is a layout-first CSS utility toolkit. Core gives you a 12-column page shell and dead-simple component grids. Extra adds spacing, display, and advanced placement utilities—only when you need them.
