@@ -13,37 +13,120 @@
   <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
   <header class="full-width sticky" role="banner">
-    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
-      <ul class="d-flex gap-3 m-0 p-0">
-        <li><a href="./" aria-current="page"><strong>Lattice CSS</strong></a></li>
+    <nav class="d-flex justify-between items-center px-5 py-2" aria-label="Primary">
+      <a href="./" class="d-flex items-center gap-2" style="color:var(--color-text); font-weight:600; letter-spacing:-.01em"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" class="flex-none" style="color:var(--color-primary)"><rect x="2" y="2" width="9" height="9" rx="1.5"></rect><rect x="13" y="2" width="9" height="9" rx="1.5"></rect><rect x="2" y="13" width="9" height="9" rx="1.5"></rect><rect x="13" y="13" width="9" height="9" rx="1.5"></rect></svg> Lattice CSS</a>
+      <ul class="gap-3">
         <li><a href="core.html">Core Demo</a></li>
         <li><a href="extra.html">Extra Demo</a></li>
         <li><a href="examples.html">Examples</a></li>
-        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener" aria-label="Lattice on GitHub" title="Lattice on GitHub" class="d-flex items-center"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.07-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg></a></li>
+        <li><dark-mode-toggle></dark-mode-toggle></li>
       </ul>
-      <dark-mode-toggle></dark-mode-toggle>
     </nav>
   </header>
 
   <main id="content">
 
     <!-- Hero -->
-    <section class="py-5 text-center">
+    <section class="hero py-5 px-5 text-center" id="top">
       <p class="kicker">v1.2.0 — MIT License</p>
-      <h1>Lattice CSS</h1>
-      <p>A layout-first utility layer: predictable 12-column grids, responsive equal-column helpers,<br>
-      and a minimal set of utilities — with zero opinions about your typography or components.</p>
+      <h1>Layout that stays<br>out of your way.</h1>
+      <p class="lede">A layout-first utility layer: predictable 12-column grids, responsive equal-column helpers, and a minimal set of utilities — with zero opinions about your typography or components.</p>
       <div class="btn-group" data-align="center">
         <a role="button" data-variant="primary" href="#install">Get started</a>
         <a role="button" data-variant="outline" href="core.html">Core demo</a>
-        <a role="button" data-variant="outline" href="extra.html">Extra demo</a>
         <a role="button" data-variant="ghost" href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </section>
 
-    <article>
+    <!-- Live 12-column demo, at full container width so every track is legible -->
+    <section class="px-5 pb-5">
+      <div class="d-flex items-center justify-between gap-3 mb-2 flex-wrap">
+        <p class="eyebrow m-0">The 12-column grid, live</p>
+        <div class="btn-group" role="group" aria-label="Show preview or source">
+          <button id="btn-preview" type="button" data-size="sm" data-variant="primary" aria-pressed="true">Preview</button>
+          <button id="btn-source" type="button" data-size="sm" data-variant="ghost" aria-pressed="false">Source</button>
+        </div>
+      </div>
 
-      <!-- Two layers -->
+      <div class="box">
+        <div id="hero-preview" class="overflow-auto">
+          <div class="grid gap-1 mb-2" style="min-width:36rem;">
+            <div class="demo p-2 text-center" data-tone="info">1</div>
+            <div class="demo p-2 text-center" data-tone="info">2</div>
+            <div class="demo p-2 text-center" data-tone="info">3</div>
+            <div class="demo p-2 text-center" data-tone="info">4</div>
+            <div class="demo p-2 text-center" data-tone="info">5</div>
+            <div class="demo p-2 text-center" data-tone="info">6</div>
+            <div class="demo p-2 text-center" data-tone="info">7</div>
+            <div class="demo p-2 text-center" data-tone="info">8</div>
+            <div class="demo p-2 text-center" data-tone="info">9</div>
+            <div class="demo p-2 text-center" data-tone="info">10</div>
+            <div class="demo p-2 text-center" data-tone="info">11</div>
+            <div class="demo p-2 text-center" data-tone="info">12</div>
+          </div>
+          <div class="grid gap-1 mb-2" style="min-width:36rem;">
+            <div class="span-4 demo p-2 text-center" data-tone="info">span-4</div>
+            <div class="span-8 demo p-2 text-center" data-tone="danger">span-8</div>
+          </div>
+          <div class="grid gap-1 mb-2" style="min-width:36rem;">
+            <div class="span-3 demo p-2 text-center" data-tone="primary">span-3</div>
+            <div class="span-6 demo p-2 text-center" data-tone="secondary">span-6</div>
+            <div class="span-3 demo p-2 text-center" data-tone="primary">span-3</div>
+          </div>
+          <div class="grid gap-1" style="min-width:36rem;">
+            <div class="span-2 demo p-2 text-center" data-tone="warn">span-2</div>
+            <div class="span-5 demo p-2 text-center" data-tone="success">span-5</div>
+            <div class="span-3 demo p-2 text-center" data-tone="primary">span-3</div>
+            <div class="span-2 demo p-2 text-center" data-tone="warn">span-2</div>
+          </div>
+        </div>
+        <pre id="hero-source" hidden class="m-0"><code>&lt;!-- 12 equal tracks (the .grid default) --&gt;
+&lt;div class="grid gap-1"&gt;
+  &lt;div&gt;1&lt;/div&gt; &lt;div&gt;2&lt;/div&gt; &lt;div&gt;3&lt;/div&gt; &lt;div&gt;4&lt;/div&gt;
+  &lt;div&gt;5&lt;/div&gt; &lt;div&gt;6&lt;/div&gt; &lt;div&gt;7&lt;/div&gt; &lt;div&gt;8&lt;/div&gt;
+  &lt;div&gt;9&lt;/div&gt; &lt;div&gt;10&lt;/div&gt; &lt;div&gt;11&lt;/div&gt; &lt;div&gt;12&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Unequal spans: 4 + 8 --&gt;
+&lt;div class="grid gap-1"&gt;
+  &lt;div class="span-4"&gt;span-4&lt;/div&gt;
+  &lt;div class="span-8"&gt;span-8&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Symmetric spans: 3 + 6 + 3 --&gt;
+&lt;div class="grid gap-1"&gt;
+  &lt;div class="span-3"&gt;span-3&lt;/div&gt;
+  &lt;div class="span-6"&gt;span-6&lt;/div&gt;
+  &lt;div class="span-3"&gt;span-3&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Uneven spans: 2 + 5 + 3 + 2 --&gt;
+&lt;div class="grid gap-1"&gt;
+  &lt;div class="span-2"&gt;span-2&lt;/div&gt;
+  &lt;div class="span-5"&gt;span-5&lt;/div&gt;
+  &lt;div class="span-3"&gt;span-3&lt;/div&gt;
+  &lt;div class="span-2"&gt;span-2&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+    </section>
+
+    <div class="shell grid gap-5 px-5">
+      <nav class="span lg-span-3" aria-label="On this page">
+        <p class="eyebrow">On this page</p>
+        <ul>
+          <li><a href="#layers">Two layers</a></li>
+          <li><a href="#install">Installation</a></li>
+          <li><a href="#quickstart">Quick start</a></li>
+          <li><a href="#customize">Customization</a></li>
+          <li><a href="#tokens">Token reference</a></li>
+          <li><a href="#support">Browser support</a></li>
+          <li><a href="#files">Files &amp; builds</a></li>
+        </ul>
+      </nav>
+
+      <article class="span lg-span-9">
+        <!-- Two layers -->
       <section id="layers">
         <h2>Two layers</h2>
         <p>Lattice is split into two files so you only ship what you need. Pair with <a href="https://github.com/rlnorthcutt/ivy">Ivy</a> for classless HTML defaults.</p>
@@ -144,6 +227,57 @@
         </div>
       </section>
 
+      <!-- Token reference -->
+      <section id="tokens">
+        <h2>Token reference</h2>
+        <p>All CSS custom properties defined by Lattice. Override any of them in your own unlayered stylesheet.</p>
+
+        <h3>Core <small>(<code>lattice.css</code>)</small></h3>
+        <table>
+          <thead><tr><th>Token</th><th>Default</th><th>Controls</th></tr></thead>
+          <tbody>
+            <tr><td><code>--lat-container-width</code></td><td><code>1024px</code></td><td>Max content width for <code>.container</code></td></tr>
+            <tr><td><code>--lat-col-count</code></td><td><code>11</code></td><td>Column count minus one (1 + 11 = 12 tracks)</td></tr>
+            <tr><td><code>--lat-space</code></td><td><code>1rem</code></td><td>Rhythm base; Extra derives all spacing tokens from this</td></tr>
+            <tr><td><code>--lat-gap-x</code></td><td><code>1rem</code></td><td>Horizontal gap in <code>.grid</code></td></tr>
+            <tr><td><code>--lat-gap-y</code></td><td><code>1rem</code></td><td>Vertical gap in <code>.grid</code></td></tr>
+          </tbody>
+        </table>
+
+        <h3>Extra <small>(<code>lattice.extra.css</code>)</small></h3>
+        <table>
+          <thead><tr><th>Token</th><th>Default</th><th>Controls</th></tr></thead>
+          <tbody>
+            <tr><td><code>--lat-q</code></td><td><code>0.25rem</code></td><td>Spacing scale step 1 (<code>--lat-space / 4</code>)</td></tr>
+            <tr><td><code>--lat-h</code></td><td><code>0.5rem</code></td><td>Spacing scale step 2 (<code>--lat-space / 2</code>)</td></tr>
+            <tr><td><code>--lat-1</code></td><td><code>1rem</code></td><td>Spacing scale step 3 (<code>--lat-space</code>)</td></tr>
+            <tr><td><code>--lat-15</code></td><td><code>1.5rem</code></td><td>Spacing scale step 4 (<code>--lat-space * 1.5</code>)</td></tr>
+            <tr><td><code>--lat-2</code></td><td><code>2rem</code></td><td>Spacing scale step 5 (<code>--lat-space * 2</code>)</td></tr>
+            <tr><td><code>--lat-span</code></td><td>—</td><td>Track count for <code>.span-var</code></td></tr>
+            <tr><td><code>--sticky-top</code></td><td><code>0</code></td><td><code>top</code> offset for <code>.sticky</code></td></tr>
+            <tr><td><code>--sticky-z</code></td><td><code>100</code></td><td><code>z-index</code> for <code>.sticky</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Browser support -->
+      <section id="support">
+        <h2>Browser support</h2>
+        <p>Lattice uses modern CSS features. All are baseline-supported in every current browser (Chrome, Firefox, Safari, Edge).</p>
+        <table>
+          <thead><tr><th>Feature</th><th>Used for</th></tr></thead>
+          <tbody>
+            <tr><td><code>grid-template-columns</code></td><td>The master page grid and <code>.grid</code> component grid</td></tr>
+            <tr><td><code>env(safe-area-inset-*)</code></td><td>Fluid outer gutters that respect notched devices</td></tr>
+            <tr><td>Logical properties</td><td><code>padding-inline</code>, <code>margin-inline</code>, and friends for the spacing scale</td></tr>
+            <tr><td><code>color-mix()</code></td><td>The translucent, blurred background on <code>.sticky</code></td></tr>
+            <tr><td><code>backdrop-filter</code></td><td>Blur behind <code>.sticky</code> elements, including this header</td></tr>
+            <tr><td><code>aspect-ratio</code></td><td><code>.aspect-square</code> / <code>.aspect-video</code></td></tr>
+            <tr><td><code>position: sticky</code></td><td>Sticky headers and on-page navigation</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <!-- File sizes -->
       <section id="files">
         <h2>Files &amp; builds</h2>
@@ -158,13 +292,32 @@
         </table>
       </section>
 
-    </article>
+      </article>
+      </div>
   </main>
 
   <footer class="text-center">
     <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 
-  <script type="module" src="dark-mode-toggle.min.js" defer></script>
+  <script src="dark-mode-toggle.min.js" defer></script>
+  <script>
+    // Hero preview/source toggle
+    const btnPreview = document.getElementById('btn-preview');
+    const btnSource = document.getElementById('btn-source');
+    const heroPreview = document.getElementById('hero-preview');
+    const heroSource = document.getElementById('hero-source');
+    function showPane(pane) {
+      const isPreview = pane === 'preview';
+      heroPreview.hidden = !isPreview;
+      heroSource.hidden = isPreview;
+      btnPreview.setAttribute('aria-pressed', String(isPreview));
+      btnPreview.setAttribute('data-variant', isPreview ? 'primary' : 'ghost');
+      btnSource.setAttribute('aria-pressed', String(!isPreview));
+      btnSource.setAttribute('data-variant', !isPreview ? 'primary' : 'ghost');
+    }
+    btnPreview.addEventListener('click', () => showPane('preview'));
+    btnSource.addEventListener('click', () => showPane('source'));
+  </script>
 </body>
 </html>

@@ -13,36 +13,38 @@
   <a class="sr-only sr-only-focusable" href="#content">Skip to content</a>
 
   <header class="full-width sticky" role="banner">
-    <nav class="d-flex justify-between items-center px-5" aria-label="Primary">
-      <ul class="d-flex gap-3 m-0 p-0">
-        <li><a href="./">Lattice CSS</a></li>
+    <nav class="d-flex justify-between items-center px-5 py-2" aria-label="Primary">
+      <a href="./" class="d-flex items-center gap-2" style="color:var(--color-text); font-weight:600; letter-spacing:-.01em"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" class="flex-none" style="color:var(--color-primary)"><rect x="2" y="2" width="9" height="9" rx="1.5"></rect><rect x="13" y="2" width="9" height="9" rx="1.5"></rect><rect x="2" y="13" width="9" height="9" rx="1.5"></rect><rect x="13" y="13" width="9" height="9" rx="1.5"></rect></svg> Lattice CSS</a>
+      <ul class="gap-3">
         <li><a href="core.html">Core Demo</a></li>
         <li><a href="extra.html">Extra Demo</a></li>
         <li><a href="examples.html" aria-current="page">Examples</a></li>
-        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener" aria-label="Lattice on GitHub" title="Lattice on GitHub" class="d-flex items-center"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.07-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg></a></li>
+        <li><dark-mode-toggle></dark-mode-toggle></li>
       </ul>
-      <dark-mode-toggle></dark-mode-toggle>
     </nav>
   </header>
 
   <main id="content">
 
-    <section class="py-5 text-center">
+    <section class="page-title py-5 px-5">
       <p class="kicker">real-world layouts</p>
       <h1>Examples</h1>
-      <p>Full page patterns built entirely from Core + Extra utilities — no custom CSS beyond a couple of one-off inline styles for the demo boxes themselves. Resize your browser on each one to see the responsive behavior.</p>
+      <p class="lede">Full page patterns built entirely from Core + Extra utilities — no custom CSS beyond a couple of one-off inline styles for the demo boxes themselves. Resize your browser on each one to see the responsive behavior.</p>
     </section>
 
-    <nav class="sticky py-2" aria-label="On this page" style="--sticky-top:6rem; --sticky-z:99;">
-      <ul class="d-flex flex-wrap gap-2 m-0 p-0">
-        <li><a href="#dashboard">App dashboard</a></li>
-        <li><a href="#article">Article layout</a></li>
-        <li><a href="#pricing">Pricing grid</a></li>
-        <li><a href="#filters">Sticky filter bar</a></li>
-      </ul>
-    </nav>
+    <div class="shell grid gap-5 px-5">
+      <nav class="span lg-span-3" aria-label="On this page">
+        <p class="eyebrow">On this page</p>
+        <ul>
+          <li><a href="#dashboard">App dashboard</a></li>
+          <li><a href="#article">Article layout</a></li>
+          <li><a href="#pricing">Pricing grid</a></li>
+          <li><a href="#filters">Sticky filter bar</a></li>
+        </ul>
+      </nav>
 
-    <article>
+      <article class="span lg-span-9">
 
       <!-- 1) Dashboard shell -->
       <section id="dashboard">
@@ -61,7 +63,7 @@
           <div class="grid gap-0">
             <nav class="d-none md-d-block md-span-3 demo p-3" data-tone="secondary" aria-label="Dashboard">
               <strong>Menu</strong>
-              <ul style="list-style:none; padding:0; margin:.5rem 0 0;">
+              <ul class="p-0 mt-2 mx-0 mb-0" style="list-style:none">
                 <li class="py-1"><a href="#">Overview</a></li>
                 <li class="py-1"><a href="#">Projects</a></li>
                 <li class="py-1"><a href="#">Team</a></li>
@@ -99,7 +101,7 @@
         <div class="grid gap-3">
           <nav class="span lg-span-3 demo p-3" data-tone="secondary" aria-label="Table of contents">
             <strong>On this page</strong>
-            <ul style="list-style:none; padding:0; margin:.5rem 0 0;">
+            <ul class="p-0 mt-2 mx-0 mb-0" style="list-style:none">
               <li class="py-1"><a href="#">Introduction</a></li>
               <li class="py-1"><a href="#">Getting started</a></li>
               <li class="py-1"><a href="#">Advanced usage</a></li>
@@ -112,7 +114,7 @@
           </article>
           <aside class="span lg-span-3 demo p-3" data-tone="warn">
             <strong>Related</strong>
-            <ul style="list-style:none; padding:0; margin:.5rem 0 0;">
+            <ul class="p-0 mt-2 mx-0 mb-0" style="list-style:none">
               <li class="py-1"><a href="#">Responsive spans</a></li>
               <li class="py-1"><a href="#">The spacing scale</a></li>
             </ul>
@@ -203,12 +205,13 @@
       </section>
 
     </article>
+      </div>
   </main>
 
   <footer class="text-center">
     <p class="muted">Lattice CSS v1.2.0 — MIT License — <a href="https://github.com/rlnorthcutt/lattice" target="_blank" rel="noopener">GitHub ↗</a></p>
   </footer>
 
-  <script type="module" src="dark-mode-toggle.min.js" defer></script>
+  <script src="dark-mode-toggle.min.js" defer></script>
 </body>
 </html>
