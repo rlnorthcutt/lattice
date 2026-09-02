@@ -61,7 +61,7 @@
 
         <div class="box p-0">
           <div class="grid gap-0">
-            <nav class="d-none md-d-block md-span-3 demo p-3" data-tone="secondary" aria-label="Dashboard">
+            <nav class="d-none md-d-block md-span-3 demo p-3" data-tone="info" aria-label="Dashboard">
               <strong>Menu</strong>
               <ul class="p-0 mt-2 mx-0 mb-0" style="list-style:none">
                 <li class="py-1"><a href="#">Overview</a></li>
@@ -72,9 +72,9 @@
             </nav>
             <div class="span md-span-9 p-3">
               <div class="d-flex flex-wrap gap-3 mb-3">
-                <div class="flex-1 demo p-3" data-tone="info"><strong>128</strong><br><small>Active projects</small></div>
+                <div class="flex-1 demo p-3" data-tone="warn"><strong>128</strong><br><small>Active projects</small></div>
                 <div class="flex-1 demo p-3" data-tone="success"><strong>94%</strong><br><small>Uptime</small></div>
-                <div class="flex-1 demo p-3" data-tone="warn"><strong>12</strong><br><small>Open issues</small></div>
+                <div class="flex-1 demo p-3" data-tone="danger"><strong>12</strong><br><small>Open issues</small></div>
               </div>
               <div class="grid col-1 sm-col-2 lg-col-3 gap-3">
                 <div class="card"><header><h4>Project Alpha</h4></header><p>Stacks on mobile, 2-up at sm, 3-up at lg — independent of the outer sidebar grid.</p></div>
@@ -89,7 +89,7 @@
 
       <!-- 2) Article layout -->
       <section id="article">
-        <h2>Article Layout (Holy Grail)</h2>
+        <h2>Article Layout</h2>
         <p>Three independent <code>.span</code> regions — table of contents, article body, related links — that stack full-width on mobile and split 3/6/3 at <code>lg</code>.</p>
 
         <pre><code>&lt;div class="grid gap-3"&gt;
@@ -99,7 +99,7 @@
 &lt;/div&gt;</code></pre>
 
         <div class="grid gap-3">
-          <nav class="span lg-span-3 demo p-3" data-tone="secondary" aria-label="Table of contents">
+          <nav class="span lg-span-3 demo p-3" data-tone="success" aria-label="Table of contents">
             <strong>On this page</strong>
             <ul class="p-0 mt-2 mx-0 mb-0" style="list-style:none">
               <li class="py-1"><a href="#">Introduction</a></li>
@@ -181,16 +181,13 @@
 &lt;div class="grid col-1 sm-col-2 gap-2"&gt;…results…&lt;/div&gt;</code></pre>
 
         <div class="box p-0" style="max-height:16rem; overflow-y:auto;">
-          <div class="sticky d-flex flex-nowrap gap-2 overflow-x-auto p-2">
+          <div class="sticky d-flex flex-nowrap gap-2 p-2">
             <button type="button" class="flex-none" data-variant="primary">All</button>
             <button type="button" class="flex-none" data-variant="outline">Layout</button>
             <button type="button" class="flex-none" data-variant="outline">Spacing</button>
             <button type="button" class="flex-none" data-variant="outline">Flex</button>
-            <button type="button" class="flex-none" data-variant="outline">Grid</button>
-            <button type="button" class="flex-none" data-variant="outline">Accessibility</button>
-            <button type="button" class="flex-none" data-variant="outline">Positioning</button>
           </div>
-          <div class="grid col-1 sm-col-2 gap-2 p-2">
+          <div class="grid col-1 sm-col-2 gap-2 p-2 overflow-y-auto">
             <div class="demo p-2" data-tone="info">Result 1</div>
             <div class="demo p-2" data-tone="info">Result 2</div>
             <div class="demo p-2" data-tone="info">Result 3</div>
@@ -199,6 +196,14 @@
             <div class="demo p-2" data-tone="info">Result 6</div>
             <div class="demo p-2" data-tone="info">Result 7</div>
             <div class="demo p-2" data-tone="info">Result 8</div>
+            <div class="demo p-2" data-tone="info">Result 9</div>
+            <div class="demo p-2" data-tone="info">Result 10</div>
+            <div class="demo p-2" data-tone="info">Result 11</div>
+            <div class="demo p-2" data-tone="info">Result 12</div>
+            <div class="demo p-2" data-tone="info">Result 13</div>
+            <div class="demo p-2" data-tone="info">Result 14</div>
+            <div class="demo p-2" data-tone="info">Result 15</div>
+            <div class="demo p-2" data-tone="info">Result 16</div>
           </div>
         </div>
         <p><em>Scroll the box vertically — the filter row stays pinned to its top. Scroll it horizontally — the buttons overflow into a scrollbar instead of wrapping, thanks to <code>.flex-nowrap</code> + <code>.overflow-x-auto</code>.</em></p>
